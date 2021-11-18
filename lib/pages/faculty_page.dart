@@ -121,13 +121,68 @@ class _FacultyPageState extends State<FacultyPage> {
   Widget drawerDepartments() {
     return Drawer(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          GestureDetector(
-              onTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => TekYaz())),
-              child: Text("Yazılım Mühendisliği"))
+          drawerHeader(),
+          listTileDepartments(name: "Adli Bilişim Mühendisliği", path: ""),
+          listTileDepartments(
+              name: "Elektrik-Elektronik Mühendisliği", path: ""),
+          listTileDepartments(name: "Enerji Sistemleri Mühendisliği", path: ""),
+          listTileDepartments(name: "İnşaat Mühendisliği", path: ""),
+          listTileDepartments(name: "Makine Mühendisliği", path: ""),
+          listTileDepartments(name: "Mekatronik Mühendisliği", path: ""),
+          listTileDepartments(
+              name: "Metalurji ve Malzeme Mühendisliği", path: ""),
+          listTileDepartments(name: "Otomotiv Mühendisliği", path: ""),
+          listTileDepartments(name: "Yazılım Mühendisliği", path: ""),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Theme'),
+                  SizedBox(width: 10),
+                  Icon(Icons.wb_sunny)
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10)
+        ],
+      ),
+    );
+  }
+
+  ListTile listTileDepartments({String? name, String? path}) {
+    return ListTile(
+      title: Text(
+        name!,
+        style: TextStyle(fontSize: 16),
+      ),
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TekYaz()));
+      },
+    );
+  }
+
+  Widget drawerHeader() {
+    return DrawerHeader(
+      margin: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage('assets/img/bg-pattern.png'))),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          ClipRRect(
+              child: Image(image: AssetImage('assets/img/logo-area2.png'))),
+          Image(
+              width: 150,
+              height: 150,
+              image: AssetImage('assets/img/firat-white.png'))
         ],
       ),
     );
