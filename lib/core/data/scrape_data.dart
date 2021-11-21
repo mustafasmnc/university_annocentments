@@ -1,14 +1,15 @@
 import 'package:web_scraper/web_scraper.dart';
 import 'package:webscraping/core/model/anno_model.dart';
-
+List<AnnoModel> announcements = [];
 class ScrapeData {
-  static const String MAIN_LINK = 'http://yaz.tf.firat.edu.tr';
-  static const String ANNO_LINK = '/tr/announcements-all';
-  static const int PAGE_NUM = 1;
-  final webScraper = WebScraper(MAIN_LINK);
-  //final List titleList = <String>[];
-  static List<AnnoModel> announcements = [];
-  Future scraping() async {
+  
+  Future scraping(String code) async {
+    announcements.clear();
+    String MAIN_LINK = 'http://$code.firat.edu.tr';
+    String ANNO_LINK = '/tr/announcements-all';
+    int PAGE_NUM = 1;
+    final webScraper = WebScraper(MAIN_LINK);
+    //final List titleList = <String>[];
     for (var i = 1; i < 4; i++) {
       if (await webScraper.loadWebPage('$ANNO_LINK/$i')) {
         var titleElements = webScraper.getElement(
@@ -28,7 +29,7 @@ class ScrapeData {
               .replaceAll(new RegExp("  "), "")
               .trimRight();
           var link = linkElements[i];
-          print("$title");
+          //print("$title");
           var pieces = link!.split('/');
           var id = int.parse(pieces[pieces.length - 1]);
           announcements.add(AnnoModel(id: id, title: title, link: link));

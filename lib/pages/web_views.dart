@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class MyWebViews extends StatefulWidget {
-  final String myUrl;
-  const MyWebViews({Key? key, required this.myUrl}) : super(key: key);
+  String myUrl;
+  MyWebViews({Key? key, required this.myUrl}) : super(key: key);
 
   @override
   State<MyWebViews> createState() => _MyWebViewsState();
@@ -28,11 +28,8 @@ class _MyWebViewsState extends State<MyWebViews> {
               withZoom: true,
               withLocalStorage: true,
               hidden: true,
-              initialChild: Container(
-                color: Colors.redAccent,
-                child: const Center(
-                  child: Text('Waiting.....'),
-                ),
+              initialChild: Center(
+                child: CircularProgressIndicator(),
               ),
             ),
       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webscraping/pages/web_views.dart';
 
 class Announcements extends StatefulWidget {
   final id;
@@ -15,24 +16,21 @@ class Announcements extends StatefulWidget {
 class _AnnouncementsState extends State<Announcements> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        padding: EdgeInsets.only(bottom: 10),
-        decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        child: Column(
-          children: [
-            //Text(widget.id.toString()),
-            Text(widget.title.toString()),
-            Text(
-              widget.link.toString(),
-              style: TextStyle(fontSize: 10),
+    return GestureDetector(
+        child: Card(
+          elevation: 5,
+          child: Padding(
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
+            child: Text(
+              widget.title.replaceAll('\n', ''),
+              style: TextStyle(fontSize: 17),
             ),
-          ],
+          ),
         ),
-      ),
-    );
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MyWebViews(myUrl: widget.link))));
   }
 }

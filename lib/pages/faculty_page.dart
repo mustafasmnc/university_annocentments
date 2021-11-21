@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webscraping/core/model/department_model.dart';
 import 'package:webscraping/pages/tek_yaz.dart';
 import 'package:webscraping/pages/web_views.dart';
 
@@ -123,26 +124,40 @@ class _FacultyPageState extends State<FacultyPage> {
       child: Column(
         children: [
           drawerHeader(),
-          listTileDepartments(name: "Adli Bilişim Mühendisliği", path: ""),
-          listTileDepartments(
-              name: "Elektrik-Elektronik Mühendisliği", path: ""),
-          listTileDepartments(name: "Enerji Sistemleri Mühendisliği", path: ""),
-          listTileDepartments(name: "İnşaat Mühendisliği", path: ""),
-          listTileDepartments(name: "Makine Mühendisliği", path: ""),
-          listTileDepartments(name: "Mekatronik Mühendisliği", path: ""),
-          listTileDepartments(
-              name: "Metalurji ve Malzeme Mühendisliği", path: ""),
-          listTileDepartments(name: "Otomotiv Mühendisliği", path: ""),
-          listTileDepartments(name: "Yazılım Mühendisliği", path: ""),
           Expanded(
+            flex: 12,
+            child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                itemCount: DepartmentModel.departmentList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return listTileDepartments(
+                      name:
+                          DepartmentModel.departmentList[index].departmentName,
+                      path:
+                          DepartmentModel.departmentList[index].departmentPath,
+                      code:
+                          DepartmentModel.departmentList[index].departmentCode);
+                }),
+          ),
+          Expanded(
+            flex: 1,
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(
                 children: [
-                  Text('Theme'),
-                  SizedBox(width: 10),
-                  Icon(Icons.wb_sunny)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('THEME'),
+                      SizedBox(width: 10),
+                      Icon(Icons.wb_sunny)
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'S M N C',
+                    style: TextStyle(fontSize: 10),
+                  ),
                 ],
               ),
             ),
@@ -153,15 +168,41 @@ class _FacultyPageState extends State<FacultyPage> {
     );
   }
 
-  ListTile listTileDepartments({String? name, String? path}) {
-    return ListTile(
-      title: Text(
-        name!,
-        style: TextStyle(fontSize: 16),
+  Widget listTileDepartments(
+      {String? name, String? path, required String code}) {
+    // return ListTile(
+    //   title: Text(
+    //     name!,
+    //     style: TextStyle(fontSize: 16),
+    //   ),
+    //   onTap: () {
+    //     Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //             builder: (context) => TekYaz(
+    //                   departmentCode: code,
+    //                 )));
+    //   },
+    // );
+    return GestureDetector(
+      child: Card(
+        elevation: 5,
+        margin: EdgeInsets.only(bottom: 15),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            name!,
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
       ),
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TekYaz()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => TekYaz(
+                      departmentCode: code,
+                    )));
       },
     );
   }
