@@ -15,10 +15,11 @@ class _FacultyPageState extends State<FacultyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Row(
           children: [
-            Image.network(
-              "http://tf.firat.edu.tr/assets/front/images/firat-wihte.png",
+            Image.asset(
+              "assets/img/firat-white.png",
               width: 50,
               fit: BoxFit.cover,
             ),
@@ -26,8 +27,8 @@ class _FacultyPageState extends State<FacultyPage> {
             Text('TEKNOLOJİ FAKÜLTESİ'),
           ],
         ),
-        flexibleSpace: Image.network(
-          "http://tf.firat.edu.tr/assets/front/images/footer-bg.png",
+        flexibleSpace: Image.asset(
+          "assets/img/footer-bg.png",
           width: MediaQuery.of(context).size.width,
           fit: BoxFit.cover,
         ),
@@ -201,6 +202,7 @@ class _FacultyPageState extends State<FacultyPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => TekYaz(
+                      departmentName: name,
                       departmentCode: code,
                     )));
       },
