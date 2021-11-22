@@ -27,7 +27,10 @@ class _TekYazState extends State<TekYaz> {
         centerTitle: true,
         title: Column(
           children: [
-            Text(widget.departmentName.toString(),style: TextStyle(fontSize: 14),),
+            Text(
+              widget.departmentName.toString(),
+              style: TextStyle(fontSize: 14),
+            ),
             Text('DUYURULAR'),
           ],
         ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:webscraping/core/model/department_model.dart';
+import 'package:webscraping/core/model/google_maps.dart';
 import 'package:webscraping/pages/tek_yaz.dart';
 import 'package:webscraping/pages/web_views.dart';
 
@@ -59,6 +61,10 @@ class _FacultyPageState extends State<FacultyPage> {
                   "Üniversite Evi",
                   "https://thumbs.dreamstime.com/b/elegant-seamless-pattern-healthy-nutrition-fresh-dietary-food-eco-natural-organic-fruits-berries-vegetables-white-142956625.jpg",
                   "http://uevi.firat.edu.tr/"),
+              Container(
+                  height: 200,
+                  width: MediaQuery.of(context).size.width,
+                  child: GoogleMaps())
             ],
           ),
         ),

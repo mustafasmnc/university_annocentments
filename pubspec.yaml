@@ -37,6 +37,7 @@ dependencies:
   web_scraper:
   flutter_webview_plugin:
     git: https://github.com/nuc134r/flutter_webview_plugin.git
+  google_maps_flutter:
 
 dev_dependencies:
   flutter_test:

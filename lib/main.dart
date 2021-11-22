@@ -1,6 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webscraping/pages/faculty_page.dart';
-import 'package:webscraping/pages/tek_yaz.dart';
 
 void main() {
   runApp(const MyApp());
