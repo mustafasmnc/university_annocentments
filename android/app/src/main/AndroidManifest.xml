@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.webscraping">
+    <uses-permission android:name="android.permission.INTERNET" /> 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="webscraping"
         android:icon="@mipmap/ic_launcher"
@@ -39,6 +42,15 @@
             android:name="flutterEmbedding"
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value=" add your google maps key here"/>
+               android:value=" add your google maps key here"/> 
     </application>
+
+    <!-- We are adding <queries> because google map toolbar is not navigate to google maps app. 
+    This issue is due to package visibility requirements introduced in Android 11.
+    App needs to declare in the AndroidManifest.xml all the packages it requires to function correctly
+    Link: https://stackoverflow.com/questions/64526138/android-google-map-sdk-toolbar-issue-not-launching-external-map
+    -->
+    <queries>
+      <package android:name="com.google.android.apps.maps" />
+    </queries>
 </manifest>

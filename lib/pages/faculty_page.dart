@@ -132,7 +132,7 @@ class _FacultyPageState extends State<FacultyPage> {
         children: [
           drawerHeader(),
           Expanded(
-            flex: 12,
+            flex: 11,
             child: ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
                 itemCount: DepartmentModel.departmentList.length,

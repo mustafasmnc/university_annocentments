@@ -15,6 +15,8 @@ class GoogleMaps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _markers.add(Marker(
+        draggable: true,
+        icon: BitmapDescriptor.defaultMarker,
         markerId: MarkerId('TekFak'),
         position: LatLng(38.68152553918184, 39.19611711322223),
         infoWindow: InfoWindow(title: 'Teknoloji Fakültesi')));
@@ -24,7 +26,8 @@ class GoogleMaps extends StatelessWidget {
         target: _center,
         zoom: 15.0,
       ),
-      mapType: MapType.satellite,
+      mapToolbarEnabled: true,
+      mapType: MapType.normal,
       markers: Set<Marker>.of(_markers),
     );
   }
