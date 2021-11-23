@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
+import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/announcements.dart';
 
 class TekYaz extends StatefulWidget {
@@ -26,18 +27,32 @@ class _TekYazState extends State<TekYaz> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+            color: ThemeService.instance.isDarkMode()
+                ? Colors.white
+                : Colors.black),
         centerTitle: true,
         title: Column(
           children: [
             Text(
               widget.departmentName.toString(),
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(
+                  fontSize: 14,
+                  color: ThemeService.instance.isDarkMode()
+                      ? Colors.white
+                      : Colors.black87),
             ),
-            Text('DUYURULAR'),
+            Text('DUYURULAR',
+                style: TextStyle(
+                    color: ThemeService.instance.isDarkMode()
+                        ? Colors.white
+                        : Colors.black87)),
           ],
         ),
         flexibleSpace: Image.asset(
-          "assets/img/footer-bg.png",
+          ThemeService.instance.isDarkMode()
+              ? "assets/img/footer-bg.png"
+              : "assets/img/bg-pattern.png",
           width: MediaQuery.of(context).size.width,
           fit: BoxFit.cover,
         ),
@@ -112,7 +127,9 @@ class _TekYazState extends State<TekYaz> {
                             child: Text(
                               "Daha Fazla Duyuru",
                               style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w400),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),
                             ),
                           ),
                         ),

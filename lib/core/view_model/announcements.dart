@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/web_views.dart';
 
 class Announcements extends StatefulWidget {
@@ -24,30 +25,14 @@ class _AnnouncementsState extends State<Announcements> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        // child: Card(
-        //   elevation: 5,
-        //   child: Padding(
-        //     padding:
-        //         const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
-        //     child: Row(
-        //       children: [
-        //         Text("${widget.month}/${widget.day}"),SizedBox(width: 5),
-        //         Expanded(
-        //           child: Text(
-        //             widget.title,
-        //             style: TextStyle(fontSize: 17),
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/img/footer-bg.png"),
+                image: AssetImage(ThemeService.instance.isDarkMode()
+                    ? "assets/img/footer-bg.png"
+                    : "assets/img/bg-pattern.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -72,15 +57,17 @@ class _AnnouncementsState extends State<Announcements> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(widget.month),
-                          Container(
-                            height: 1,
-                            color: Colors.white,
+                          Text(
+                            widget.month,
+                            style: TextStyle(color: Colors.white),
                           ),
+                          Container(height: 1, color: Colors.white),
                           Text(
                             widget.day,
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w600),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
                           ),
                         ],
                       )),

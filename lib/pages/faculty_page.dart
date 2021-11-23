@@ -1,37 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/model/department_model.dart';
 import 'package:webscraping/core/model/google_maps.dart';
+import 'package:webscraping/core/theme/theme_data.dart';
+import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/tek_yaz.dart';
 import 'package:webscraping/pages/web_views.dart';
 
 class FacultyPage extends StatefulWidget {
-  const FacultyPage({Key? key}) : super(key: key);
+  FacultyPage({Key? key}) : super(key: key);
 
   @override
   _FacultyPageState createState() => _FacultyPageState();
 }
 
 class _FacultyPageState extends State<FacultyPage> {
+  void changeTheme() {
+    Provider.of<CustomThemeDataModal>(context, listen: false).setThemeData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+            color: ThemeService.instance.isDarkMode()
+                ? Colors.white
+                : Colors.black),
         centerTitle: true,
-        title: Row(
-          children: [
-            Image.asset(
-              "assets/img/firat-white.png",
-              width: 50,
-              fit: BoxFit.cover,
-            ),
-            SizedBox(width: 10),
-            Text('TEKNOLOJİ FAKÜLTESİ'),
-          ],
+        title: Text(
+          'TEKNOLOJİ FAKÜLTESİ',
+          style: TextStyle(
+              color: ThemeService.instance.isDarkMode()
+                  ? Colors.white
+                  : Colors.black87),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: GestureDetector(
+              onTap: () {
+                changeTheme();
+              },
+              child: Icon(
+                ThemeService.instance.isDarkMode()
+                    ? Icons.wb_sunny
+                    : Icons.nightlight_round,
+                size: 24,
+                color: ThemeService.instance.isDarkMode()
+                    ? Colors.white
+                    : Colors.black,
+              ),
+            ),
+          ),
+        ],
         flexibleSpace: Image.asset(
-          "assets/img/footer-bg.png",
+          ThemeService.instance.isDarkMode()
+              ? "assets/img/footer-bg.png"
+              : "assets/img/bg-pattern.png",
           width: MediaQuery.of(context).size.width,
           fit: BoxFit.cover,
         ),
@@ -131,7 +158,7 @@ class _FacultyPageState extends State<FacultyPage> {
         children: [
           drawerHeader(),
           Expanded(
-            flex: 11,
+            flex: 17,
             child: ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
                 itemCount: DepartmentModel.departmentList.length,
@@ -151,15 +178,6 @@ class _FacultyPageState extends State<FacultyPage> {
               alignment: Alignment.bottomCenter,
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('THEME'),
-                      SizedBox(width: 10),
-                      Icon(Icons.wb_sunny)
-                    ],
-                  ),
-                  SizedBox(height: 8),
                   Text(
                     'S M N C',
                     style: TextStyle(fontSize: 10),
@@ -204,6 +222,7 @@ class _FacultyPageState extends State<FacultyPage> {
       ),
       onTap: () {
         announcements.clear();
+        Navigator.pop(context);
         Navigator.push(
             context,
             MaterialPageRoute(

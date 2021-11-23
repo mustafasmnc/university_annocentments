@@ -1,9 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:webscraping/core/theme/theme_data.dart';
+import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/faculty_page.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ThemeService.init();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => CustomThemeDataModal(),
+      ),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,8 +26,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData.dark(),
-      home: const FacultyPage(),
+      theme: Provider.of<CustomThemeDataModal>(context).getThemeData,
+      home: FacultyPage(),
     );
   }
 }
