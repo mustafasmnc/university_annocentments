@@ -13,12 +13,14 @@ class TekYaz extends StatefulWidget {
 }
 
 class _TekYazState extends State<TekYaz> {
-  //late Future getData;
+  late Future getData;
+  int page = 1;
+  bool loading = false;
 
-  // @override
-  // void initState() {
-  //   getData = ScrapeData().scraping(widget.departmentCode!);
-  // }
+  @override
+  void initState() {
+    getData = ScrapeData().scraping(code: widget.departmentCode!, page: 1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,34 +43,98 @@ class _TekYazState extends State<TekYaz> {
         ),
         backgroundColor: Colors.transparent,
       ),
-      body: FutureBuilder(
-          future: ScrapeData().scraping(widget.departmentCode!),
-          builder: (BuildContext context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                  itemCount: announcements.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var id = announcements[index].id;
-                    var title = announcements[index].title;
-                    var day = announcements[index].day;
-                    var month = announcements[index].month;
-                    var link = announcements[index].link;
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      child: Announcements(
-                        id: id,
-                        title: title,
-                        day: day,
-                        month: month,
-                        link: link,
-                      ),
-                    );
-                  });
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          }),
+      body: Stack(
+        children: [
+          FutureBuilder(
+              future: getData,
+              builder: (BuildContext context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting)
+                  return circularLoader();
+                else if (snapshot.hasError)
+                  return Center(child: Text("ERROR: ${snapshot.error}"));
+                else if (snapshot.hasData) {
+                  return ListView(
+                    children: [
+                      ListView.builder(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: announcements.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            var id = announcements[index].id;
+                            var title = announcements[index].title;
+                            var day = announcements[index].day;
+                            var month = announcements[index].month;
+                            var link = announcements[index].link;
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: Announcements(
+                                id: id,
+                                title: title,
+                                day: day,
+                                month: month,
+                                link: link,
+                              ),
+                            );
+                          }),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 10),
+                        child: Container(
+                          width: 100,
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            image: DecorationImage(
+                              image: AssetImage("assets/img/title-bg.png"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: GestureDetector(
+                            onTap: () async {
+                              setState(() {
+                                loading = true;
+                              });
+
+                              page++;
+                              await ScrapeData()
+                                  .scraping(
+                                      code: widget.departmentCode!, page: page)
+                                  .then((value) {
+                                setState(() {
+                                  loading = false;
+                                });
+                              });
+
+                              //ScrapeData().scrapingMore(widget.departmentCode!);
+                            },
+                            child: Text(
+                              "Daha Fazla Duyuru",
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                } else {
+                  return circularLoader();
+                }
+              }),
+          loading ? circularLoader() : Container()
+        ],
+      ),
     );
+  }
+
+  Container circularLoader() {
+    return Container(
+        decoration: BoxDecoration(
+          color: Colors.black38,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(child: CircularProgressIndicator()));
   }
 }
