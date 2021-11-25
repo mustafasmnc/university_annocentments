@@ -32,7 +32,7 @@ class _FacultyPageState extends State<FacultyPage> {
                 : Colors.black),
         centerTitle: true,
         title: Text(
-          'TEKNOLOJİ FAKÜLTESİ',
+          'FIRAT ÜNİVERSİTESİ',
           style: TextStyle(
               color: ThemeService.instance.isDarkMode()
                   ? Colors.white
@@ -242,8 +242,8 @@ class _FacultyPageState extends State<FacultyPage> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'S M N C',
-                    style: TextStyle(fontSize: 10),
+                    'M U S T A F A  S M N C',
+                    style: TextStyle(fontSize: 9),
                   ),
                 ],
               ),

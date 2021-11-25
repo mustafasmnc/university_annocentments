@@ -5,7 +5,7 @@ class GoogleMaps extends StatelessWidget {
   GoogleMaps({Key? key}) : super(key: key);
 
   late GoogleMapController mapController;
-  final LatLng _center = LatLng(38.68138271203498, 39.1961721009391);
+  final LatLng _center = LatLng(38.67753745095975, 39.20199846139586);
   List<Marker> _markers = <Marker>[];
 
   void _onMapCreated(GoogleMapController controller) {
@@ -18,7 +18,7 @@ class GoogleMaps extends StatelessWidget {
         draggable: true,
         icon: BitmapDescriptor.defaultMarker,
         markerId: MarkerId('TekFak'),
-        position: LatLng(38.68152553918184, 39.19611711322223),
+        position: LatLng(38.67753745095975, 39.20199846139586),
         infoWindow: InfoWindow(title: 'Teknoloji Fakültesi')));
     return GoogleMap(
       onMapCreated: _onMapCreated,
