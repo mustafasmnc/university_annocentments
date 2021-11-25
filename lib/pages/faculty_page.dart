@@ -16,6 +16,8 @@ class FacultyPage extends StatefulWidget {
 }
 
 class _FacultyPageState extends State<FacultyPage> {
+  int selected = 0;
+
   void changeTheme() {
     Provider.of<CustomThemeDataModal>(context, listen: false).setThemeData();
   }
@@ -36,25 +38,6 @@ class _FacultyPageState extends State<FacultyPage> {
                   ? Colors.white
                   : Colors.black87),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: GestureDetector(
-              onTap: () {
-                changeTheme();
-              },
-              child: Icon(
-                ThemeService.instance.isDarkMode()
-                    ? Icons.wb_sunny
-                    : Icons.nightlight_round,
-                size: 24,
-                color: ThemeService.instance.isDarkMode()
-                    ? Colors.white
-                    : Colors.black,
-              ),
-            ),
-          ),
-        ],
         flexibleSpace: Image.asset(
           ThemeService.instance.isDarkMode()
               ? "assets/img/footer-bg.png"
@@ -158,26 +141,104 @@ class _FacultyPageState extends State<FacultyPage> {
         children: [
           drawerHeader(),
           Expanded(
-            flex: 17,
+            flex: 11,
+            // child: ListView.builder(
+            //     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+            //     itemCount: DepartmentModel.departmentList.length,
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return listTileDepartments(
+            //           name:
+            //               DepartmentModel.departmentList[index].departmentName,
+            //           path:
+            //               DepartmentModel.departmentList[index].departmentPath,
+            //           code:
+            //               DepartmentModel.departmentList[index].departmentCode);
+            //     }),
             child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-                itemCount: DepartmentModel.departmentList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return listTileDepartments(
-                      name:
-                          DepartmentModel.departmentList[index].departmentName,
-                      path:
-                          DepartmentModel.departmentList[index].departmentPath,
-                      code:
-                          DepartmentModel.departmentList[index].departmentCode);
+                key: Key('builder ${selected.toString()}'), //attention
+                physics: ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: facultyDepartmentList.length,
+                itemBuilder: (BuildContext context, int i) {
+                  List<DepartmentModel> departments = [];
+
+                  facultyDepartmentList[i]['departments']
+                      .map((department) => departments.add(DepartmentModel(
+                            departmentName: department['departmentName'],
+                            departmentCode: department['departmentCode'],
+                            departmentPath: department['departmentPath'],
+                          )))
+                      .toList();
+                  return ListTileTheme(
+                    tileColor: ThemeService.instance.isDarkMode()
+                        ? Theme.of(context).bottomAppBarColor
+                        : Theme.of(context).buttonColor,
+                    child: ExpansionTile(
+                      childrenPadding: EdgeInsets.all(8),
+                      key: Key(i.toString()), //attention
+                      initiallyExpanded: i == selected, //attention
+
+                      title: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Text(
+                          facultyDepartmentList[i]['facultyName'],
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      onExpansionChanged: ((newState) {
+                        if (newState)
+                          setState(() {
+                            Duration(seconds: 20000);
+                            selected = i;
+                          });
+                        else
+                          setState(() {
+                            selected = -1;
+                          });
+                      }),
+                      children: [
+                        ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: departments.length,
+                            itemBuilder: (BuildContext context, int j) {
+                              return listTileDepartments(
+                                  name: departments[j].departmentName,
+                                  path: departments[j].departmentPath,
+                                  code: departments[j].departmentCode);
+                            }),
+                      ],
+                    ),
+                  );
                 }),
           ),
+          SizedBox(height: 5),
           Expanded(
             flex: 1,
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Column(
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('THEME'),
+                      SizedBox(width: 10),
+                      GestureDetector(
+                          onTap: () => changeTheme(),
+                          child: Icon(
+                            ThemeService.instance.isDarkMode()
+                                ? Icons.wb_sunny
+                                : Icons.nightlight_round,
+                            size: 24,
+                            color: ThemeService.instance.isDarkMode()
+                                ? Colors.white
+                                : Colors.black,
+                          ))
+                    ],
+                  ),
+                  SizedBox(height: 8),
                   Text(
                     'S M N C',
                     style: TextStyle(fontSize: 10),
@@ -194,20 +255,6 @@ class _FacultyPageState extends State<FacultyPage> {
 
   Widget listTileDepartments(
       {String? name, String? path, required String code}) {
-    // return ListTile(
-    //   title: Text(
-    //     name!,
-    //     style: TextStyle(fontSize: 16),
-    //   ),
-    //   onTap: () {
-    //     Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //             builder: (context) => TekYaz(
-    //                   departmentCode: code,
-    //                 )));
-    //   },
-    // );
     return GestureDetector(
       child: Card(
         elevation: 5,
