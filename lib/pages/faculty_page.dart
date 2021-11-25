@@ -204,6 +204,8 @@ class _FacultyPageState extends State<FacultyPage> {
                             itemCount: departments.length,
                             itemBuilder: (BuildContext context, int j) {
                               return listTileDepartments(
+                                  facultyName: facultyDepartmentList[i]
+                                      ['facultyName'],
                                   name: departments[j].departmentName,
                                   path: departments[j].departmentPath,
                                   code: departments[j].departmentCode);
@@ -247,14 +249,14 @@ class _FacultyPageState extends State<FacultyPage> {
               ),
             ),
           ),
-          SizedBox(height: 10)
+          SizedBox(height: 5)
         ],
       ),
     );
   }
 
   Widget listTileDepartments(
-      {String? name, String? path, required String code}) {
+      {String? facultyName, String? name, String? path, required String code}) {
     return GestureDetector(
       child: Card(
         elevation: 5,
@@ -274,6 +276,7 @@ class _FacultyPageState extends State<FacultyPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => TekYaz(
+                      facultyName: facultyName,
                       departmentName: name,
                       departmentCode: code,
                     )));

@@ -4,9 +4,14 @@ import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/announcements.dart';
 
 class TekYaz extends StatefulWidget {
+  String? facultyName;
   String? departmentName;
   String? departmentCode;
-  TekYaz({Key? key, this.departmentName, required this.departmentCode})
+  TekYaz(
+      {Key? key,
+      this.departmentName,
+      this.facultyName,
+      required this.departmentCode})
       : super(key: key);
 
   @override
@@ -35,15 +40,24 @@ class _TekYazState extends State<TekYaz> {
         title: Column(
           children: [
             Text(
+              widget.facultyName.toString(),
+              style: TextStyle(
+                  fontSize: 13,
+                  color: ThemeService.instance.isDarkMode()
+                      ? Colors.white
+                      : Colors.black87),
+            ),
+            Text(
               widget.departmentName.toString(),
               style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 15,
                   color: ThemeService.instance.isDarkMode()
                       ? Colors.white
                       : Colors.black87),
             ),
             Text('DUYURULAR',
                 style: TextStyle(
+                    fontSize: 17,
                     color: ThemeService.instance.isDarkMode()
                         ? Colors.white
                         : Colors.black87)),
@@ -150,7 +164,6 @@ class _TekYazState extends State<TekYaz> {
     return Container(
         decoration: BoxDecoration(
           color: Colors.black38,
-          borderRadius: BorderRadius.circular(10),
         ),
         child: Center(child: CircularProgressIndicator()));
   }
