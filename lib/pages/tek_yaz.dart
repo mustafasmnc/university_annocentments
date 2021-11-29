@@ -7,12 +7,12 @@ class TekYaz extends StatefulWidget {
   String? facultyName;
   String? departmentName;
   String? departmentCode;
-  TekYaz(
-      {Key? key,
-      this.departmentName,
-      this.facultyName,
-      required this.departmentCode})
-      : super(key: key);
+  TekYaz({
+    Key? key,
+    this.departmentName,
+    this.facultyName,
+    required this.departmentCode,
+  }) : super(key: key);
 
   @override
   _TekYazState createState() => _TekYazState();
@@ -22,6 +22,7 @@ class _TekYazState extends State<TekYaz> {
   late Future getData;
   int page = 1;
   bool loading = false;
+  bool checkbox = false;
 
   @override
   void initState() {
@@ -63,6 +64,32 @@ class _TekYazState extends State<TekYaz> {
                         : Colors.black87)),
           ],
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Bildirim"),
+                SizedBox(height: 5),
+                SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: Checkbox(
+                    checkColor: Colors.white,
+                    //fillColor: MaterialStateProperty.resolveWith(getColor),
+                    value: checkbox,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        checkbox = value!;
+                      });
+                    },
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
         flexibleSpace: Image.asset(
           ThemeService.instance.isDarkMode()
               ? "assets/img/footer-bg.png"
@@ -109,35 +136,33 @@ class _TekYazState extends State<TekYaz> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 30, vertical: 10),
-                        child: Container(
-                          width: 100,
-                          height: 40,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            image: DecorationImage(
-                              image: AssetImage("assets/img/title-bg.png"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          child: GestureDetector(
-                            onTap: () async {
+                        child: GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              loading = true;
+                            });
+
+                            page++;
+                            await ScrapeData()
+                                .scraping(
+                                    code: widget.departmentCode!, page: page)
+                                .then((value) {
                               setState(() {
-                                loading = true;
+                                loading = false;
                               });
-
-                              page++;
-                              await ScrapeData()
-                                  .scraping(
-                                      code: widget.departmentCode!, page: page)
-                                  .then((value) {
-                                setState(() {
-                                  loading = false;
-                                });
-                              });
-
-                              //ScrapeData().scrapingMore(widget.departmentCode!);
-                            },
+                            });
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 40,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              image: DecorationImage(
+                                image: AssetImage("assets/img/title-bg.png"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                             child: Text(
                               "Daha Fazla Duyuru",
                               style: TextStyle(

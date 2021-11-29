@@ -141,80 +141,77 @@ class _FacultyPageState extends State<FacultyPage> {
         children: [
           drawerHeader(),
           Expanded(
-            flex: 11,
-            // child: ListView.builder(
-            //     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-            //     itemCount: DepartmentModel.departmentList.length,
-            //     itemBuilder: (BuildContext context, int index) {
-            //       return listTileDepartments(
-            //           name:
-            //               DepartmentModel.departmentList[index].departmentName,
-            //           path:
-            //               DepartmentModel.departmentList[index].departmentPath,
-            //           code:
-            //               DepartmentModel.departmentList[index].departmentCode);
-            //     }),
-            child: ListView.builder(
-                key: Key('builder ${selected.toString()}'), //attention
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: facultyDepartmentList.length,
-                itemBuilder: (BuildContext context, int i) {
-                  List<DepartmentModel> departments = [];
+              flex: 11,
+              // child: ListView.builder(
+              //     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+              //     itemCount: DepartmentModel.departmentList.length,
+              //     itemBuilder: (BuildContext context, int index) {
+              //       return listTileDepartments(
+              //           name:
+              //               DepartmentModel.departmentList[index].departmentName,
+              //           path:
+              //               DepartmentModel.departmentList[index].departmentPath,
+              //           code:
+              //               DepartmentModel.departmentList[index].departmentCode);
+              //     }),
+              child: ListView.builder(
+                  key: Key('builder ${selected.toString()}'), //attention
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: facultyDepartmentList.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    List<DepartmentModel> departments = [];
 
-                  facultyDepartmentList[i]['departments']
-                      .map((department) => departments.add(DepartmentModel(
-                            departmentName: department['departmentName'],
-                            departmentCode: department['departmentCode'],
-                            departmentPath: department['departmentPath'],
-                          )))
-                      .toList();
-                  return ListTileTheme(
-                    tileColor: ThemeService.instance.isDarkMode()
-                        ? Theme.of(context).bottomAppBarColor
-                        : Theme.of(context).buttonColor,
-                    child: ExpansionTile(
-                      childrenPadding: EdgeInsets.all(8),
-                      key: Key(i.toString()), //attention
-                      initiallyExpanded: i == selected, //attention
+                    facultyDepartmentList[i]['departments']
+                        .map((department) => departments.add(DepartmentModel(
+                              departmentName: department['departmentName'],
+                              departmentCode: department['departmentCode'],
+                              departmentPath: department['departmentPath'],
+                            )))
+                        .toList();
+                    return ListTileTheme(
+                      tileColor: ThemeService.instance.isDarkMode()
+                          ? Theme.of(context).bottomAppBarColor
+                          : Theme.of(context).buttonColor,
+                      child: ExpansionTile(
+                        childrenPadding: EdgeInsets.all(8),
+                        key: Key(i.toString()), //attention
+                        initiallyExpanded: i == selected, //attention
 
-                      title: Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: Text(
-                          facultyDepartmentList[i]['facultyName'],
-                          style: TextStyle(fontSize: 16),
+                        title: Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Text(
+                            facultyDepartmentList[i]['facultyName'],
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
+                        onExpansionChanged: ((newState) {
+                          if (newState)
+                            setState(() {
+                              Duration(seconds: 20000);
+                              selected = i;
+                            });
+                          else
+                            setState(() {
+                              selected = -1;
+                            });
+                        }),
+                        children: [
+                          ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: departments.length,
+                              itemBuilder: (BuildContext context, int j) {
+                                return listTileDepartments(
+                                    facultyName: facultyDepartmentList[i]
+                                        ['facultyName'],
+                                    department: departments[j]);
+                              }),
+                        ],
                       ),
-                      onExpansionChanged: ((newState) {
-                        if (newState)
-                          setState(() {
-                            Duration(seconds: 20000);
-                            selected = i;
-                          });
-                        else
-                          setState(() {
-                            selected = -1;
-                          });
-                      }),
-                      children: [
-                        ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: departments.length,
-                            itemBuilder: (BuildContext context, int j) {
-                              return listTileDepartments(
-                                  facultyName: facultyDepartmentList[i]
-                                      ['facultyName'],
-                                  name: departments[j].departmentName,
-                                  path: departments[j].departmentPath,
-                                  code: departments[j].departmentCode);
-                            }),
-                      ],
-                    ),
-                  );
-                }),
-          ),
+                    );
+                  })),
           SizedBox(height: 5),
           Expanded(
             flex: 1,
@@ -242,7 +239,7 @@ class _FacultyPageState extends State<FacultyPage> {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'M U S T A F A  S M N C',
+                    'S M N C',
                     style: TextStyle(fontSize: 9),
                   ),
                 ],
@@ -256,7 +253,7 @@ class _FacultyPageState extends State<FacultyPage> {
   }
 
   Widget listTileDepartments(
-      {String? facultyName, String? name, String? path, required String code}) {
+      {String? facultyName, DepartmentModel? department}) {
     return GestureDetector(
       child: Card(
         elevation: 5,
@@ -264,7 +261,7 @@ class _FacultyPageState extends State<FacultyPage> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            name!,
+            department!.departmentName,
             style: TextStyle(fontSize: 16),
           ),
         ),
@@ -277,8 +274,8 @@ class _FacultyPageState extends State<FacultyPage> {
             MaterialPageRoute(
                 builder: (context) => TekYaz(
                       facultyName: facultyName,
-                      departmentName: name,
-                      departmentCode: code,
+                      departmentName: department.departmentName,
+                      departmentCode: department.departmentCode,
                     )));
       },
     );

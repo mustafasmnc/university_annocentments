@@ -16,6 +16,7 @@ class _MyWebViewsState extends State<MyWebViews> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
       routes: {
         "/": (_) => new WebviewScaffold(
               url: widget.myUrl,
