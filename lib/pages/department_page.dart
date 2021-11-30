@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:webscraping/core/data/my_department_database.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/announcements.dart';
 
-class TekYaz extends StatefulWidget {
+class DepartmentPage extends StatefulWidget {
   String? facultyName;
   String? departmentName;
   String? departmentCode;
-  TekYaz({
+  DepartmentPage({
     Key? key,
     this.departmentName,
     this.facultyName,
@@ -15,10 +16,10 @@ class TekYaz extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TekYazState createState() => _TekYazState();
+  _DepartmentPageState createState() => _DepartmentPageState();
 }
 
-class _TekYazState extends State<TekYaz> {
+class _DepartmentPageState extends State<DepartmentPage> {
   late Future getData;
   int page = 1;
   bool loading = false;
@@ -27,6 +28,15 @@ class _TekYazState extends State<TekYaz> {
   @override
   void initState() {
     getData = ScrapeData().scraping(code: widget.departmentCode!, page: 1);
+    MyDepartmentDatabase.getMyDepartment().then((value) {
+      if (value.isNotEmpty) {
+        if (widget.departmentCode == value[0]['myDepartment'].toString()) {
+          setState(() {
+            checkbox = true;
+          });
+        }
+      }
+    });
   }
 
   @override
@@ -80,6 +90,8 @@ class _TekYazState extends State<TekYaz> {
                     //fillColor: MaterialStateProperty.resolveWith(getColor),
                     value: checkbox,
                     onChanged: (bool? value) {
+                      updateMyDepartment();
+                      updateLastAnnoId();
                       setState(() {
                         checkbox = value!;
                       });
@@ -98,6 +110,14 @@ class _TekYazState extends State<TekYaz> {
           fit: BoxFit.cover,
         ),
         backgroundColor: Colors.transparent,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //MyDepartmentDatabase.deleteMyDepartment();
+          //MyDepartmentDatabase.getMyDepartment().then((value) => print(value[0]['myDepartment'].toString()));
+          //ScrapeData().lastAnnoIdScraping(widget.departmentCode!).then((value) => print(value));
+          MyDepartmentDatabase.getLastAnnoId().then((value) => print(value));
+        },
       ),
       body: Stack(
         children: [
@@ -183,6 +203,17 @@ class _TekYazState extends State<TekYaz> {
         ],
       ),
     );
+  }
+
+  void updateLastAnnoId() {
+    ScrapeData().lastAnnoIdScraping(widget.departmentCode!).then((value) {
+      MyDepartmentDatabase.updateLastAnnoId(value);
+    });
+  }
+
+  void updateMyDepartment() {
+    MyDepartmentDatabase.updateMyDepartment(
+        myDepartmentCode: widget.departmentCode!);
   }
 
   Container circularLoader() {

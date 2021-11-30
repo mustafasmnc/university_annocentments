@@ -1,13 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:webscraping/core/data/my_department_database.dart';
 import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
-import 'package:webscraping/pages/faculty_page.dart';
+import 'package:webscraping/pages/main_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ThemeService.init();
+  await MyDepartmentDatabase.initDB();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: Provider.of<CustomThemeDataModal>(context).getThemeData,
-      home: FacultyPage(),
+      home: MainPage(),
     );
   }
 }

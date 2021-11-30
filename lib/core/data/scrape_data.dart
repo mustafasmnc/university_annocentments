@@ -60,4 +60,21 @@ class ScrapeData {
     }
     return announcements;
   }
+
+  Future lastAnnoIdScraping(String code) async {
+    String MAIN_LINK = 'http://$code.firat.edu.tr';
+    String ANNO_LINK = '/tr/announcements-all';
+    int PAGE_NUM = 1;
+    final webScraper = WebScraper(MAIN_LINK);
+    var linkElements;
+    if (await webScraper.loadWebPage('$ANNO_LINK/$PAGE_NUM')) {
+      linkElements = webScraper.getElementAttribute(
+          'div.announcements > div.announcements-inner > div.anno-details > a ',
+          'href');
+    }
+    var link = linkElements[0];
+    var pieces = link!.split('/');
+    var id = int.parse(pieces[pieces.length - 1]);
+    return id;
+  }
 }

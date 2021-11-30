@@ -1,25 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:webscraping/core/data/my_department_database.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/model/department_model.dart';
 import 'package:webscraping/core/model/google_maps.dart';
 import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
-import 'package:webscraping/pages/tek_yaz.dart';
+import 'package:webscraping/pages/department_page.dart';
 import 'package:webscraping/pages/web_views.dart';
 
-class FacultyPage extends StatefulWidget {
-  FacultyPage({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({Key? key}) : super(key: key);
 
   @override
-  _FacultyPageState createState() => _FacultyPageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _FacultyPageState extends State<FacultyPage> {
+class _MainPageState extends State<MainPage> {
   int selected = 0;
 
   void changeTheme() {
     Provider.of<CustomThemeDataModal>(context, listen: false).setThemeData();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    MyDepartmentDatabase.getMyDepartment().then((value) {
+      if (value.isNotEmpty) {
+        String myDepartmentCode = value[0]['myDepartment'].toString();
+        ScrapeData().lastAnnoIdScraping(myDepartmentCode).then((value) {
+          MyDepartmentDatabase.updateLastAnnoId(value);
+        });
+      }
+    });
   }
 
   @override
@@ -272,7 +287,7 @@ class _FacultyPageState extends State<FacultyPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => TekYaz(
+                builder: (context) => DepartmentPage(
                       facultyName: facultyName,
                       departmentName: department.departmentName,
                       departmentCode: department.departmentCode,
