@@ -41,6 +41,9 @@ dependencies:
   shared_preferences:
   provider:
   sqflite:
+  flutter_local_notifications:
+  flutter_native_timezone:
+  intl: any
 
 dev_dependencies:
   flutter_test:

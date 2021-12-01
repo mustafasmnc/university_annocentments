@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:webscraping/core/data/my_department_database.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/model/department_model.dart';
 import 'package:webscraping/core/model/google_maps.dart';
+import 'package:webscraping/core/notification/notification_service.dart';
 import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/department_page.dart';
@@ -23,17 +27,47 @@ class _MainPageState extends State<MainPage> {
     Provider.of<CustomThemeDataModal>(context, listen: false).setThemeData();
   }
 
+  var notifyHelper;
+  Timer? timer;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    MyDepartmentDatabase.getMyDepartment().then((value) {
-      if (value.isNotEmpty) {
-        String myDepartmentCode = value[0]['myDepartment'].toString();
-        ScrapeData().lastAnnoIdScraping(myDepartmentCode).then((value) {
-          MyDepartmentDatabase.updateLastAnnoId(value);
-        });
-      }
+    notifyHelper = NotifyHelper();
+    notifyHelper.initializeNotification();
+    notifyHelper.requestIOSPermissions();
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    var hourMin = DateFormat.Hm().format(now).split(':');
+    var myHour = int.parse(hourMin[0]);
+    var myMin = int.parse(hourMin[1]);
+    timer = Timer.periodic(Duration(seconds: 30), (Timer t) {
+      MyDepartmentDatabase.getMyDepartment().then((myDepartmentValue) {
+        if (myDepartmentValue.isNotEmpty) {
+          String myDepartmentCode =
+              myDepartmentValue[0]['myDepartmentCode'].toString();
+          ScrapeData()
+              .lastAnnoIdScraping(myDepartmentCode)
+              .then((scrapedLastAnnoIdValue) {
+            MyDepartmentDatabase.getLastAnnoId().then((lastAnnoIdValue) {
+              notifyHelper.scheduledNotification(
+                    myHour,
+                    myMin + 1,
+                    "Yeni Duyuru Yayınlandı!",
+                    myDepartmentValue[0]['myDepartmentName'].toString());
+              if (scrapedLastAnnoIdValue != lastAnnoIdValue) {
+                // notifyHelper.scheduledNotification(
+                //     myHour,
+                //     myMin + 1,
+                //     "Yeni Duyuru Yayınlandı!",
+                //     myDepartmentValue[0]['myDepartmentName'].toString());
+                MyDepartmentDatabase.updateLastAnnoId(scrapedLastAnnoIdValue);
+              }
+            });
+          });
+        }
+      });
     });
   }
 

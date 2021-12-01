@@ -18,7 +18,8 @@ class MyDepartmentDatabase {
         db.execute(
           "CREATE TABLE $_myDepartmentTableName("
           "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-          "myDepartment STRING )",
+          "myDepartmentName STRING,"
+          "myDepartmentCode STRING )",
         );
         db.execute(
           "CREATE TABLE $_lastAnnoIdTableName("
@@ -57,20 +58,20 @@ class MyDepartmentDatabase {
     await _db!.rawDelete('DELETE FROM $_lastAnnoIdTableName');
   }
 
-  static Future<int> insertmyDepartment(String myDepartmentCode) async {
+  static Future<int> insertmyDepartment(String myDepartmentCode, String myDepartmentName) async {
     //return await _db?.insert(_myDepartmentTableName, task!.toJson()) ?? 1;
     int id = await _db!.rawInsert(
-        'INSERT INTO $_myDepartmentTableName(myDepartment) VALUES(?)',
-        [myDepartmentCode]);
+        'INSERT INTO $_myDepartmentTableName(myDepartmentCode,myDepartmentName) VALUES(?,?)',
+        [myDepartmentCode,myDepartmentName]);
     return id;
   }
 
-  static updateMyDepartment({int id = 1, String? myDepartmentCode}) async {
+  static updateMyDepartment({int id = 1, String? myDepartmentCode, String? myDepartmentName}) async {
     int update = await _db!.rawUpdate(
-        'UPDATE $_myDepartmentTableName SET myDepartment = ?',
-        [myDepartmentCode]);
+        'UPDATE $_myDepartmentTableName SET myDepartmentCode = ?, myDepartmentName=?',
+        [myDepartmentCode,myDepartmentName]);
     if (update == 0) {
-      insertmyDepartment(myDepartmentCode!);
+      insertmyDepartment(myDepartmentCode!,myDepartmentName!);
     }
     print(update);
   }

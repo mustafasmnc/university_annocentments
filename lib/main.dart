@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Fırat Üniversitesi Duyurular',
       theme: Provider.of<CustomThemeDataModal>(context).getThemeData,
       home: MainPage(),
     );

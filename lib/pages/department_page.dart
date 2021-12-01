@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:webscraping/core/data/my_department_database.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
+import 'package:webscraping/core/notification/notification_service.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/announcements.dart';
+import 'package:intl/intl.dart';
 
 class DepartmentPage extends StatefulWidget {
   String? facultyName;
@@ -24,13 +26,17 @@ class _DepartmentPageState extends State<DepartmentPage> {
   int page = 1;
   bool loading = false;
   bool checkbox = false;
+  var notifyHelper;
 
   @override
   void initState() {
+    notifyHelper = NotifyHelper();
+    notifyHelper.initializeNotification();
+    notifyHelper.requestIOSPermissions();
     getData = ScrapeData().scraping(code: widget.departmentCode!, page: 1);
     MyDepartmentDatabase.getMyDepartment().then((value) {
       if (value.isNotEmpty) {
-        if (widget.departmentCode == value[0]['myDepartment'].toString()) {
+        if (widget.departmentCode == value[0]['myDepartmentCode'].toString()) {
           setState(() {
             checkbox = true;
           });
@@ -111,14 +117,19 @@ class _DepartmentPageState extends State<DepartmentPage> {
         ),
         backgroundColor: Colors.transparent,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          //MyDepartmentDatabase.deleteMyDepartment();
-          //MyDepartmentDatabase.getMyDepartment().then((value) => print(value[0]['myDepartment'].toString()));
-          //ScrapeData().lastAnnoIdScraping(widget.departmentCode!).then((value) => print(value));
-          MyDepartmentDatabase.getLastAnnoId().then((value) => print(value));
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     //MyDepartmentDatabase.deleteMyDepartment();
+      //     //MyDepartmentDatabase.getMyDepartment().then((value) => print("${value[0]['myDepartmentCode'].toString()} + ${value[0]['myDepartmentName'].toString()}"));
+      //     //ScrapeData().lastAnnoIdScraping(widget.departmentCode!).then((value) => print(value));
+      //     //MyDepartmentDatabase.getLastAnnoId().then((value) => print(value));
+
+      //     // notifyHelper.displayNotification(
+      //     //   title: "Yeni Duyuru Yayınlandı!",
+      //     //   body: widget.departmentName,
+      //     // );
+      //   },
+      // ),
       body: Stack(
         children: [
           FutureBuilder(
@@ -213,7 +224,8 @@ class _DepartmentPageState extends State<DepartmentPage> {
 
   void updateMyDepartment() {
     MyDepartmentDatabase.updateMyDepartment(
-        myDepartmentCode: widget.departmentCode!);
+        myDepartmentCode: widget.departmentCode!,
+        myDepartmentName: widget.departmentName);
   }
 
   Container circularLoader() {
