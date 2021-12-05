@@ -1,13 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:webscraping/core/data/my_department_database.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/model/department_model.dart';
 import 'package:webscraping/core/model/google_maps.dart';
-import 'package:webscraping/core/notification/notification_service.dart';
 import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/department_page.dart';
@@ -25,50 +20,6 @@ class _MainPageState extends State<MainPage> {
 
   void changeTheme() {
     Provider.of<CustomThemeDataModal>(context, listen: false).setThemeData();
-  }
-
-  var notifyHelper;
-  Timer? timer;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    notifyHelper = NotifyHelper();
-    notifyHelper.initializeNotification();
-    notifyHelper.requestIOSPermissions();
-    final DateTime now = DateTime.now();
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    var hourMin = DateFormat.Hm().format(now).split(':');
-    var myHour = int.parse(hourMin[0]);
-    var myMin = int.parse(hourMin[1]);
-    timer = Timer.periodic(Duration(seconds: 30), (Timer t) {
-      MyDepartmentDatabase.getMyDepartment().then((myDepartmentValue) {
-        if (myDepartmentValue.isNotEmpty) {
-          String myDepartmentCode =
-              myDepartmentValue[0]['myDepartmentCode'].toString();
-          ScrapeData()
-              .lastAnnoIdScraping(myDepartmentCode)
-              .then((scrapedLastAnnoIdValue) {
-            MyDepartmentDatabase.getLastAnnoId().then((lastAnnoIdValue) {
-              notifyHelper.scheduledNotification(
-                    myHour,
-                    myMin + 1,
-                    "Yeni Duyuru Yayınlandı!",
-                    myDepartmentValue[0]['myDepartmentName'].toString());
-              if (scrapedLastAnnoIdValue != lastAnnoIdValue) {
-                // notifyHelper.scheduledNotification(
-                //     myHour,
-                //     myMin + 1,
-                //     "Yeni Duyuru Yayınlandı!",
-                //     myDepartmentValue[0]['myDepartmentName'].toString());
-                MyDepartmentDatabase.updateLastAnnoId(scrapedLastAnnoIdValue);
-              }
-            });
-          });
-        }
-      });
-    });
   }
 
   @override
@@ -100,25 +51,16 @@ class _MainPageState extends State<MainPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            facultySections(
-                context,
-                "Öğrenci İşleri Otomasyonu",
-                "https://www.creatrixcampus.com/sites/default/files/styles/image_1200x700/public/2019-05/benefits-of-student-information-system.jpg?itok=5_KSMYS5",
-                "https://obs.firat.edu.tr/"),
+            facultySections(context, "Öğrenci İşleri Otomasyonu",
+                "uni_ogrenciotomaston.jpg", "https://obs.firat.edu.tr/"),
             facultySections(
                 context,
                 "Akademik Takvim",
-                "https://i.ibb.co/m98xXF1/third-month-calendar-wallpaper-designs-march-51351.jpg",
+                "uni_akademiktakvim.jpg",
                 "http://www.firat.edu.tr/tr/document?file_category_id=66&menu_id=406"),
-            facultySections(
-                context,
-                "Kütüphane",
-                "https://cdn.yeniakit.com.tr/images/news/625/firat-universitesi-gelecek-elinizin-altinda-h1596803067-452435.jpeg",
+            facultySections(context, "Kütüphane", "uni_kutuphane.jpeg",
                 "http://kutuphane.db.firat.edu.tr/"),
-            facultySections(
-                context,
-                "Üniversite Evi",
-                "https://thumbs.dreamstime.com/b/elegant-seamless-pattern-healthy-nutrition-fresh-dietary-food-eco-natural-organic-fruits-berries-vegetables-white-142956625.jpg",
+            facultySections(context, "Üniversite Evi", "uni_evi.jpg",
                 "http://uevi.firat.edu.tr/"),
             Container(
                 height: 200,
@@ -145,16 +87,12 @@ class _MainPageState extends State<MainPage> {
             child: Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    //"http://tf.firat.edu.tr/assets/front/images/bg-pattern.png",
-                    //"http://tf.firat.edu.tr/assets/front/images/footer-bg.png",
-                    //"https://www.creatrixcampus.com/sites/default/files/styles/image_1200x700/public/2019-05/benefits-of-student-information-system.jpg?itok=5_KSMYS5",
-                    imgPath,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      'assets/img/$imgPath',
+                      width: MediaQuery.of(context).size.width,
+                      fit: BoxFit.cover,
+                    )),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.black26,
@@ -191,18 +129,6 @@ class _MainPageState extends State<MainPage> {
           drawerHeader(),
           Expanded(
               flex: 11,
-              // child: ListView.builder(
-              //     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-              //     itemCount: DepartmentModel.departmentList.length,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return listTileDepartments(
-              //           name:
-              //               DepartmentModel.departmentList[index].departmentName,
-              //           path:
-              //               DepartmentModel.departmentList[index].departmentPath,
-              //           code:
-              //               DepartmentModel.departmentList[index].departmentCode);
-              //     }),
               child: ListView.builder(
                   key: Key('builder ${selected.toString()}'), //attention
                   physics: ScrollPhysics(),

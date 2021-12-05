@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:webscraping/core/data/my_department_database.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
-import 'package:webscraping/core/notification/notification_service.dart';
+import 'package:webscraping/core/notification_alarm/notification_service.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/announcements.dart';
-import 'package:intl/intl.dart';
 
 class DepartmentPage extends StatefulWidget {
   String? facultyName;
@@ -86,7 +85,12 @@ class _DepartmentPageState extends State<DepartmentPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Bildirim"),
+                Text("Bildirim",
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: ThemeService.instance.isDarkMode()
+                            ? Colors.white
+                            : Colors.black87)),
                 SizedBox(height: 5),
                 SizedBox(
                   height: 20,
@@ -120,7 +124,13 @@ class _DepartmentPageState extends State<DepartmentPage> {
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
       //     //MyDepartmentDatabase.deleteMyDepartment();
-      //     //MyDepartmentDatabase.getMyDepartment().then((value) => print("${value[0]['myDepartmentCode'].toString()} + ${value[0]['myDepartmentName'].toString()}"));
+      //     MyDepartmentDatabase.getMyDepartment().then((value) {
+      //       if (value != '' || value.isNotEmpty) {
+      //         print(
+      //             "${value[0]['myDepartmentCode'].toString()} + ${value[0]['myDepartmentName'].toString()}");
+      //       } else
+      //         print('mydepartmentbossss');
+      //     });
       //     //ScrapeData().lastAnnoIdScraping(widget.departmentCode!).then((value) => print(value));
       //     //MyDepartmentDatabase.getLastAnnoId().then((value) => print(value));
 
@@ -172,7 +182,6 @@ class _DepartmentPageState extends State<DepartmentPage> {
                             setState(() {
                               loading = true;
                             });
-
                             page++;
                             await ScrapeData()
                                 .scraping(

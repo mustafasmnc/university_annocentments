@@ -77,6 +77,7 @@ class MyDepartmentDatabase {
   }
 
   static Future getMyDepartment() async {
+    initDB();
     List<Map> depCode =
         await _db!.rawQuery('SELECT * FROM $_myDepartmentTableName');
     return depCode;

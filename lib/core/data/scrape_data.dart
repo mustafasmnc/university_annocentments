@@ -7,7 +7,6 @@ class ScrapeData {
   Future scraping({required String code, required int page}) async {
     String MAIN_LINK = 'http://$code.firat.edu.tr';
     String ANNO_LINK = '/tr/announcements-all';
-    int PAGE_NUM = 1;
     final webScraper = WebScraper(MAIN_LINK);
     //final List titleList = <String>[];
     var titleElements;
