@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webscraping/core/data/my_department_database.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
+import 'package:webscraping/core/notification_alarm/alarm_manager_service.dart';
 import 'package:webscraping/core/notification_alarm/notification_service.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/announcements.dart';
@@ -99,9 +100,10 @@ class _DepartmentPageState extends State<DepartmentPage> {
                     checkColor: Colors.white,
                     //fillColor: MaterialStateProperty.resolveWith(getColor),
                     value: checkbox,
-                    onChanged: (bool? value) {
+                    onChanged: (bool? value) async {
+                      await AlarmManagerService().init();
                       updateMyDepartment();
-                      updateLastAnnoId();
+                      //updateLastAnnoId();
                       setState(() {
                         checkbox = value!;
                       });

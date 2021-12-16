@@ -6,6 +6,7 @@ import 'package:webscraping/core/model/google_maps.dart';
 import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/department_page.dart';
+import 'package:webscraping/pages/uni_evi.dart';
 import 'package:webscraping/pages/web_views.dart';
 
 class MainPage extends StatefulWidget {
@@ -80,7 +81,9 @@ class _MainPageState extends State<MainPage> {
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => MyWebViews(myUrl: websiteLink))),
+                  builder: (context) => title != 'Üniversite Evi'
+                      ? MyWebViews(myUrl: websiteLink)
+                      : UniEvi())),
           child: Container(
             padding: EdgeInsets.all(10),
             height: 200,

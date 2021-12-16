@@ -2,6 +2,8 @@ import 'package:web_scraper/web_scraper.dart';
 import 'package:webscraping/core/model/anno_model.dart';
 
 List<AnnoModel> announcements = [];
+List mealList = [];
+var mealDate;
 
 class ScrapeData {
   Future scraping({required String code, required int page}) async {
@@ -75,5 +77,29 @@ class ScrapeData {
     var pieces = link!.split('/');
     var id = int.parse(pieces[pieces.length - 1]);
     return id;
+  }
+
+  Future getMeals() async {
+    String MEAL_LINK = 'http://uevi.firat.edu.tr';
+    final webScraper = WebScraper(MEAL_LINK);
+    var meals;
+
+    if (await webScraper.loadWebPage('')) {
+      mealDate=webScraper.getElement(
+          'div.view-content > div.views-row.views-row-1 > div.views-field.views-field-created > span.field-content ',
+          []);
+      meals = webScraper.getElement(
+          'div.view-content > div.views-row.views-row-1 > div.views-field > div.field-content > p > strong ',
+          []);
+          
+    }
+    mealDate=mealDate[0]['title'];
+    mealList.clear();
+    for (int i = 0; i < meals.length; i++) {
+      var meal = meals[i]['title'];
+      mealList.add(meal);
+      //print('date:$mealDate  / meal: $meal');
+    }
+    return mealList;
   }
 }
