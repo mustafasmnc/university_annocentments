@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_new
 
 import 'dart:io';
 
@@ -19,6 +19,24 @@ class _UniEviState extends State<UniEvi> {
   bool connectedInternet = false;
   @override
   void initState() {
+    Future<Null>.delayed(Duration.zero, () {
+      ScaffoldMessenger.of(context).showSnackBar(
+        new SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            "AFİYET OLSUN 😊",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              letterSpacing: 5,
+              color: Colors.orangeAccent,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.grey[600],
+        ),
+      );
+    });
     getMealList = ScrapeData().getMeals();
     checkInternetConn();
   }
@@ -76,7 +94,7 @@ class _UniEviState extends State<UniEvi> {
                         child: Column(
                           children: [
                             SizedBox(height: 10),
-                            MenuItems(
+                            MenuDate(
                                 menuItem: mealDate == null ? '' : mealDate),
                             ListView.builder(
                               physics: ScrollPhysics(),
@@ -84,7 +102,7 @@ class _UniEviState extends State<UniEvi> {
                               itemCount: mealList.length,
                               itemBuilder: (BuildContext context, int index) {
                                 //return MenuItems(menuItem: mealList[index]);
-                                return Deneme(menuItem: mealList[index]);
+                                return Meals(menuItem: mealList[index]);
                               },
                             ),
                             SizedBox(height: 10),
@@ -101,9 +119,9 @@ class _UniEviState extends State<UniEvi> {
   }
 }
 
-class Deneme extends StatelessWidget {
+class Meals extends StatelessWidget {
   String menuItem;
-  Deneme({required this.menuItem});
+  Meals({required this.menuItem});
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +129,7 @@ class Deneme extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
         height: 125,
-        width: MediaQuery.of(context).size.width / 2,
+        width: MediaQuery.of(context).size.width,
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -148,15 +166,12 @@ class Deneme extends StatelessWidget {
               margin: EdgeInsets.only(top: 1),
               height: 75,
               width: MediaQuery.of(context).size.width - 75,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(menuItem,
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: ThemeService.instance.isDarkMode()
-                            ? Colors.white
-                            : Colors.black87)),
-              ),
+              child: Text(menuItem,
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: ThemeService.instance.isDarkMode()
+                          ? Colors.white
+                          : Colors.black87)),
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -181,9 +196,9 @@ class Deneme extends StatelessWidget {
   }
 }
 
-class MenuItems extends StatelessWidget {
+class MenuDate extends StatelessWidget {
   String menuItem;
-  MenuItems({required this.menuItem});
+  MenuDate({required this.menuItem});
 
   @override
   Widget build(BuildContext context) {

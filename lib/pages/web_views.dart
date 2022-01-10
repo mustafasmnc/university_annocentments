@@ -60,7 +60,7 @@ class _MyWebViewsState extends State<MyWebViews> {
                       WebView(
                         javascriptMode: JavascriptMode.unrestricted,
                         onProgress: (int progress) {
-                          print('WebView is loading (progress : $progress%)');
+                          //print('WebView is loading (progress : $progress%)');
                           if (progress == 100) {
                             setState(() {
                               loading = true;
