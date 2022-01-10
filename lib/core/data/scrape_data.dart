@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:web_scraper/web_scraper.dart';
 import 'package:webscraping/core/model/anno_model.dart';
 
@@ -80,20 +82,17 @@ class ScrapeData {
   }
 
   Future getMeals() async {
-    String MEAL_LINK = 'http://uevi.firat.edu.tr';
+    String MEAL_LINK = 'http://uevi.mdr.firat.edu.tr';
     final webScraper = WebScraper(MEAL_LINK);
     var meals;
-
-    if (await webScraper.loadWebPage('')) {
-      mealDate=webScraper.getElement(
-          'div.view-content > div.views-row.views-row-1 > div.views-field.views-field-created > span.field-content ',
+    if (await webScraper.loadWebPage('/tr')) {
+      mealDate = webScraper.getElement(
+          'div.content-header > h5 ',
           []);
       meals = webScraper.getElement(
-          'div.view-content > div.views-row.views-row-1 > div.views-field > div.field-content > p > strong ',
-          []);
-          
+          'div.content-inner > div.contain > div.contain-text > h5 ', []);
     }
-    mealDate=mealDate[0]['title'];
+    mealDate = mealDate[0]['title'];
     mealList.clear();
     for (int i = 0; i < meals.length; i++) {
       var meal = meals[i]['title'];
@@ -101,5 +100,14 @@ class ScrapeData {
       //print('date:$mealDate  / meal: $meal');
     }
     return mealList;
+  }
+
+  Future<bool> hasNetwork() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } on SocketException catch (_) {
+      return false;
+    }
   }
 }

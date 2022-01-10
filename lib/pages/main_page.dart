@@ -8,6 +8,7 @@ import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/department_page.dart';
 import 'package:webscraping/pages/uni_evi.dart';
 import 'package:webscraping/pages/web_views.dart';
+import 'package:webscraping/size_config.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context); // for responsive UI
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -192,7 +194,7 @@ class _MainPageState extends State<MainPage> {
                   })),
           SizedBox(height: 5),
           Expanded(
-            flex: 1,
+            flex: SizeConfig.orientation == Orientation.portrait ? 1 : 2,
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Column(
@@ -201,21 +203,29 @@ class _MainPageState extends State<MainPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('THEME'),
-                      SizedBox(width: 10),
+                      SizedBox(
+                          width: SizeConfig.orientation == Orientation.portrait
+                              ? 10
+                              : 5),
                       GestureDetector(
                           onTap: () => changeTheme(),
                           child: Icon(
                             ThemeService.instance.isDarkMode()
                                 ? Icons.wb_sunny
                                 : Icons.nightlight_round,
-                            size: 24,
+                            size: SizeConfig.orientation == Orientation.portrait
+                                ? 24
+                                : 17,
                             color: ThemeService.instance.isDarkMode()
                                 ? Colors.white
                                 : Colors.black,
                           ))
                     ],
                   ),
-                  SizedBox(height: 8),
+                  SizedBox(
+                      height: SizeConfig.orientation == Orientation.portrait
+                          ? 8
+                          : 2),
                   Text(
                     'S M N C',
                     style: TextStyle(fontSize: 9),

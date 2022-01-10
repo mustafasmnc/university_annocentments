@@ -32,7 +32,6 @@ class NotifyHelper {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
       'FUNotification',
       'FUNotification',
-      'FUNotification desc',
       importance: Importance.max,
       priority: Priority.high,
       enableLights: true,
@@ -67,7 +66,6 @@ class NotifyHelper {
             android: AndroidNotificationDetails(
           'nodex',
           'nodex_app',
-          'nodex_app desc',
           enableLights: true,
           icon: 'notification_icon',
           largeIcon: DrawableResourceAndroidBitmap('notification_icon'),

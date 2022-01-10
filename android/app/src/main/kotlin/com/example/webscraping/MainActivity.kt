@@ -1,4 +1,4 @@
-package com.example.webscraping
+package funoti.smnc
 
 import io.flutter.embedding.android.FlutterActivity
 

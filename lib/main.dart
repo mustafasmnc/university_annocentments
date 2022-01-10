@@ -7,12 +7,11 @@ import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/main_page.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ThemeService.init();
-  await MyDepartmentDatabase.initDB();
-  await AlarmManagerService().init();
+  //await MyDepartmentDatabase.initDB();
+  //await AlarmManagerService().init();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -22,8 +21,6 @@ Future<void> main() async {
     child: MyApp(),
   ));
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

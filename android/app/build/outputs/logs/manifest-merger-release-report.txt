@@ -4,16 +4,18 @@ ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManife
 INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:1:1-78:12
 INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:1:1-78:12
 INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:1:1-78:12
-MERGED from [:shared_preferences] C:\Development\Flutter\webscraping\build\shared_preferences\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:sqflite] C:\Development\Flutter\webscraping\build\sqflite\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
 MERGED from [:google_maps_flutter] C:\Development\Flutter\webscraping\build\google_maps_flutter\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
 MERGED from [:flutter_plugin_android_lifecycle] C:\Development\Flutter\webscraping\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
-MERGED from [:sqflite] C:\Development\Flutter\webscraping\build\sqflite\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
-MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:2:1-23:12
-MERGED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:2:1-21:12
-MERGED from [:flutter_native_timezone] C:\Development\Flutter\webscraping\build\flutter_native_timezone\intermediates\library_manifest\release\AndroidManifest.xml:2:1-9:12
 MERGED from [:android_alarm_manager_plus] C:\Development\Flutter\webscraping\build\android_alarm_manager_plus\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.media:media:1.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [:flutter_native_timezone] C:\Development\Flutter\webscraping\build\flutter_native_timezone\intermediates\library_manifest\release\AndroidManifest.xml:2:1-9:12
+MERGED from [:webview_flutter_android] C:\Development\Flutter\webscraping\build\webview_flutter_android\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:2:1-28:12
+MERGED from [:connectivity_plus] C:\Development\Flutter\webscraping\build\connectivity_plus\intermediates\library_manifest\release\AndroidManifest.xml:2:1-9:12
+MERGED from [:shared_preferences_android] C:\Development\Flutter\webscraping\build\shared_preferences_android\intermediates\library_manifest\release\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.appcompat:appcompat:1.3.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\e564ae87c4b2de4886369e7dffef634b\appcompat-1.3.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.webkit:webkit:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\cbbb6921b2521959953b0c781fe5c304\webkit-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:17:1-38:12
 MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:17:1-29:12
 MERGED from [com.google.android.gms:play-services-tasks:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\953f01bd1c1ba965762327dfde85b8cc\jetified-play-services-tasks-17.0.0\AndroidManifest.xml:2:1-9:12
@@ -28,6 +30,7 @@ MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\SMN
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\42415d22b488b741b7e8fbc712464c00\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\bc28a09d8d2212ffd5788fe6c1853326\customview-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core:1.6.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\5f663b08eec19eef9a9d1af662d9025e\core-1.6.0\AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1fdddb698f5b73fbeb212822ee0a08f1\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\87cae496edf0d81af80ab48e3e89ecce\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\d6c2e54771524a931cd2bdacc9b51b98\lifecycle-runtime-2.3.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c39070be4a8b092ae5970162a829e305\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -37,7 +40,6 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.3.1] C:\Users\SMNC\.gradle
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\fb333fb43575d8a3b51161295454427f\lifecycle-livedata-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\33789d9b6acde6ce9172eed59546467e\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\28c8bed6fae67e41db98432923c9a958\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1fdddb698f5b73fbeb212822ee0a08f1\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\b962778313a0e23f9ca3dbafc012c1af\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\f2e73ae2c927c5e2323136b4ee464011\jetified-threetenabp-1.2.3\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\a861f0b05a17132e2f96ff286e3c4f23\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
@@ -45,7 +47,7 @@ INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidMan
 INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:1:1-78:12
 INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:1:1-78:12
 	package
-		ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:2:5-38
+		ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:2:5-26
 		INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml
 	android:versionName
@@ -84,14 +86,14 @@ ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManife
 		ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:8:22-65
 uses-permission#android.permission.SCHEDULE_EXACT_ALARM
 ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:10:5-78
+MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:10:5-79
+MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:10:5-79
 	android:name
 		ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:10:22-76
 application
 ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:11:4-68:19
-MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:11:5-21:19
-MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:11:5-21:19
-MERGED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:8:5-19:19
-MERGED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:8:5-19:19
+MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:12:5-26:19
+MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:12:5-26:19
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:30:5-36:19
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:30:5-36:19
 MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:22:5-27:19
@@ -116,7 +118,7 @@ MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] C:\Users\SMNC\.gradl
 		ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:15:9-44
 	android:name
 		ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:12:9-59
-activity#com.example.webscraping.MainActivity
+activity#funoti.smnc.MainActivity
 ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:16:9-44:20
 	android:launchMode
 		ADDED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml:18:13-43
@@ -202,26 +204,30 @@ uses-sdk
 INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml
 INJECTED from C:\Development\Flutter\webscraping\android\app\src\main\AndroidManifest.xml
-MERGED from [:shared_preferences] C:\Development\Flutter\webscraping\build\shared_preferences\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:shared_preferences] C:\Development\Flutter\webscraping\build\shared_preferences\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] C:\Development\Flutter\webscraping\build\sqflite\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] C:\Development\Flutter\webscraping\build\sqflite\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:google_maps_flutter] C:\Development\Flutter\webscraping\build\google_maps_flutter\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:google_maps_flutter] C:\Development\Flutter\webscraping\build\google_maps_flutter\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] C:\Development\Flutter\webscraping\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:flutter_plugin_android_lifecycle] C:\Development\Flutter\webscraping\build\flutter_plugin_android_lifecycle\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] C:\Development\Flutter\webscraping\build\sqflite\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:sqflite] C:\Development\Flutter\webscraping\build\sqflite\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:6:5-44
-MERGED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:6:5-44
-MERGED from [:flutter_native_timezone] C:\Development\Flutter\webscraping\build\flutter_native_timezone\intermediates\library_manifest\release\AndroidManifest.xml:5:5-7:41
-MERGED from [:flutter_native_timezone] C:\Development\Flutter\webscraping\build\flutter_native_timezone\intermediates\library_manifest\release\AndroidManifest.xml:5:5-7:41
 MERGED from [:android_alarm_manager_plus] C:\Development\Flutter\webscraping\build\android_alarm_manager_plus\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [:android_alarm_manager_plus] C:\Development\Flutter\webscraping\build\android_alarm_manager_plus\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
-MERGED from [androidx.media:media:1.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.media:media:1.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [:flutter_native_timezone] C:\Development\Flutter\webscraping\build\flutter_native_timezone\intermediates\library_manifest\release\AndroidManifest.xml:5:5-7:41
+MERGED from [:flutter_native_timezone] C:\Development\Flutter\webscraping\build\flutter_native_timezone\intermediates\library_manifest\release\AndroidManifest.xml:5:5-7:41
+MERGED from [:webview_flutter_android] C:\Development\Flutter\webscraping\build\webview_flutter_android\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:webview_flutter_android] C:\Development\Flutter\webscraping\build\webview_flutter_android\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] C:\Development\Flutter\webscraping\build\connectivity_plus\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity_plus] C:\Development\Flutter\webscraping\build\connectivity_plus\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] C:\Development\Flutter\webscraping\build\shared_preferences_android\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] C:\Development\Flutter\webscraping\build\shared_preferences_android\intermediates\library_manifest\release\AndroidManifest.xml:5:5-44
 MERGED from [androidx.appcompat:appcompat:1.3.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\e564ae87c4b2de4886369e7dffef634b\appcompat-1.3.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.appcompat:appcompat:1.3.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\e564ae87c4b2de4886369e7dffef634b\appcompat-1.3.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.webkit:webkit:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\cbbb6921b2521959953b0c781fe5c304\webkit-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.webkit:webkit:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\cbbb6921b2521959953b0c781fe5c304\webkit-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.media:media:1.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1ff4bcb3167a74d75651e794e1872ecc\media-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-base:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\7c879cb157fab2c9a5d74c3d70fd64e3\jetified-play-services-base-17.0.0\AndroidManifest.xml:20:5-44
@@ -250,6 +256,8 @@ MERGED from [androidx.customview:customview:1.0.0] C:\Users\SMNC\.gradle\caches\
 MERGED from [androidx.customview:customview:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\bc28a09d8d2212ffd5788fe6c1853326\customview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.6.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\5f663b08eec19eef9a9d1af662d9025e\core-1.6.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.core:core:1.6.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\5f663b08eec19eef9a9d1af662d9025e\core-1.6.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1fdddb698f5b73fbeb212822ee0a08f1\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1fdddb698f5b73fbeb212822ee0a08f1\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\87cae496edf0d81af80ab48e3e89ecce\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\87cae496edf0d81af80ab48e3e89ecce\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.3.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\d6c2e54771524a931cd2bdacc9b51b98\lifecycle-runtime-2.3.1\AndroidManifest.xml:20:5-22:41
@@ -268,8 +276,6 @@ MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\SMNC\.gr
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.3.1] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\33789d9b6acde6ce9172eed59546467e\lifecycle-livedata-core-2.3.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\28c8bed6fae67e41db98432923c9a958\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\28c8bed6fae67e41db98432923c9a958\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1fdddb698f5b73fbeb212822ee0a08f1\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\1fdddb698f5b73fbeb212822ee0a08f1\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\b962778313a0e23f9ca3dbafc012c1af\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\b962778313a0e23f9ca3dbafc012c1af\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.3] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\f2e73ae2c927c5e2323136b4ee464011\jetified-threetenabp-1.2.3\AndroidManifest.xml:5:5-44
@@ -295,49 +301,37 @@ ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\bui
 	android:name
 		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:9:22-78
 receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver
-ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:12:9-106
-	android:name
-		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:12:19-103
-receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver
-ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:13:9-20:20
-	android:name
-		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:13:19-107
-intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED+action:name:android.intent.action.QUICKBOOT_POWERON+action:name:com.htc.intent.action.QUICKBOOT_POWERON
-ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:14:13-19:29
-action#android.intent.action.MY_PACKAGE_REPLACED
-ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:16:17-84
-	android:name
-		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:16:25-81
-action#android.intent.action.QUICKBOOT_POWERON
-ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:17:17-82
-	android:name
-		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:17:25-79
-action#com.htc.intent.action.QUICKBOOT_POWERON
-ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:18:17-82
-	android:name
-		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:18:25-79
-provider#androidx.core.content.FileProvider
-ADDED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:9:9-18:20
-	android:grantUriPermissions
-		ADDED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:13:13-47
-	android:authorities
-		ADDED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:11:13-64
+ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:13:9-15:40
 	android:exported
-		ADDED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:12:13-37
-	tools:replace
-		ADDED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:14:13-48
+		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:15:13-37
 	android:name
-		ADDED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:10:13-62
-meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:15:13-17:53
-	android:resource
-		ADDED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:17:17-50
+		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:14:13-97
+receiver#com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver
+ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:16:9-25:20
+	android:exported
+		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:18:13-37
 	android:name
-		ADDED from [:flutter_webview_plugin] C:\Development\Flutter\webscraping\build\flutter_webview_plugin\intermediates\library_manifest\release\AndroidManifest.xml:16:17-67
+		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:17:13-101
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.MY_PACKAGE_REPLACED+action:name:android.intent.action.QUICKBOOT_POWERON+action:name:com.htc.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:19:13-24:29
+action#android.intent.action.MY_PACKAGE_REPLACED
+ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:21:17-84
+	android:name
+		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:21:25-81
+action#android.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:22:17-82
+	android:name
+		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:22:25-79
+action#com.htc.intent.action.QUICKBOOT_POWERON
+ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:23:17-82
+	android:name
+		ADDED from [:flutter_local_notifications] C:\Development\Flutter\webscraping\build\flutter_local_notifications\intermediates\library_manifest\release\AndroidManifest.xml:23:25-79
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
+ADDED from [:connectivity_plus] C:\Development\Flutter\webscraping\build\connectivity_plus\intermediates\library_manifest\release\AndroidManifest.xml:7:5-79
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:5-79
 	android:name
-		ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:23:22-76
+		ADDED from [:connectivity_plus] C:\Development\Flutter\webscraping\build\connectivity_plus\intermediates\library_manifest\release\AndroidManifest.xml:7:22-76
 uses-feature#0x00020000
 ADDED from [com.google.android.gms:play-services-maps:17.0.0] C:\Users\SMNC\.gradle\caches\transforms-2\files-2.1\c5de8972dacd649c27c247c9e16de3ac\jetified-play-services-maps-17.0.0\AndroidManifest.xml:26:5-28:35
 	android:glEsVersion

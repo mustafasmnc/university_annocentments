@@ -10,6 +10,7 @@ class MyDepartmentDatabase {
     if (_db != null) {
       return;
     }
+
     try {
       String _path = await getDatabasesPath() + 'departments.db';
       _db =
@@ -45,7 +46,6 @@ class MyDepartmentDatabase {
     if (update == 0) {
       insertLastAnnoId(lastAnnoId);
     }
-    print(update);
   }
 
   static Future getLastAnnoId() async {
@@ -58,28 +58,29 @@ class MyDepartmentDatabase {
     await _db!.rawDelete('DELETE FROM $_lastAnnoIdTableName');
   }
 
-  static Future<int> insertmyDepartment(String myDepartmentCode, String myDepartmentName) async {
+  static Future<int> insertmyDepartment(
+      String myDepartmentCode, String myDepartmentName) async {
     //return await _db?.insert(_myDepartmentTableName, task!.toJson()) ?? 1;
     int id = await _db!.rawInsert(
         'INSERT INTO $_myDepartmentTableName(myDepartmentCode,myDepartmentName) VALUES(?,?)',
-        [myDepartmentCode,myDepartmentName]);
+        [myDepartmentCode, myDepartmentName]);
     return id;
   }
 
-  static updateMyDepartment({int id = 1, String? myDepartmentCode, String? myDepartmentName}) async {
+  static updateMyDepartment(
+      {int id = 1, String? myDepartmentCode, String? myDepartmentName}) async {
     int update = await _db!.rawUpdate(
         'UPDATE $_myDepartmentTableName SET myDepartmentCode = ?, myDepartmentName=?',
-        [myDepartmentCode,myDepartmentName]);
+        [myDepartmentCode, myDepartmentName]);
     if (update == 0) {
-      insertmyDepartment(myDepartmentCode!,myDepartmentName!);
+      insertmyDepartment(myDepartmentCode!, myDepartmentName!);
     }
-    print(update);
   }
 
   static Future getMyDepartment() async {
     initDB();
-    List<Map> depCode =
-        await _db!.rawQuery('SELECT * FROM $_myDepartmentTableName');
+    List<Map> depCode = await _db!.rawQuery(
+        'SELECT * FROM $_myDepartmentTableName WHERE id = (SELECT MAX(id)  FROM $_myDepartmentTableName)');
     return depCode;
   }
 
