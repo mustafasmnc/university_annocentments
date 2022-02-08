@@ -233,6 +233,11 @@ List facultyDepartmentList = [
     'facultyName': 'İNSANİ VE SOSYAL BİLİMLER',
     'departments': [
       {
+        'departmentName': 'Batı Dilleri ve Edebiyatları',
+        'departmentPath': 'http://bdeb.isbf.firat.edu.tr/tr',
+        'departmentCode': 'bdeb.isbf',
+      },
+      {
         'departmentName': 'Coğrafya',
         'departmentPath': 'http://cb.isbf.firat.edu.tr/tr',
         'departmentCode': 'cb.isbf',

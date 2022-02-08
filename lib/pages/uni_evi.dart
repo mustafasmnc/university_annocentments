@@ -83,17 +83,20 @@ class _UniEviState extends State<UniEvi> {
                 child: FutureBuilder(
                 future: getMealList,
                 builder: (BuildContext context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting)
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: circularLoader());
-                  if (snapshot.hasError)
-                    return Center(child: Text("ERROR: ${snapshot.error}"));
+                  }
+                  if (snapshot.hasError) {
+                    print("ERROR: ${snapshot.error}");
+                    return Center(child: errorMsg());
+                  }
                   if (snapshot.hasData) {
                     return Container(
                       height: MediaQuery.of(context).size.height,
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            SizedBox(height: 10),
+                            //SizedBox(height: 10),
                             MenuDate(
                                 menuItem: mealDate == null ? '' : mealDate),
                             ListView.builder(

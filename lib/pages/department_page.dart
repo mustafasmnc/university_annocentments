@@ -74,14 +74,14 @@ class _DepartmentPageState extends State<DepartmentPage> {
         centerTitle: true,
         title: Column(
           children: [
-            Text(
-              widget.facultyName.toString(),
-              style: TextStyle(
-                  fontSize: 13,
-                  color: ThemeService.instance.isDarkMode()
-                      ? Colors.white
-                      : Colors.black87),
-            ),
+            // Text(
+            //   widget.facultyName.toString(),
+            //   style: TextStyle(
+            //       fontSize: 13,
+            //       color: ThemeService.instance.isDarkMode()
+            //           ? Colors.white
+            //           : Colors.black87),
+            // ),
             Text(
               widget.departmentName.toString(),
               style: TextStyle(

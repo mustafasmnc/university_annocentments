@@ -8,6 +8,7 @@ import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/department_page.dart';
 import 'package:webscraping/pages/uni_evi.dart';
 import 'package:webscraping/pages/web_views.dart';
+import 'package:webscraping/pages/web_views_pdf.dart';
 import 'package:webscraping/size_config.dart';
 
 class MainPage extends StatefulWidget {
@@ -54,17 +55,30 @@ class _MainPageState extends State<MainPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            facultySections(context, "Öğrenci İşleri Otomasyonu",
-                "uni_ogrenciotomaston.jpg", "https://obs.firat.edu.tr/"),
             facultySections(
-                context,
-                "Akademik Takvim",
-                "uni_akademiktakvim.jpg",
-                "http://www.firat.edu.tr/tr/document?file_category_id=66&menu_id=406"),
-            facultySections(context, "Kütüphane", "uni_kutuphane.jpeg",
-                "http://kutuphane.db.firat.edu.tr/"),
-            facultySections(context, "Üniversite Evi", "uni_evi.jpg",
-                "http://uevi.firat.edu.tr/"),
+              context,
+              "Öğrenci İşleri Otomasyonu",
+              "uni_ogrenciotomaston.jpg",
+              "https://obs.firat.edu.tr/",
+            ),
+            facultySections(
+              context,
+              "Akademik Takvim",
+              "uni_akademiktakvim.jpg",
+              "http://www.firat.edu.tr/tr/document?file_category_id=66&menu_id=406",
+            ),
+            facultySections(
+              context,
+              "Kütüphane",
+              "uni_kutuphane.jpeg",
+              "http://ktarama.firat.edu.tr/yordambt/yordam.php",
+            ),
+            facultySections(
+              context,
+              "Üniversite Evi",
+              "uni_evi.jpg",
+              "http://uevi.firat.edu.tr/",
+            ),
             Container(
                 height: 200,
                 width: MediaQuery.of(context).size.width,
@@ -83,12 +97,12 @@ class _MainPageState extends State<MainPage> {
           onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => title != 'Üniversite Evi'
-                      ? MyWebViews(myUrl: websiteLink)
-                      : UniEvi())),
+                  builder: (context) => title == 'Üniversite Evi'
+                      ? UniEvi()
+                      : MyWebViews(myUrl: websiteLink))),
           child: Container(
             padding: EdgeInsets.all(10),
-            height: 200,
+            height: SizeConfig.orientation == Orientation.portrait ? 175 : 125,
             child: Stack(
               children: [
                 ClipRRect(
@@ -110,6 +124,7 @@ class _MainPageState extends State<MainPage> {
                     children: [
                       Text(
                         title,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -128,114 +143,125 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget drawerDepartments() {
-    return Drawer(
-      child: Column(
-        children: [
-          drawerHeader(),
-          Expanded(
-              flex: 11,
-              child: ListView.builder(
-                  key: Key('builder ${selected.toString()}'), //attention
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: facultyDepartmentList.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    List<DepartmentModel> departments = [];
+    return SafeArea(
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        child: Drawer(
+          child: Column(
+            children: [
+              drawerHeader(),
+              Expanded(
+                  flex: 11,
+                  child: ListView.builder(
+                      key: Key('builder ${selected.toString()}'), //attention
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: facultyDepartmentList.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        List<DepartmentModel> departments = [];
 
-                    facultyDepartmentList[i]['departments']
-                        .map((department) => departments.add(DepartmentModel(
-                              departmentName: department['departmentName'],
-                              departmentCode: department['departmentCode'],
-                              departmentPath: department['departmentPath'],
-                            )))
-                        .toList();
-                    return ListTileTheme(
-                      tileColor: ThemeService.instance.isDarkMode()
-                          ? Theme.of(context).bottomAppBarColor
-                          : Theme.of(context).buttonColor,
-                      child: ExpansionTile(
-                        childrenPadding: EdgeInsets.all(8),
-                        key: Key(i.toString()), //attention
-                        initiallyExpanded: i == selected, //attention
+                        facultyDepartmentList[i]['departments']
+                            .map((department) =>
+                                departments.add(DepartmentModel(
+                                  departmentName: department['departmentName'],
+                                  departmentCode: department['departmentCode'],
+                                  departmentPath: department['departmentPath'],
+                                )))
+                            .toList();
+                        return ListTileTheme(
+                          tileColor: ThemeService.instance.isDarkMode()
+                              ? Theme.of(context).bottomAppBarColor
+                              : Theme.of(context).buttonColor,
+                          child: ExpansionTile(
+                            childrenPadding: EdgeInsets.all(8),
+                            key: Key(i.toString()), //attention
+                            initiallyExpanded: i == selected, //attention
 
-                        title: Padding(
-                          padding: const EdgeInsets.all(1.0),
-                          child: Text(
-                            facultyDepartmentList[i]['facultyName'],
-                            style: TextStyle(fontSize: 16),
+                            title: Padding(
+                              padding: const EdgeInsets.all(1.0),
+                              child: Text(
+                                facultyDepartmentList[i]['facultyName'],
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            onExpansionChanged: ((newState) {
+                              if (newState)
+                                setState(() {
+                                  Duration(seconds: 20000);
+                                  selected = i;
+                                });
+                              else
+                                setState(() {
+                                  selected = -1;
+                                });
+                            }),
+                            children: [
+                              ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: departments.length,
+                                  itemBuilder: (BuildContext context, int j) {
+                                    return listTileDepartments(
+                                        facultyName: facultyDepartmentList[i]
+                                            ['facultyName'],
+                                        department: departments[j]);
+                                  }),
+                            ],
                           ),
-                        ),
-                        onExpansionChanged: ((newState) {
-                          if (newState)
-                            setState(() {
-                              Duration(seconds: 20000);
-                              selected = i;
-                            });
-                          else
-                            setState(() {
-                              selected = -1;
-                            });
-                        }),
+                        );
+                      })),
+              SizedBox(height: 5),
+              Expanded(
+                flex: SizeConfig.orientation == Orientation.portrait ? 1 : 2,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: departments.length,
-                              itemBuilder: (BuildContext context, int j) {
-                                return listTileDepartments(
-                                    facultyName: facultyDepartmentList[i]
-                                        ['facultyName'],
-                                    department: departments[j]);
-                              }),
+                          Text('THEME'),
+                          SizedBox(
+                              width:
+                                  SizeConfig.orientation == Orientation.portrait
+                                      ? 10
+                                      : 5),
+                          GestureDetector(
+                              onTap: () => changeTheme(),
+                              child: Icon(
+                                ThemeService.instance.isDarkMode()
+                                    ? Icons.wb_sunny
+                                    : Icons.nightlight_round,
+                                size: SizeConfig.orientation ==
+                                        Orientation.portrait
+                                    ? 24
+                                    : 17,
+                                color: ThemeService.instance.isDarkMode()
+                                    ? Colors.white
+                                    : Colors.black,
+                              ))
                         ],
                       ),
-                    );
-                  })),
-          SizedBox(height: 5),
-          Expanded(
-            flex: SizeConfig.orientation == Orientation.portrait ? 1 : 2,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('THEME'),
                       SizedBox(
-                          width: SizeConfig.orientation == Orientation.portrait
-                              ? 10
-                              : 5),
-                      GestureDetector(
-                          onTap: () => changeTheme(),
-                          child: Icon(
-                            ThemeService.instance.isDarkMode()
-                                ? Icons.wb_sunny
-                                : Icons.nightlight_round,
-                            size: SizeConfig.orientation == Orientation.portrait
-                                ? 24
-                                : 17,
-                            color: ThemeService.instance.isDarkMode()
-                                ? Colors.white
-                                : Colors.black,
-                          ))
+                          height: SizeConfig.orientation == Orientation.portrait
+                              ? 8
+                              : 1),
+                      Text(
+                        'S M N C',
+                        style: TextStyle(fontSize: 9),
+                      ),
                     ],
                   ),
-                  SizedBox(
-                      height: SizeConfig.orientation == Orientation.portrait
-                          ? 8
-                          : 2),
-                  Text(
-                    'S M N C',
-                    style: TextStyle(fontSize: 9),
-                  ),
-                ],
+                ),
               ),
-            ),
+              SizedBox(height: 5)
+            ],
           ),
-          SizedBox(height: 5)
-        ],
+        ),
       ),
     );
   }
@@ -270,23 +296,49 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget drawerHeader() {
-    return DrawerHeader(
-      margin: EdgeInsets.zero,
-      padding: EdgeInsets.zero,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage('assets/img/bg-pattern.png'))),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          ClipRRect(
-              child: Image(image: AssetImage('assets/img/logo-area2.png'))),
-          Image(
-              width: 150,
-              height: 150,
-              image: AssetImage('assets/img/firat-white.png'))
-        ],
+    return SizedBox(
+      height: SizeConfig.orientation == Orientation.portrait ? 150 : 100,
+      child: DrawerHeader(
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        decoration: BoxDecoration(
+            //color: Colors.black38,
+            // image: DecorationImage(
+            //     fit: BoxFit.cover,
+            //     image: AssetImage('assets/img/bg-pattern.png')),
+            ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // ClipRRect(
+            //     child: Image(
+            //   image: AssetImage('assets/img/logo-area2.png'),
+            //   width: MediaQuery.of(context).size.width*0.8,
+            //   height: 140,
+            //   fit: BoxFit.cover,
+            // )),
+            ClipRRect(
+                child: Container(
+              color: Colors.black38,
+              child: Image(
+                image: AssetImage(
+                    Provider.of<CustomThemeDataModal>(context).getThemeData ==
+                            ThemeData.dark()
+                        ? 'assets/img/footer-bg.png'
+                        : 'assets/img/bg-pattern.png'),
+                fit: BoxFit.cover,
+                height:
+                    SizeConfig.orientation == Orientation.portrait ? 150 : 100,
+              ),
+            )),
+            Image(
+                width:
+                    SizeConfig.orientation == Orientation.portrait ? 140 : 90,
+                height:
+                    SizeConfig.orientation == Orientation.portrait ? 140 : 90,
+                image: AssetImage('assets/img/firat-white.png'))
+          ],
+        ),
       ),
     );
   }

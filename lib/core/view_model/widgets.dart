@@ -18,6 +18,24 @@ Widget noInternetConn() => Container(
       )),
     );
 
+    Widget errorMsg() => Container(
+      child: Center(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.error,
+            size: 40,
+          ),
+          Text(
+            'Bir Sorun Oluştu. Tekrar Deneyiniz.',
+            style: TextStyle(fontSize: 20),
+          ),
+        ],
+      )),
+    );
+
 Container circularLoader() {
   return Container(
       decoration: BoxDecoration(

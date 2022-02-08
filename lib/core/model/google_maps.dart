@@ -17,9 +17,9 @@ class GoogleMaps extends StatelessWidget {
     _markers.add(Marker(
         draggable: true,
         icon: BitmapDescriptor.defaultMarker,
-        markerId: MarkerId('TekFak'),
+        markerId: MarkerId('Fü'),
         position: LatLng(38.67753745095975, 39.20199846139586),
-        infoWindow: InfoWindow(title: 'Teknoloji Fakültesi')));
+        infoWindow: InfoWindow(title: 'Fırat Üniversitesi')));
     return GoogleMap(
       onMapCreated: _onMapCreated,
       initialCameraPosition: CameraPosition(

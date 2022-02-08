@@ -56,14 +56,17 @@ class _AnnouncementsState extends State<Announcements> {
                       //color: Colors.red,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             widget.month,
+                            textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white),
                           ),
                           Container(height: 1, color: Colors.white),
                           Text(
                             widget.day,
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -77,6 +80,7 @@ class _AnnouncementsState extends State<Announcements> {
                   child: Container(
                     child: Text(
                       widget.title,
+                      maxLines: 2,
                       style: TextStyle(fontSize: 17),
                     ),
                   ),
