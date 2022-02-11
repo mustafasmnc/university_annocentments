@@ -6,7 +6,9 @@ import 'package:webscraping/core/model/google_maps.dart';
 import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/department_page.dart';
+import 'package:webscraping/pages/endtermaverage_page.dart';
 import 'package:webscraping/pages/uni_evi.dart';
+import 'package:webscraping/pages/vizefinal_page.dart';
 import 'package:webscraping/pages/web_views.dart';
 import 'package:webscraping/pages/web_views_pdf.dart';
 import 'package:webscraping/size_config.dart';
@@ -51,6 +53,9 @@ class _MainPageState extends State<MainPage> {
         ),
         backgroundColor: Colors.transparent,
       ),
+      backgroundColor: ThemeService.instance.isDarkMode()
+          ? Color(0xFF292D32)
+          : Colors.grey[300],
       drawer: drawerDepartments(),
       body: SingleChildScrollView(
         child: Column(
@@ -79,6 +84,24 @@ class _MainPageState extends State<MainPage> {
               "uni_evi.jpg",
               "http://uevi.firat.edu.tr/",
             ),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                calculationArea("Vize Final (Proje) Hesapla", () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => VizeFinalPage()));
+                }),
+                SizedBox(width: 20),
+                calculationArea("Dönem Ortalaması Hesapla", () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EndTermAverage()));
+                }),
+              ],
+            ),
+            SizedBox(height: 20),
             Container(
                 height: 200,
                 width: MediaQuery.of(context).size.width,
@@ -89,56 +112,98 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Column facultySections(
-      BuildContext context, String title, String imgPath, String websiteLink) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => title == 'Üniversite Evi'
-                      ? UniEvi()
-                      : MyWebViews(myUrl: websiteLink))),
-          child: Container(
-            padding: EdgeInsets.all(10),
-            height: SizeConfig.orientation == Orientation.portrait ? 175 : 125,
-            child: Stack(
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      'assets/img/$imgPath',
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.cover,
-                    )),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+  Widget calculationArea(String title, VoidCallback onTapRoute) {
+    return GestureDetector(
+      onTap: onTapRoute,
+      child: Container(
+        height: SizeConfig.orientation == Orientation.portrait ? 150 : 100,
+        width: MediaQuery.of(context).size.width * 0.3,
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: ThemeService.instance.isDarkMode()
+                ? Color(0xFF292D32).withOpacity(.9)
+                : Color(0xFF292D32).withOpacity(.1),
+            boxShadow: [
+              BoxShadow(
+                  color: ThemeService.instance.isDarkMode()
+                      ? Colors.white.withOpacity(0.1)
+                      : Colors.white.withOpacity(0.8),
+                  offset: Offset(-6.0, -6.0),
+                  blurRadius: 15.0,
+                  spreadRadius: 1.0),
+              BoxShadow(
+                  color: ThemeService.instance.isDarkMode()
+                      ? Colors.black.withOpacity(0.4)
+                      : Colors.black.withOpacity(0.1),
+                  offset: Offset(6.0, 6.0),
+                  blurRadius: 15.0,
+                  spreadRadius: 1.0),
+            ]),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Icon(
+              Icons.calculate,
+              size: 40,
             ),
-          ),
-        )
-      ],
+            Text(
+              title,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget facultySections(
+      BuildContext context, String title, String imgPath, String websiteLink) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => title == 'Üniversite Evi'
+                  ? UniEvi()
+                  : MyWebViews(myUrl: websiteLink))),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        height: SizeConfig.orientation == Orientation.portrait ? 175 : 125,
+        child: Stack(
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  'assets/img/$imgPath',
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                )),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.black26,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 24,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 

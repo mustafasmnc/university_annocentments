@@ -49,12 +49,12 @@ class ScrapeData {
           .replaceAll(new RegExp(r'  \n'), "")
           .trimRight()
           .trimLeft();
-      ;
+
       var month = monthElements[i]['title']
           .replaceAll(new RegExp(r'  \n'), "")
           .trimRight()
           .trimLeft();
-      ;
+
       //print("$month / $day");
       var pieces = link!.split('/');
       var id = int.parse(pieces[pieces.length - 1]);
@@ -86,9 +86,7 @@ class ScrapeData {
     final webScraper = WebScraper(MEAL_LINK);
     var meals;
     if (await webScraper.loadWebPage('/tr')) {
-      mealDate = webScraper.getElement(
-          'div.content-header > h5 ',
-          []);
+      mealDate = webScraper.getElement('div.content-header > h5 ', []);
       meals = webScraper.getElement(
           'div.content-inner > div.contain > div.contain-text > h5 ', []);
     }

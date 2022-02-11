@@ -53,6 +53,11 @@ List facultyDepartmentList = [
     'facultyName': 'TEKNOLOJİ FAKÜLTESİ',
     'departments': [
       {
+        'departmentName': 'TEKNOLOJİ FAKÜLTESİ',
+        'departmentPath': 'http://tf.firat.edu.tr',
+        'departmentCode': 'tf',
+      },
+      {
         'departmentName': 'Adli Bilişim Mühendisliği',
         'departmentPath': 'http://abm.tf.firat.edu.tr/tr',
         'departmentCode': 'abm.tf',
@@ -102,6 +107,11 @@ List facultyDepartmentList = [
   {
     'facultyName': 'MÜHENDİSLİK FAKÜLTESİ',
     'departments': [
+      {
+        'departmentName': 'MÜHENDİSLİK FAKÜLTESİ',
+        'departmentPath': 'mf.firat.edu.tr/tr',
+        'departmentCode': 'mf',
+      },
       {
         'departmentName': 'Bilgisayar Mühendisliği',
         'departmentPath': 'http://bilgisayar.mf.firat.edu.tr/tr',
@@ -163,6 +173,11 @@ List facultyDepartmentList = [
     'facultyName': 'EĞİTİM FAKÜLTESİ',
     'departments': [
       {
+        'departmentName': 'EĞİTİM FAKÜLTESİ',
+        'departmentPath': 'http://egitimf.firat.edu.tr/tr',
+        'departmentCode': 'egitimf',
+      },
+      {
         'departmentName': 'Bilgisayar ve Öğretim Teknolojileri',
         'departmentPath': 'http://bote.egitimf.firat.edu.tr/tr',
         'departmentCode': 'bote.egitimf',
@@ -203,6 +218,11 @@ List facultyDepartmentList = [
     'facultyName': 'FEN FAKÜLTESİ',
     'departments': [
       {
+        'departmentName': 'FEN FAKÜLTESİ',
+        'departmentPath': 'http://ff.firat.edu.tr/tr',
+        'departmentCode': 'ff',
+      },
+      {
         'departmentName': 'Biyoloji Prog & Mol. Biy. ve Gen. Prog',
         'departmentPath': 'http://biyoloji.ff.firat.edu.tr/tr',
         'departmentCode': 'biyoloji.ff',
@@ -232,6 +252,11 @@ List facultyDepartmentList = [
   {
     'facultyName': 'İNSANİ VE SOSYAL BİLİMLER',
     'departments': [
+      {
+        'departmentName': 'İNSANİ VE SOSYAL BİLİMLER',
+        'departmentPath': 'http://isbf.firat.edu.tr/tr',
+        'departmentCode': 'isbf',
+      },
       {
         'departmentName': 'Batı Dilleri ve Edebiyatları',
         'departmentPath': 'http://bdeb.isbf.firat.edu.tr/tr',
@@ -278,6 +303,11 @@ List facultyDepartmentList = [
     'facultyName': 'İKTİSADİ VE İDARİ BİLİMLER',
     'departments': [
       {
+        'departmentName': 'İKTİSADİ VE İDARİ BİLİMLER',
+        'departmentPath': 'http://iibf.firat.edu.tr/tr',
+        'departmentCode': 'iibf',
+      },
+      {
         'departmentName': 'İktisat',
         'departmentPath': 'http://iktisat.iibf.firat.edu.tr/tr',
         'departmentCode': 'ktisat.iibf',
@@ -323,6 +353,11 @@ List facultyDepartmentList = [
     'facultyName': 'İLETİŞİM FAKÜLTESİ',
     'departments': [
       {
+        'departmentName': 'İLETİŞİM FAKÜLTESİ',
+        'departmentPath': 'http://iletisimf.firat.edu.tr/tr',
+        'departmentCode': 'iletisimf',
+      },
+      {
         'departmentName': 'Gazetecilik',
         'departmentPath': 'http://gazetecilik.iletisimf.firat.edu.tr/tr',
         'departmentCode': 'gazetecilik.iletisimf',
@@ -348,6 +383,11 @@ List facultyDepartmentList = [
     'facultyName': 'MİMARLIK FAKÜLTESİ',
     'departments': [
       {
+        'departmentName': 'MİMARLIK FAKÜLTESİ',
+        'departmentPath': 'http://mimarlikf.firat.edu.tr/tr',
+        'departmentCode': 'mimarlikf',
+      },
+      {
         'departmentName': 'Mimarlık',
         'departmentPath': 'http://mimarlik.mimarlikf.firat.edu.tr/tr',
         'departmentCode': 'mimarlik.mimarlikf',
@@ -367,6 +407,11 @@ List facultyDepartmentList = [
   {
     'facultyName': 'SAĞLIK BİLİMLERİ',
     'departments': [
+      {
+        'departmentName': 'SAĞLIK BİLİMLERİ',
+        'departmentPath': 'http://saglikf.firat.edu.tr/tr',
+        'departmentCode': 'saglikf',
+      },
       {
         'departmentName': 'Hemşirelik',
         'departmentPath': 'http://hemsirelik.saglikf.firat.edu.tr/tr',
@@ -392,6 +437,11 @@ List facultyDepartmentList = [
   {
     'facultyName': 'SPOR BİLİMLERİ',
     'departments': [
+      {
+        'departmentName': 'SPOR BİLİMLERİ',
+        'departmentPath': 'http://sbf.firat.edu.tr/tr',
+        'departmentCode': 'sbf',
+      },
       {
         'departmentName': 'Spor Yöneticiliği',
         'departmentPath': 'http://sy.sbf.firat.edu.tr/tr',
