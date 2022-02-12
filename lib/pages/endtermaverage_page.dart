@@ -316,17 +316,19 @@ class _EndTermAverageState extends State<EndTermAverage> {
                       Colors.blueAccent,
                     ),
                   ),
-                  SizedBox(width: 20),
-                  GestureDetector(
-                    onTap: () {
-                      hesapla();
-                    },
-                    child: customButton(
-                      'Hesapla',
-                      Icons.calculate,
-                      Colors.green,
-                    ),
-                  ),
+                  SizedBox(width: lectureGradeCreditRow.length > 0 ? 20 : 0),
+                  lectureGradeCreditRow.length > 0
+                      ? GestureDetector(
+                          onTap: () {
+                            hesapla();
+                          },
+                          child: customButton(
+                            'Hesapla',
+                            Icons.calculate,
+                            Colors.green,
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
             ],

@@ -18,7 +18,7 @@ class _VizeFinalPageState extends State<VizeFinalPage> {
   TextEditingController finalYuzde = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Row createCard() {
+  Row createProjeRow() {
     var numberController = TextEditingController();
     var percantageController = TextEditingController();
     numberTECS.add(numberController);
@@ -388,7 +388,7 @@ class _VizeFinalPageState extends State<VizeFinalPage> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        setState(() => odevler.add(createCard()));
+                        setState(() => odevler.add(createProjeRow()));
                       },
                       child: customButton(
                         'Proje Ekle',

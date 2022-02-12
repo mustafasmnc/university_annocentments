@@ -18,7 +18,8 @@ Widget noInternetConn() => Container(
       )),
     );
 
-    Widget errorMsg() => Container(
+Widget errorMsg({String errorTitle = 'Bir Sorun Oluştu. Tekrar Deneyiniz.'}) =>
+    Container(
       child: Center(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,7 +30,7 @@ Widget noInternetConn() => Container(
             size: 40,
           ),
           Text(
-            'Bir Sorun Oluştu. Tekrar Deneyiniz.',
+            errorTitle,
             style: TextStyle(fontSize: 20),
           ),
         ],

@@ -313,7 +313,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                       SizedBox(
                           height: SizeConfig.orientation == Orientation.portrait
-                              ? 8
+                              ? 4
                               : 1),
                       Text(
                         'S M N C',
