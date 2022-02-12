@@ -88,7 +88,15 @@ class _UniEviState extends State<UniEvi> {
                   }
                   if (snapshot.hasError) {
                     print("ERROR: ${snapshot.error}");
-                    return Center(child: errorMsg());
+                    String errorTitle = snapshot.error.toString();
+
+                    if (errorTitle.contains('Valid value range is empty: 0')) {
+                      return Center(
+                          child: errorMsg(
+                              errorTitle: 'Üniversite Evinde Öğün Bulunamadı'));
+                    } else {
+                      return Center(child: errorMsg());
+                    }
                   }
                   if (snapshot.hasData) {
                     return Container(
