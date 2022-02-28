@@ -446,7 +446,7 @@ void results(BuildContext context, double allAverage, int sumCredit) {
                             Text("Genel Ortalama:"),
                             SizedBox(width: 10.0),
                             Text(
-                              "$allAverage",
+                              allAverage.toStringAsFixed(4),
                               style: TextStyle(fontWeight: FontWeight.w400),
                             ),
                           ],

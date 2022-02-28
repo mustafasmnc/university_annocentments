@@ -4,6 +4,9 @@ import 'package:web_scraper/web_scraper.dart';
 import 'package:webscraping/core/model/anno_model.dart';
 
 List<AnnoModel> announcements = [];
+List<AnnoModel> fuNewsList = [];
+List<AnnoModel> fuAnnoList = [];
+List<AnnoModel> fuEventList = [];
 List mealList = [];
 var mealDate;
 
@@ -64,6 +67,72 @@ class ScrapeData {
     return announcements;
   }
 
+  Future getFuNews({required String restLink, int page = 1}) async {
+    String MAIN_LINK = 'http://www.firat.edu.tr';
+    final webScraper = WebScraper(MAIN_LINK);
+    var titleElements;
+    var dayElements;
+    var monthElements;
+    var linkElements;
+    var imglinkElements;
+    for (var i = 1; i <= page; i++) {
+      if (await webScraper.loadWebPage('$restLink?page=$i')) {
+        titleElements =
+            webScraper.getElement('div.item-content > h3.title > a', []);
+        dayElements = webScraper.getElement('div.day', []);
+        monthElements = webScraper.getElement('div.month', []);
+        linkElements = webScraper.getElementAttribute(
+            'div.item-content > h3.title > a', 'href');
+        imglinkElements = webScraper.getElementAttribute(
+            'div.item-thumbnail > a > img ', 'src');
+      }
+    }
+
+    for (var i = 0; i < linkElements.length; i++) {
+      var title = titleElements[i]['title']
+          .replaceAll(new RegExp("  "), "")
+          .trimRight()
+          .trimLeft();
+      var link = linkElements[i];
+      var imgLink = imglinkElements[i];
+      var day = dayElements[i]['title']
+          .replaceAll(new RegExp(r'  \n'), "")
+          .trimRight()
+          .trimLeft();
+
+      var month = monthElements[i]['title']
+          .replaceAll(new RegExp(r'  \n'), "")
+          .trimRight()
+          .trimLeft();
+      //print("$month-$day/$title/$imgLink/$link");
+      if (restLink == '/tr/page/news') {
+        fuNewsList.add(AnnoModel(
+            title: title,
+            day: day,
+            month: month,
+            link: link,
+            imgLink: imgLink));
+      }
+      if (restLink == '/tr/page/announcement') {
+        fuAnnoList.add(AnnoModel(
+            title: title,
+            day: day,
+            month: month,
+            link: link,
+            imgLink: imgLink));
+      }
+      if (restLink == '/tr/page/event') {
+        fuEventList.add(AnnoModel(
+            title: title,
+            day: day,
+            month: month,
+            link: link,
+            imgLink: imgLink));
+      }
+    }
+    return fuNewsList;
+  }
+
   Future lastAnnoIdScraping(String code) async {
     String MAIN_LINK = 'http://$code.firat.edu.tr';
     String ANNO_LINK = '/tr/announcements-all';
@@ -103,7 +172,11 @@ class ScrapeData {
   Future<bool> hasNetwork() async {
     try {
       final result = await InternetAddress.lookup('example.com');
-      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
     } on SocketException catch (_) {
       return false;
     }

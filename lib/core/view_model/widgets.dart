@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget noInternetConn() => Container(
+Widget noInternetConn({double myIconSize = 40, double myFontSize = 20}) =>
+    Container(
       child: Center(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -8,11 +9,11 @@ Widget noInternetConn() => Container(
         children: [
           Icon(
             Icons.wifi_off,
-            size: 40,
+            size: myIconSize,
           ),
           Text(
             'İnternet Bağlantınızı Kontrol Ediniz',
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: myFontSize),
           ),
         ],
       )),

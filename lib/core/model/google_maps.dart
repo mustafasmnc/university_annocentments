@@ -19,7 +19,7 @@ class GoogleMaps extends StatelessWidget {
         icon: BitmapDescriptor.defaultMarker,
         markerId: MarkerId('Fü'),
         position: LatLng(38.67753745095975, 39.20199846139586),
-        infoWindow: InfoWindow(title: 'Fırat Üniversitesi')));
+        infoWindow: InfoWindow(title: 'Rektörlük Binası')));
     return GoogleMap(
       onMapCreated: _onMapCreated,
       initialCameraPosition: CameraPosition(

@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/model/department_model.dart';
 import 'package:webscraping/core/model/google_maps.dart';
 import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
+import 'package:webscraping/core/view_model/widgets.dart';
 import 'package:webscraping/pages/department_page.dart';
 import 'package:webscraping/pages/endtermaverage_page.dart';
 import 'package:webscraping/pages/uni_evi.dart';
@@ -22,6 +26,36 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int selected = 0;
+  bool connectedInternet = false;
+
+  late Future fuNews;
+  late Future fuAnno;
+  late Future fuEvents;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkInternetConn();
+    fuNews = ScrapeData().getFuNews(restLink: '/tr/page/news', page: 1);
+    fuAnno = ScrapeData().getFuNews(restLink: '/tr/page/announcement', page: 1);
+    fuEvents = ScrapeData().getFuNews(restLink: '/tr/page/event', page: 1);
+  }
+
+  checkInternetConn() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          connectedInternet = true;
+        });
+      }
+    } on SocketException catch (_) {
+      setState(() {
+        connectedInternet = false;
+      });
+    }
+  }
 
   void changeTheme() {
     Provider.of<CustomThemeDataModal>(context, listen: false).setThemeData();
@@ -60,12 +94,15 @@ class _MainPageState extends State<MainPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            facultySections(
-              context,
-              "Öğrenci İşleri Otomasyonu",
-              "uni_ogrenciotomaston.jpg",
-              "https://obs.firat.edu.tr/",
-            ),
+            newsSection(fuNews, fuNewsList, context, 'Haberler'),
+            newsSection(fuAnno, fuAnnoList, context, 'Duyurular'),
+            newsSection(fuEvents, fuEventList, context, 'Etkinlikler'),
+            // facultySections(
+            //   context,
+            //   "Öğrenci İşleri Otomasyonu",
+            //   "uni_ogrenciotomaston.jpg",
+            //   "https://obs.firat.edu.tr/",
+            // ),
             facultySections(
               context,
               "Akademik Takvim",
@@ -103,12 +140,153 @@ class _MainPageState extends State<MainPage> {
             ),
             SizedBox(height: 20),
             Container(
-                height: 200,
+                height: 150,
                 width: MediaQuery.of(context).size.width,
                 child: GoogleMaps())
           ],
         ),
       ),
+    );
+  }
+
+  Widget newsSection(
+      Future myFuture, List myList, BuildContext context, String sectionTitle) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10, top: 10),
+          child: Text(
+            sectionTitle,
+            style: TextStyle(
+                fontSize: 25,
+                color: ThemeService.instance.isDarkMode()
+                    ? Colors.grey
+                    : Colors.black54),
+          ),
+        ),
+        connectedInternet
+            ? Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                width: MediaQuery.of(context).size.width,
+                height: 200,
+                child: FutureBuilder(
+                  future: myFuture,
+                  builder: (BuildContext context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting)
+                      return circularLoader();
+                    else if (snapshot.hasError)
+                      return Center(child: Text("ERROR: ${snapshot.error}"));
+                    else if (snapshot.hasData) {
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: myList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            //if (index < myList.length) {
+                            var title = myList[index].title;
+                            var day = myList[index].day;
+                            var month = myList[index].month;
+                            var link = myList[index].link;
+                            var imgLink = myList[index].imgLink;
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                  right: 15, bottom: 10, top: 5),
+                              child: Container(
+                                width: 130,
+                                height: 180,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: ThemeService.instance.isDarkMode()
+                                        ? Color(0xFF292D32).withOpacity(.9)
+                                        : Color(0xFF292D32).withOpacity(.2),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: ThemeService.instance
+                                                  .isDarkMode()
+                                              ? Colors.black.withOpacity(0.4)
+                                              : Colors.black.withOpacity(0.1),
+                                          offset: Offset(6.0, 6.0),
+                                          blurRadius: 10.0,
+                                          spreadRadius: 1.0),
+                                    ]),
+                                child: GestureDetector(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              MyWebViews(myUrl: link))),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10)),
+                                        child: Container(
+                                          height: 110,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      imgLink.toString()),
+                                                  fit: BoxFit.cover)),
+                                          alignment: Alignment.bottomLeft,
+                                          child: Container(
+                                            color: Color(0xFF292D32)
+                                                .withOpacity(.6),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(2),
+                                              child: Text(
+                                                '$day $month',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 5.0,
+                                            right: 5,
+                                            top: 10,
+                                            bottom: 5),
+                                        child: Text(
+                                          title.toString(),
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                            // } else if (index == fuNewsList.length) {
+                            //   return Column(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       Icon(
+                            //         Icons.arrow_right,
+                            //         size: 80,
+                            //       ),
+                            //       Text("Daha Fazla")
+                            //     ],
+                            //   );
+                            // } else {
+                            //   return Container();
+                            // }
+                          });
+                    } else {
+                      return circularLoader();
+                    }
+                  },
+                ),
+              )
+            : noInternetConn(myIconSize: 25, myFontSize: 14),
+      ],
     );
   }
 
@@ -221,7 +399,7 @@ class _MainPageState extends State<MainPage> {
               Expanded(
                   flex: 11,
                   child: ListView.builder(
-                      key: Key('builder ${selected.toString()}'), //attention
+                      //key: Key('builder ${selected.toString()}'), //attention
                       physics: ScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: facultyDepartmentList.length,
@@ -243,7 +421,7 @@ class _MainPageState extends State<MainPage> {
                           child: ExpansionTile(
                             childrenPadding: EdgeInsets.all(8),
                             key: Key(i.toString()), //attention
-                            initiallyExpanded: i == selected, //attention
+                            //initiallyExpanded: i == selected, //attention
 
                             title: Padding(
                               padding: const EdgeInsets.all(1.0),
@@ -252,17 +430,17 @@ class _MainPageState extends State<MainPage> {
                                 style: TextStyle(fontSize: 16),
                               ),
                             ),
-                            onExpansionChanged: ((newState) {
-                              if (newState)
-                                setState(() {
-                                  Duration(seconds: 20000);
-                                  selected = i;
-                                });
-                              else
-                                setState(() {
-                                  selected = -1;
-                                });
-                            }),
+                            // onExpansionChanged: ((newState) {
+                            //   if (newState)
+                            //     setState(() {
+                            //       Duration(seconds: 20000);
+                            //       selected = i;
+                            //     });
+                            //   else
+                            //     setState(() {
+                            //       selected = -1;
+                            //     });
+                            // }),
                             children: [
                               ListView.builder(
                                   physics: NeverScrollableScrollPhysics(),

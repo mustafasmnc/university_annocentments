@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UniEvi extends StatefulWidget {
   const UniEvi({Key? key}) : super(key: key);
@@ -117,6 +118,36 @@ class _UniEviState extends State<UniEvi> {
                               },
                             ),
                             SizedBox(height: 10),
+                            Container(
+                              height: 110,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20)),
+                                color: ThemeService.instance.isDarkMode()
+                                    ? Color(0xFF212428).withOpacity(.9)
+                                    : Colors.grey[400],
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "assets/img/creditcard.png",
+                                    fit: BoxFit.fitHeight,
+                                  ),
+                                  GestureDetector(
+                                    onTap: _launchURL,
+                                    child: Text(
+                                      "Yemekhane İçin Bakiye Yükle\nTarayıcıda Açmak için Tıklayınız",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontSize: 18),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -127,6 +158,16 @@ class _UniEviState extends State<UniEvi> {
                 },
               ))
             : noInternetConn());
+  }
+
+  _launchURL() async {
+    const url =
+        'https://jasig.firat.edu.tr/cas/login?service=https://ybs.firat.edu.tr/User/Login';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 
