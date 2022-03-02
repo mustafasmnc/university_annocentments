@@ -1,51 +1,39 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:webscraping/core/data/my_department_database.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
-import 'package:webscraping/core/notification_alarm/alarm_manager_service.dart';
-import 'package:webscraping/core/notification_alarm/notification_service.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/announcements.dart';
+import 'package:webscraping/core/view_model/news_event_anno.dart';
 import 'package:webscraping/core/view_model/widgets.dart';
 
-class DepartmentPage extends StatefulWidget {
-  String? facultyName;
-  String? departmentName;
-  String? departmentCode;
-  DepartmentPage({
-    Key? key,
-    this.departmentName,
-    this.facultyName,
-    required this.departmentCode,
-  }) : super(key: key);
+class FuNewsEventAnno extends StatefulWidget {
+  String? pageTitle;
+  String? pageLink;
+  FuNewsEventAnno({Key? key, this.pageTitle, this.pageLink}) : super(key: key);
 
   @override
-  _DepartmentPageState createState() => _DepartmentPageState();
+  _FuNewsEventAnnoState createState() => _FuNewsEventAnnoState();
 }
 
-class _DepartmentPageState extends State<DepartmentPage> {
+class _FuNewsEventAnnoState extends State<FuNewsEventAnno> {
   late Future getData;
   int page = 1;
   bool loading = false;
-  bool checkbox = false;
   bool connectedInternet = false;
 
   @override
   void initState() {
     checkInternetConn();
-    getData = ScrapeData().scraping(code: widget.departmentCode!, page: 1);
-    // MyDepartmentDatabase.getMyDepartment().then((value) {
-    //   if (value.isNotEmpty) {
-    //     if (widget.departmentCode == value[0]['myDepartmentCode'].toString()) {
-    //       setState(() {
-    //         checkbox = true;
-    //       });
-    //     }
-    //   } else {
-    //     MyDepartmentDatabase.updateLastAnnoId(0);
-    //   }
-    // });
+    widget.pageTitle == 'Haberler'
+        ? fuNewsList.clear()
+        : widget.pageTitle == 'Duyurular'
+            ? fuAnnoList.clear()
+            : fuEventList.clear();
+    // TODO: implement initState
+    super.initState();
+    getData =
+        ScrapeData().getFuNewsEventAnno(restLink: widget.pageLink!, page: 1);
   }
 
   checkInternetConn() async {
@@ -75,63 +63,24 @@ class _DepartmentPageState extends State<DepartmentPage> {
           centerTitle: true,
           title: Column(
             children: [
-              // Text(
-              //   widget.facultyName.toString(),
-              //   style: TextStyle(
-              //       fontSize: 13,
-              //       color: ThemeService.instance.isDarkMode()
-              //           ? Colors.white
-              //           : Colors.black87),
-              // ),
               Text(
-                widget.departmentName.toString(),
+                "Fırat Üniversitesi",
                 style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 18,
                     color: ThemeService.instance.isDarkMode()
                         ? Colors.white
                         : Colors.black87),
               ),
-              Text('DUYURULAR',
-                  style: TextStyle(
-                      fontSize: 17,
-                      color: ThemeService.instance.isDarkMode()
-                          ? Colors.white
-                          : Colors.black87)),
+              Text(
+                widget.pageTitle.toString(),
+                style: TextStyle(
+                    fontSize: 16,
+                    color: ThemeService.instance.isDarkMode()
+                        ? Colors.white
+                        : Colors.black87),
+              ),
             ],
           ),
-          // actions: [
-          //   Padding(
-          //     padding: const EdgeInsets.only(right: 5),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Text("Bildirim",
-          //             style: TextStyle(
-          //                 fontSize: 15,
-          //                 color: ThemeService.instance.isDarkMode()
-          //                     ? Colors.white
-          //                     : Colors.black87)),
-          //         SizedBox(height: 5),
-          //         SizedBox(
-          //           height: 20,
-          //           width: 20,
-          //           child: Checkbox(
-          //             checkColor: Colors.white,
-          //             value: checkbox,
-          //             onChanged: (bool? value) async {
-          //               updateMyDepartment();
-          //               //updateLastAnnoId();
-          //               AlarmManagerService().init();
-          //               setState(() {
-          //                 checkbox = value!;
-          //               });
-          //             },
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //   )
-          // ],
           flexibleSpace: Image.asset(
             ThemeService.instance.isDarkMode()
                 ? "assets/img/footer-bg.png"
@@ -144,25 +93,6 @@ class _DepartmentPageState extends State<DepartmentPage> {
         backgroundColor: ThemeService.instance.isDarkMode()
             ? Color(0xFF292D32)
             : Colors.grey[300],
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     //MyDepartmentDatabase.deleteMyDepartment();
-        //     // MyDepartmentDatabase.getMyDepartment().then((value) {
-        //     //   if (value != '' || value.isNotEmpty) {
-        //     //     print(
-        //     //         "${value[0]['myDepartmentCode'].toString()} + ${value[0]['myDepartmentName'].toString()} + ${value[0]['id'].toString()}");
-        //     //   } else
-        //     //     print('mydepartmentbossss');
-        //     // });
-        //     //ScrapeData().lastAnnoIdScraping(widget.departmentCode!).then((value) => print(value));
-        //     //MyDepartmentDatabase.getLastAnnoId().then((value) => print(value));
-    
-        //     // notifyHelper.displayNotification(
-        //     //   title: "Yeni Duyuru Yayınlandı!",
-        //     //   body: widget.departmentName,
-        //     // );
-        //   },
-        // ),
         body: connectedInternet
             ? Stack(
                 children: [
@@ -179,19 +109,50 @@ class _DepartmentPageState extends State<DepartmentPage> {
                               ListView.builder(
                                   physics: ScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: announcements.length,
+                                  itemCount: widget.pageTitle == 'Haberler'
+                                      ? fuNewsList.length
+                                      : widget.pageTitle == 'Duyurular'
+                                          ? fuAnnoList.length
+                                          : fuEventList.length,
                                   itemBuilder: (BuildContext context, int index) {
-                                    var id = announcements[index].id;
-                                    var title = announcements[index].title;
-                                    var day = announcements[index].day;
-                                    var month = announcements[index].month;
-                                    var link = announcements[index].link;
+                                    var id, title, desc, img, day, month, link;
+                                    title = widget.pageTitle == 'Haberler'
+                                        ? fuNewsList[index].title
+                                        : widget.pageTitle == 'Duyurular'
+                                            ? fuAnnoList[index].title
+                                            : fuEventList[index].title;
+                                    desc = widget.pageTitle == 'Haberler'
+                                        ? fuNewsList[index].desc
+                                        : widget.pageTitle == 'Duyurular'
+                                            ? fuAnnoList[index].desc
+                                            : fuEventList[index].desc;
+                                    img = widget.pageTitle == 'Haberler'
+                                        ? fuNewsList[index].imgLink
+                                        : widget.pageTitle == 'Duyurular'
+                                            ? fuAnnoList[index].imgLink
+                                            : fuEventList[index].imgLink;
+                                    day = widget.pageTitle == 'Haberler'
+                                        ? fuNewsList[index].day
+                                        : widget.pageTitle == 'Duyurular'
+                                            ? fuAnnoList[index].day
+                                            : fuEventList[index].day;
+                                    month = widget.pageTitle == 'Haberler'
+                                        ? fuNewsList[index].month
+                                        : widget.pageTitle == 'Duyurular'
+                                            ? fuAnnoList[index].month
+                                            : fuEventList[index].month;
+                                    link = widget.pageTitle == 'Haberler'
+                                        ? fuNewsList[index].link
+                                        : widget.pageTitle == 'Duyurular'
+                                            ? fuAnnoList[index].link
+                                            : fuEventList[index].link;
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 10),
-                                      child: Announcements(
-                                        id: id,
+                                      child: NewsEventAnno(
                                         title: title,
+                                        desc: desc,
+                                        imgLink: img,
                                         day: day,
                                         month: month,
                                         link: link,
@@ -208,8 +169,8 @@ class _DepartmentPageState extends State<DepartmentPage> {
                                     });
                                     page++;
                                     await ScrapeData()
-                                        .scraping(
-                                            code: widget.departmentCode!,
+                                        .getFuNewsEventAnno(
+                                            restLink: widget.pageLink!,
                                             page: page)
                                         .then((value) {
                                       setState(() {
@@ -252,24 +213,4 @@ class _DepartmentPageState extends State<DepartmentPage> {
       ),
     );
   }
-
-  // void updateLastAnnoId() {
-  //   ScrapeData().lastAnnoIdScraping(widget.departmentCode!).then((value) {
-  //     MyDepartmentDatabase.updateLastAnnoId(value);
-  //   });
-  // }
-
-  // Future<int> updateMyDepartment() {
-  //   // MyDepartmentDatabase.updateMyDepartment(
-  //   //     myDepartmentCode: widget.departmentCode!,
-  //   //     myDepartmentName: widget.departmentName);
-  //   Future<int> departmentID = MyDepartmentDatabase.insertmyDepartment(
-  //       widget.departmentCode!, widget.departmentName!);
-  //   return departmentID;
-  // }
-  // updateMyDepartment() {
-  //   MyDepartmentDatabase.updateMyDepartment(
-  //       myDepartmentCode: widget.departmentCode!,
-  //       myDepartmentName: widget.departmentName);
-  // }
 }

@@ -11,6 +11,7 @@ import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/widgets.dart';
 import 'package:webscraping/pages/department_page.dart';
 import 'package:webscraping/pages/endtermaverage_page.dart';
+import 'package:webscraping/pages/fu_news_event_anno.dart';
 import 'package:webscraping/pages/uni_evi.dart';
 import 'package:webscraping/pages/vizefinal_page.dart';
 import 'package:webscraping/pages/web_views.dart';
@@ -32,14 +33,18 @@ class _MainPageState extends State<MainPage> {
   late Future fuAnno;
   late Future fuEvents;
 
+  String fuNewsLink = '/tr/page/news';
+  String fuAnnoLink = '/tr/page/announcement';
+  String fuEventLink = '/tr/page/event';
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     checkInternetConn();
-    fuNews = ScrapeData().getFuNews(restLink: '/tr/page/news', page: 1);
-    fuAnno = ScrapeData().getFuNews(restLink: '/tr/page/announcement', page: 1);
-    fuEvents = ScrapeData().getFuNews(restLink: '/tr/page/event', page: 1);
+    fuNews = ScrapeData().getFuNewsEventAnno(restLink: fuNewsLink, page: 1);
+    fuAnno = ScrapeData().getFuNewsEventAnno(restLink: fuAnnoLink, page: 1);
+    fuEvents = ScrapeData().getFuNewsEventAnno(restLink: fuEventLink, page: 1);
   }
 
   checkInternetConn() async {
@@ -64,93 +69,96 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context); // for responsive UI
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-            color: ThemeService.instance.isDarkMode()
-                ? Colors.white
-                : Colors.black),
-        centerTitle: true,
-        title: Text(
-          'FIRAT ÜNİVERSİTESİ',
-          style: TextStyle(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(
               color: ThemeService.instance.isDarkMode()
                   ? Colors.white
-                  : Colors.black87),
+                  : Colors.black),
+          centerTitle: true,
+          title: Text(
+            'FIRAT ÜNİVERSİTESİ',
+            style: TextStyle(
+                color: ThemeService.instance.isDarkMode()
+                    ? Colors.white
+                    : Colors.black87),
+          ),
+          flexibleSpace: Image.asset(
+            ThemeService.instance.isDarkMode()
+                ? "assets/img/footer-bg.png"
+                : "assets/img/bg-pattern.png",
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
+          ),
+          backgroundColor: Colors.transparent,
         ),
-        flexibleSpace: Image.asset(
-          ThemeService.instance.isDarkMode()
-              ? "assets/img/footer-bg.png"
-              : "assets/img/bg-pattern.png",
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.cover,
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-      backgroundColor: ThemeService.instance.isDarkMode()
-          ? Color(0xFF292D32)
-          : Colors.grey[300],
-      drawer: drawerDepartments(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            newsSection(fuNews, fuNewsList, context, 'Haberler'),
-            newsSection(fuAnno, fuAnnoList, context, 'Duyurular'),
-            newsSection(fuEvents, fuEventList, context, 'Etkinlikler'),
-            // facultySections(
-            //   context,
-            //   "Öğrenci İşleri Otomasyonu",
-            //   "uni_ogrenciotomaston.jpg",
-            //   "https://obs.firat.edu.tr/",
-            // ),
-            facultySections(
-              context,
-              "Akademik Takvim",
-              "uni_akademiktakvim.jpg",
-              "http://www.firat.edu.tr/tr/document?file_category_id=66&menu_id=406",
-            ),
-            facultySections(
-              context,
-              "Kütüphane",
-              "uni_kutuphane.jpeg",
-              "http://ktarama.firat.edu.tr/yordambt/yordam.php",
-            ),
-            facultySections(
-              context,
-              "Üniversite Evi",
-              "uni_evi.jpg",
-              "http://uevi.firat.edu.tr/",
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                calculationArea("Vize Final (Proje) Hesapla", () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => VizeFinalPage()));
-                }),
-                SizedBox(width: 20),
-                calculationArea("Dönem Ortalaması Hesapla", () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EndTermAverage()));
-                }),
-              ],
-            ),
-            SizedBox(height: 20),
-            Container(
-                height: 150,
-                width: MediaQuery.of(context).size.width,
-                child: GoogleMaps())
-          ],
+        backgroundColor: ThemeService.instance.isDarkMode()
+            ? Color(0xFF292D32)
+            : Colors.grey[300],
+        drawer: drawerDepartments(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              newsSection(fuNews, fuNewsList, context, 'Haberler', fuNewsLink),
+              newsSection(fuAnno, fuAnnoList, context, 'Duyurular', fuAnnoLink),
+              newsSection(
+                  fuEvents, fuEventList, context, 'Etkinlikler', fuEventLink),
+              // facultySections(
+              //   context,
+              //   "Öğrenci İşleri Otomasyonu",
+              //   "uni_ogrenciotomaston.jpg",
+              //   "https://obs.firat.edu.tr/",
+              // ),
+              facultySections(
+                context,
+                "Akademik Takvim",
+                "uni_akademiktakvim.jpg",
+                "http://www.firat.edu.tr/tr/document?file_category_id=66&menu_id=406",
+              ),
+              facultySections(
+                context,
+                "Kütüphane",
+                "uni_kutuphane.jpeg",
+                "http://ktarama.firat.edu.tr/yordambt/yordam.php",
+              ),
+              facultySections(
+                context,
+                "Üniversite Evi",
+                "uni_evi.jpg",
+                "http://uevi.firat.edu.tr/",
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  calculationArea("Vize Final (Proje) Hesapla", () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => VizeFinalPage()));
+                  }),
+                  SizedBox(width: 20),
+                  calculationArea("Dönem Ortalaması Hesapla", () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EndTermAverage()));
+                  }),
+                ],
+              ),
+              SizedBox(height: 20),
+              Container(
+                  height: 150,
+                  width: MediaQuery.of(context).size.width,
+                  child: GoogleMaps())
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget newsSection(
-      Future myFuture, List myList, BuildContext context, String sectionTitle) {
+  Widget newsSection(Future myFuture, List myList, BuildContext context,
+      String sectionTitle, String sectionLink) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -181,103 +189,117 @@ class _MainPageState extends State<MainPage> {
                       return ListView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
-                          itemCount: myList.length,
+                          itemCount:
+                              myList.length > 10 ? 10 : myList.length + 1,
                           itemBuilder: (BuildContext context, int index) {
-                            //if (index < myList.length) {
-                            var title = myList[index].title;
-                            var day = myList[index].day;
-                            var month = myList[index].month;
-                            var link = myList[index].link;
-                            var imgLink = myList[index].imgLink;
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  right: 15, bottom: 10, top: 5),
-                              child: Container(
-                                width: 130,
-                                height: 180,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: ThemeService.instance.isDarkMode()
-                                        ? Color(0xFF292D32).withOpacity(.9)
-                                        : Color(0xFF292D32).withOpacity(.2),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: ThemeService.instance
-                                                  .isDarkMode()
-                                              ? Colors.black.withOpacity(0.4)
-                                              : Colors.black.withOpacity(0.1),
-                                          offset: Offset(6.0, 6.0),
-                                          blurRadius: 10.0,
-                                          spreadRadius: 1.0),
-                                    ]),
-                                child: GestureDetector(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              MyWebViews(myUrl: link))),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10)),
-                                        child: Container(
-                                          height: 110,
-                                          width: 150,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      imgLink.toString()),
-                                                  fit: BoxFit.cover)),
-                                          alignment: Alignment.bottomLeft,
+                            if (index <
+                                (myList.length > 10 ? 10 : myList.length)) {
+                              var title = myList[index].title;
+                              var day = myList[index].day;
+                              var month = myList[index].month;
+                              var link = myList[index].link;
+                              var imgLink = myList[index].imgLink;
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                    right: 15, bottom: 10, top: 5),
+                                child: Container(
+                                  width: 130,
+                                  height: 180,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: ThemeService.instance.isDarkMode()
+                                          ? Color(0xFF292D32).withOpacity(.9)
+                                          : Color(0xFF292D32).withOpacity(.2),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: ThemeService.instance
+                                                    .isDarkMode()
+                                                ? Colors.black.withOpacity(0.4)
+                                                : Colors.black.withOpacity(0.1),
+                                            offset: Offset(6.0, 6.0),
+                                            blurRadius: 10.0,
+                                            spreadRadius: 1.0),
+                                      ]),
+                                  child: GestureDetector(
+                                    onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MyWebViews(myUrl: link))),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10)),
                                           child: Container(
-                                            color: Color(0xFF292D32)
-                                                .withOpacity(.6),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(2),
-                                              child: Text(
-                                                '$day $month',
-                                                style: TextStyle(
-                                                    color: Colors.white),
+                                            height: 110,
+                                            width: 150,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        imgLink.toString()),
+                                                    fit: BoxFit.cover)),
+                                            alignment: Alignment.bottomLeft,
+                                            child: Container(
+                                              color: Color(0xFF292D32)
+                                                  .withOpacity(.6),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(2),
+                                                child: Text(
+                                                  '$day $month',
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 5.0,
-                                            right: 5,
-                                            top: 10,
-                                            bottom: 5),
-                                        child: Text(
-                                          title.toString(),
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      )
-                                    ],
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 5.0,
+                                              right: 5,
+                                              top: 10,
+                                              bottom: 5),
+                                          child: Text(
+                                            title.toString(),
+                                            maxLines: 3,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                            // } else if (index == fuNewsList.length) {
-                            //   return Column(
-                            //     mainAxisAlignment: MainAxisAlignment.center,
-                            //     children: [
-                            //       Icon(
-                            //         Icons.arrow_right,
-                            //         size: 80,
-                            //       ),
-                            //       Text("Daha Fazla")
-                            //     ],
-                            //   );
-                            // } else {
-                            //   return Container();
-                            // }
+                              );
+                            } else if (index ==
+                                (myList.length > 10 ? 10 : myList.length)) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => FuNewsEventAnno(
+                                              pageLink: sectionLink,
+                                              pageTitle: sectionTitle)));
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.arrow_right,
+                                      size: 80,
+                                    ),
+                                    Text("Tüm $sectionTitle")
+                                  ],
+                                ),
+                              );
+                            } else {
+                              return Container();
+                            }
                           });
                     } else {
                       return circularLoader();
@@ -477,8 +499,8 @@ class _MainPageState extends State<MainPage> {
                               onTap: () => changeTheme(),
                               child: Icon(
                                 ThemeService.instance.isDarkMode()
-                                    ? Icons.wb_sunny
-                                    : Icons.nightlight_round,
+                                    ? Icons.light_mode
+                                    : Icons.dark_mode,
                                 size: SizeConfig.orientation ==
                                         Orientation.portrait
                                     ? 24
@@ -564,11 +586,7 @@ class _MainPageState extends State<MainPage> {
                 child: Container(
               color: Colors.black38,
               child: Image(
-                image: AssetImage(
-                    Provider.of<CustomThemeDataModal>(context).getThemeData ==
-                            ThemeData.dark()
-                        ? 'assets/img/footer-bg.png'
-                        : 'assets/img/bg-pattern.png'),
+                image: AssetImage('assets/img/footer-bg.png'),
                 fit: BoxFit.cover,
                 height:
                     SizeConfig.orientation == Orientation.portrait ? 150 : 100,

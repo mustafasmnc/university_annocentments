@@ -67,10 +67,11 @@ class ScrapeData {
     return announcements;
   }
 
-  Future getFuNews({required String restLink, int page = 1}) async {
+  Future getFuNewsEventAnno({required String restLink, int page = 1}) async {
     String MAIN_LINK = 'http://www.firat.edu.tr';
     final webScraper = WebScraper(MAIN_LINK);
     var titleElements;
+    var descElements;
     var dayElements;
     var monthElements;
     var linkElements;
@@ -79,6 +80,8 @@ class ScrapeData {
       if (await webScraper.loadWebPage('$restLink?page=$i')) {
         titleElements =
             webScraper.getElement('div.item-content > h3.title > a', []);
+        descElements =
+            webScraper.getElement('div.item-content > div.item-excerpt.blog-item-excerpt > p', []);
         dayElements = webScraper.getElement('div.day', []);
         monthElements = webScraper.getElement('div.month', []);
         linkElements = webScraper.getElementAttribute(
@@ -90,6 +93,10 @@ class ScrapeData {
 
     for (var i = 0; i < linkElements.length; i++) {
       var title = titleElements[i]['title']
+          .replaceAll(new RegExp("  "), "")
+          .trimRight()
+          .trimLeft();
+      var desc = descElements[i]['title']
           .replaceAll(new RegExp("  "), "")
           .trimRight()
           .trimLeft();
@@ -108,6 +115,7 @@ class ScrapeData {
       if (restLink == '/tr/page/news') {
         fuNewsList.add(AnnoModel(
             title: title,
+            desc: desc,
             day: day,
             month: month,
             link: link,
@@ -116,6 +124,7 @@ class ScrapeData {
       if (restLink == '/tr/page/announcement') {
         fuAnnoList.add(AnnoModel(
             title: title,
+            desc: desc,
             day: day,
             month: month,
             link: link,
@@ -124,6 +133,7 @@ class ScrapeData {
       if (restLink == '/tr/page/event') {
         fuEventList.add(AnnoModel(
             title: title,
+            desc: desc,
             day: day,
             month: month,
             link: link,

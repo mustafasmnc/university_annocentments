@@ -59,105 +59,140 @@ class _UniEviState extends State<UniEvi> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: ThemeService.instance.isDarkMode()
-            ? Color(0xFF292D32)
-            : Colors.grey[300],
-        appBar: AppBar(
-          // title: Text("Üniversite Evi",
-          //     style: TextStyle(
-          //         fontSize: 20,
-          //         color: ThemeService.instance.isDarkMode()
-          //             ? Colors.white
-          //             : Colors.black54)),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          iconTheme: IconThemeData(
-            color: ThemeService.instance.isDarkMode()
-                ? Colors.white
-                : Colors.black87, //change your color here
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: ThemeService.instance.isDarkMode()
+              ? Color(0xFF292D32)
+              : Colors.grey[300],
+          appBar: AppBar(
+            // title: Text("Üniversite Evi",
+            //     style: TextStyle(
+            //         fontSize: 20,
+            //         color: ThemeService.instance.isDarkMode()
+            //             ? Colors.white
+            //             : Colors.black54)),
+            centerTitle: true,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            iconTheme: IconThemeData(
+              color: ThemeService.instance.isDarkMode()
+                  ? Colors.white
+                  : Colors.black87, //change your color here
+            ),
           ),
-        ),
-        body: connectedInternet
-            ? Container(
-                child: FutureBuilder(
-                future: getMealList,
-                builder: (BuildContext context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: circularLoader());
-                  }
-                  if (snapshot.hasError) {
-                    print("ERROR: ${snapshot.error}");
-                    String errorTitle = snapshot.error.toString();
-
-                    if (errorTitle.contains('Valid value range is empty: 0')) {
-                      return Center(
-                          child: errorMsg(
-                              errorTitle: 'Üniversite Evinde Öğün Bulunamadı'));
-                    } else {
-                      return Center(child: errorMsg());
+          body: connectedInternet
+              ? Container(
+                  child: FutureBuilder(
+                  future: getMealList,
+                  builder: (BuildContext context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: circularLoader());
                     }
-                  }
-                  if (snapshot.hasData) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            //SizedBox(height: 10),
-                            MenuDate(
-                                menuItem: mealDate == null ? '' : mealDate),
-                            ListView.builder(
-                              physics: ScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: mealList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                //return MenuItems(menuItem: mealList[index]);
-                                return Meals(menuItem: mealList[index]);
-                              },
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              height: 110,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20)),
-                                color: ThemeService.instance.isDarkMode()
-                                    ? Color(0xFF212428).withOpacity(.9)
-                                    : Colors.grey[400],
+                    if (snapshot.hasError) {
+                      print("ERROR: ${snapshot.error}");
+                      String errorTitle = snapshot.error.toString();
+    
+                      if (errorTitle.contains('Valid value range is empty: 0')) {
+                        return Center(
+                            child: errorMsg(
+                                errorTitle: 'Üniversite Evinde Öğün Bulunamadı'));
+                      } else {
+                        return Center(child: errorMsg());
+                      }
+                    }
+                    if (snapshot.hasData) {
+                      return Container(
+                        height: MediaQuery.of(context).size.height,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              //SizedBox(height: 10),
+                              MenuDate(
+                                  menuItem: mealDate == null ? '' : mealDate),
+                              ListView.builder(
+                                physics: ScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: mealList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  //return MenuItems(menuItem: mealList[index]);
+                                  return Meals(menuItem: mealList[index]);
+                                },
                               ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    "assets/img/creditcard.png",
-                                    fit: BoxFit.fitHeight,
-                                  ),
-                                  GestureDetector(
-                                    onTap: _launchURL,
-                                    child: Text(
-                                      "Yemekhane İçin Bakiye Yükle\nTarayıcıda Açmak için Tıklayınız",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 18),
+                              SizedBox(height: 20),
+                              Container(
+                                height: 110,
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    color: ThemeService.instance.isDarkMode()
+                                        ? Color(0xFF292D32).withOpacity(.9)
+                                        : Color(0xFF292D32).withOpacity(.1),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color:
+                                              ThemeService.instance.isDarkMode()
+                                                  ? Colors.white.withOpacity(0.1)
+                                                  : Colors.white.withOpacity(0.8),
+                                          offset: Offset(-6.0, -6.0),
+                                          blurRadius: 15.0,
+                                          spreadRadius: 1.0),
+                                      BoxShadow(
+                                          color:
+                                              ThemeService.instance.isDarkMode()
+                                                  ? Colors.black.withOpacity(0.4)
+                                                  : Colors.black.withOpacity(0.1),
+                                          offset: Offset(6.0, 6.0),
+                                          blurRadius: 15.0,
+                                          spreadRadius: 1.0),
+                                    ]),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/img/creditcard.png",
+                                      fit: BoxFit.fitHeight,
                                     ),
-                                  ),
-                                ],
+                                    GestureDetector(
+                                      onTap: _launchURL,
+                                      child: Wrap(children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Yemekhane İçin Bakiye Yükle",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(fontSize: 17),
+                                            ),
+                                            Text(
+                                              "Tarayıcıda Açmak için Tıklayınız",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(fontSize: 15),
+                                            ),
+                                          ],
+                                        ),
+                                      ]),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 10),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  } else {
-                    return Center(child: circularLoader());
-                  }
-                },
-              ))
-            : noInternetConn());
+                      );
+                    } else {
+                      return Center(child: circularLoader());
+                    }
+                  },
+                ))
+              : noInternetConn()),
+    );
   }
 
   _launchURL() async {
