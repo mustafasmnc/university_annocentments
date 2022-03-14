@@ -191,7 +191,7 @@ class _FuNewsEventAnnoState extends State<FuNewsEventAnno> {
                                       ),
                                     ),
                                     child: Text(
-                                      "Daha Fazla Duyuru",
+                                      "Daha Fazla ${widget.pageTitle}",
                                       style: TextStyle(
                                           fontSize: 17,
                                           fontWeight: FontWeight.w400,

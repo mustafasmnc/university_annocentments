@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/pages/web_views.dart';
+import 'package:webscraping/size_config.dart';
 
 class NewsEventAnno extends StatelessWidget {
   final title;
@@ -61,7 +62,7 @@ class NewsEventAnno extends StatelessWidget {
                           children: [
                             Text(
                               '$month',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white,fontSize: SizeConfig.screenHeight! > 600 ? 14 : 11),
                             ),
                             Container(
                               height: .5,
@@ -70,7 +71,7 @@ class NewsEventAnno extends StatelessWidget {
                             ),
                             Text(
                               '$day',
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(color: Colors.white,fontSize: SizeConfig.screenHeight! > 600 ? 14 : 11),
                             ),
                           ],
                         ),
@@ -91,7 +92,10 @@ class NewsEventAnno extends StatelessWidget {
                           child: Text(
                             title,
                             maxLines: 2,
-                            style: TextStyle(fontSize: 17),
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize:
+                                    SizeConfig.screenHeight! > 600 ? 17 : 14),
                           ),
                         ),
                         //Divider(),
@@ -103,7 +107,9 @@ class NewsEventAnno extends StatelessWidget {
                             desc,
                             maxLines: 5,
                             overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(
+                                fontSize:
+                                    SizeConfig.screenHeight! > 600 ? 14 : 11),
                           ),
                         ),
                       ],

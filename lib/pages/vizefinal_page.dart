@@ -165,262 +165,264 @@ class _VizeFinalPageState extends State<VizeFinalPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-            color: ThemeService.instance.isDarkMode()
-                ? Colors.white
-                : Colors.black),
-        centerTitle: true,
-        title: Text(
-          'Vize Final Hesapla',
-          style: TextStyle(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(
               color: ThemeService.instance.isDarkMode()
                   ? Colors.white
-                  : Colors.black87),
+                  : Colors.black),
+          centerTitle: true,
+          title: Text(
+            'Vize Final Hesapla',
+            style: TextStyle(
+                color: ThemeService.instance.isDarkMode()
+                    ? Colors.white
+                    : Colors.black87),
+          ),
+          flexibleSpace: Image.asset(
+            ThemeService.instance.isDarkMode()
+                ? "assets/img/footer-bg.png"
+                : "assets/img/bg-pattern.png",
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
+          ),
+          backgroundColor: Colors.transparent,
         ),
-        flexibleSpace: Image.asset(
-          ThemeService.instance.isDarkMode()
-              ? "assets/img/footer-bg.png"
-              : "assets/img/bg-pattern.png",
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.cover,
-        ),
-        backgroundColor: Colors.transparent,
-      ),
-      backgroundColor: ThemeService.instance.isDarkMode()
-          ? Color(0xFF292D32)
-          : Colors.grey[300],
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ListTile(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  tileColor: ThemeService.instance.isDarkMode()
-                      ? Colors.black.withOpacity(0.1)
-                      : Colors.grey[400],
-                  title: Padding(
-                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("VİZE:"),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 80,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                labelText: "Puan",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide())),
-                            controller: vizePuan,
-                            keyboardType: TextInputType.number,
-                            validator: (value) {
-                              if (value!.isEmpty ||
-                                  value == ' ' ||
-                                  value == '') {
-                                return 'Geçersiz';
-                              } else {
-                                double? num = double.tryParse(value);
-                                if (num == null)
-                                  return 'Geçersiz';
-                                else if (num < 0 || num > 150)
-                                  return 'Geçersiz';
-                                else
-                                  null;
-                              }
-                            },
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 70,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                labelText: "% etki",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide())),
-                            controller: vizeYuzde,
-                            keyboardType: TextInputType.number,
-                            validator: (value) {
-                              if (value!.isEmpty ||
-                                  value == ' ' ||
-                                  value == '') {
-                                return 'Geçersiz';
-                              } else {
-                                double? num = double.tryParse(value);
-                                if (num == null)
-                                  return 'Geçersiz';
-                                else if (num < 0 || num > 100)
-                                  return 'Geçersiz';
-                                else
-                                  null;
-                              }
-                            },
-                          ),
-                        ),
-                      ],
+        backgroundColor: ThemeService.instance.isDarkMode()
+            ? Color(0xFF292D32)
+            : Colors.grey[300],
+        body: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                ListTile(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  tileColor: ThemeService.instance.isDarkMode()
-                      ? Colors.black.withOpacity(0.1)
-                      : Colors.grey[400],
-                  title: Padding(
-                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("FİNAL:"),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 80,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                labelText: "Puan",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide())),
-                            controller: finalPuan,
-                            keyboardType: TextInputType.number,
-                            validator: (value) {
-                              if (value!.isEmpty ||
-                                  value == ' ' ||
-                                  value == '') {
-                                return 'Geçersiz';
-                              } else {
-                                double? num = double.tryParse(value);
-                                if (num == null)
+                    tileColor: ThemeService.instance.isDarkMode()
+                        ? Colors.black.withOpacity(0.1)
+                        : Colors.grey[400],
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("VİZE:"),
+                          SizedBox(width: 10),
+                          Container(
+                            width: 80,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "Puan",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide())),
+                              controller: vizePuan,
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value!.isEmpty ||
+                                    value == ' ' ||
+                                    value == '') {
                                   return 'Geçersiz';
-                                else if (num < 0 || num > 150)
-                                  return 'Geçersiz';
-                                else
-                                  null;
-                              }
-                            },
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          width: 70,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                labelText: "% etki",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide())),
-                            controller: finalYuzde,
-                            keyboardType: TextInputType.number,
-                            validator: (value) {
-                              if (value!.isEmpty ||
-                                  value == ' ' ||
-                                  value == '') {
-                                return 'Geçersiz';
-                              } else {
-                                double? num = double.tryParse(value);
-                                if (num == null)
-                                  return 'Geçersiz';
-                                else if (num < 0 || num > 100)
-                                  return 'Geçersiz';
-                                else
-                                  null;
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 5),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: odevler.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        tileColor: ThemeService.instance.isDarkMode()
-                            ? Colors.black.withOpacity(0.1)
-                            : Colors.grey[400],
-                        title: Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 5),
-                          child: odevler[index],
-                        ),
-                        trailing: SizedBox(
-                          width: 20,
-                          child: IconButton(
-                              onPressed: () {
-                                odevler.removeAt(index);
-                                numberTECS.removeAt(index);
-                                percantageTECs.removeAt(index);
-                                setState(() {});
+                                } else {
+                                  double? num = double.tryParse(value);
+                                  if (num == null)
+                                    return 'Geçersiz';
+                                  else if (num < 0 || num > 150)
+                                    return 'Geçersiz';
+                                  else
+                                    null;
+                                }
                               },
-                              icon: Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              )),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            width: 70,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "% etki",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide())),
+                              controller: vizeYuzde,
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value!.isEmpty ||
+                                    value == ' ' ||
+                                    value == '') {
+                                  return 'Geçersiz';
+                                } else {
+                                  double? num = double.tryParse(value);
+                                  if (num == null)
+                                    return 'Geçersiz';
+                                  else if (num < 0 || num > 100)
+                                    return 'Geçersiz';
+                                  else
+                                    null;
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    tileColor: ThemeService.instance.isDarkMode()
+                        ? Colors.black.withOpacity(0.1)
+                        : Colors.grey[400],
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("FİNAL:"),
+                          SizedBox(width: 10),
+                          Container(
+                            width: 80,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "Puan",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide())),
+                              controller: finalPuan,
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value!.isEmpty ||
+                                    value == ' ' ||
+                                    value == '') {
+                                  return 'Geçersiz';
+                                } else {
+                                  double? num = double.tryParse(value);
+                                  if (num == null)
+                                    return 'Geçersiz';
+                                  else if (num < 0 || num > 150)
+                                    return 'Geçersiz';
+                                  else
+                                    null;
+                                }
+                              },
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            width: 70,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  labelText: "% etki",
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide())),
+                              controller: finalYuzde,
+                              keyboardType: TextInputType.number,
+                              validator: (value) {
+                                if (value!.isEmpty ||
+                                    value == ' ' ||
+                                    value == '') {
+                                  return 'Geçersiz';
+                                } else {
+                                  double? num = double.tryParse(value);
+                                  if (num == null)
+                                    return 'Geçersiz';
+                                  else if (num < 0 || num > 100)
+                                    return 'Geçersiz';
+                                  else
+                                    null;
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: odevler.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          tileColor: ThemeService.instance.isDarkMode()
+                              ? Colors.black.withOpacity(0.1)
+                              : Colors.grey[400],
+                          title: Padding(
+                            padding: const EdgeInsets.only(top: 5, bottom: 5),
+                            child: odevler[index],
+                          ),
+                          trailing: SizedBox(
+                            width: 20,
+                            child: IconButton(
+                                onPressed: () {
+                                  odevler.removeAt(index);
+                                  numberTECS.removeAt(index);
+                                  percantageTECs.removeAt(index);
+                                  setState(() {});
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                )),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() => odevler.add(createProjeRow()));
+                        },
+                        child: customButton(
+                          'Proje Ekle',
+                          Icons.add_box,
+                          Colors.blueAccent,
                         ),
                       ),
-                    );
-                  },
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() => odevler.add(createProjeRow()));
-                      },
-                      child: customButton(
-                        'Proje Ekle',
-                        Icons.add_box,
-                        Colors.blueAccent,
+                      SizedBox(width: 10),
+                      GestureDetector(
+                        onTap: () {
+                          _onDone();
+                        },
+                        child: customButton(
+                          'Hesapla',
+                          Icons.calculate,
+                          Colors.green,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    GestureDetector(
-                      onTap: () {
-                        _onDone();
-                      },
-                      child: customButton(
-                        'Hesapla',
-                        Icons.calculate,
-                        Colors.green,
+                      SizedBox(width: 10),
+                      GestureDetector(
+                        onTap: () {
+                          _clearAll();
+                        },
+                        child: customButton(
+                          'Temizle',
+                          Icons.delete,
+                          Colors.red,
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    GestureDetector(
-                      onTap: () {
-                        _clearAll();
-                      },
-                      child: customButton(
-                        'Temizle',
-                        Icons.delete,
-                        Colors.red,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

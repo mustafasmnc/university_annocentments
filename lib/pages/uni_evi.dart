@@ -7,6 +7,7 @@ import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webscraping/size_config.dart';
 
 class UniEvi extends StatefulWidget {
   const UniEvi({Key? key}) : super(key: key);
@@ -91,11 +92,13 @@ class _UniEviState extends State<UniEvi> {
                     if (snapshot.hasError) {
                       print("ERROR: ${snapshot.error}");
                       String errorTitle = snapshot.error.toString();
-    
-                      if (errorTitle.contains('Valid value range is empty: 0')) {
+
+                      if (errorTitle
+                          .contains('Valid value range is empty: 0')) {
                         return Center(
                             child: errorMsg(
-                                errorTitle: 'Üniversite Evinde Öğün Bulunamadı'));
+                                errorTitle:
+                                    'Üniversite Evinde Öğün Bulunamadı'));
                       } else {
                         return Center(child: errorMsg());
                       }
@@ -131,57 +134,67 @@ class _UniEviState extends State<UniEvi> {
                                         : Color(0xFF292D32).withOpacity(.1),
                                     boxShadow: [
                                       BoxShadow(
-                                          color:
-                                              ThemeService.instance.isDarkMode()
-                                                  ? Colors.white.withOpacity(0.1)
-                                                  : Colors.white.withOpacity(0.8),
+                                          color: ThemeService.instance
+                                                  .isDarkMode()
+                                              ? Colors.white.withOpacity(0.1)
+                                              : Colors.white.withOpacity(0.8),
                                           offset: Offset(-6.0, -6.0),
                                           blurRadius: 15.0,
                                           spreadRadius: 1.0),
                                       BoxShadow(
-                                          color:
-                                              ThemeService.instance.isDarkMode()
-                                                  ? Colors.black.withOpacity(0.4)
-                                                  : Colors.black.withOpacity(0.1),
+                                          color: ThemeService.instance
+                                                  .isDarkMode()
+                                              ? Colors.black.withOpacity(0.4)
+                                              : Colors.black.withOpacity(0.1),
                                           offset: Offset(6.0, 6.0),
                                           blurRadius: 15.0,
                                           spreadRadius: 1.0),
                                     ]),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      "assets/img/creditcard.png",
-                                      fit: BoxFit.fitHeight,
-                                    ),
-                                    GestureDetector(
-                                      onTap: _launchURL,
-                                      child: Wrap(children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Yemekhane İçin Bakiye Yükle",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize: 17),
-                                            ),
-                                            Text(
-                                              "Tarayıcıda Açmak için Tıklayınız",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(fontSize: 15),
-                                            ),
-                                          ],
-                                        ),
-                                      ]),
-                                    ),
-                                  ],
+                                child: GestureDetector(
+                                  onTap: _launchURL,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/img/creditcard.png",
+                                        height: 100,
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Yemekhane İçin Bakiye Yükle",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize:
+                                                    SizeConfig.screenHeight! >
+                                                            600
+                                                        ? 17
+                                                        : 13),
+                                          ),
+                                          Text(
+                                            "Tarayıcıda Açmak için Tıklayınız",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize:
+                                                    SizeConfig.screenHeight! >
+                                                            600
+                                                        ? 15
+                                                        : 11),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              SizedBox(height: 20),
                             ],
                           ),
                         ),

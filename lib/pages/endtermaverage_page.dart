@@ -83,7 +83,10 @@ class _EndTermAverageState extends State<EndTermAverage> {
                         children: [
                           Text(
                             "Harf Notu:",
-                            style: TextStyle(color: Colors.black54),
+                            style: TextStyle(
+                                color: ThemeService.instance.isDarkMode()
+                                    ? Colors.white
+                                    : Colors.black54),
                           ),
                           StatefulBuilder(builder:
                               (BuildContext context, StateSetter setState) {
@@ -275,6 +278,18 @@ class _EndTermAverageState extends State<EndTermAverage> {
                           children: [
                             IconButton(
                                 onPressed: () {
+                                  addUpdateLecture(false,
+                                      name: allLectureName[index],
+                                      grade: allGrades[index],
+                                      credit: allCredits[index],
+                                      index: index);
+                                },
+                                icon: Icon(
+                                  Icons.refresh,
+                                  color: Colors.blueAccent,
+                                )),
+                            IconButton(
+                                onPressed: () {
                                   lectureGradeCreditRow.removeAt(index);
                                   allLectureName.removeAt(index);
                                   allGrades.removeAt(index);
@@ -284,18 +299,6 @@ class _EndTermAverageState extends State<EndTermAverage> {
                                 icon: Icon(
                                   Icons.delete,
                                   color: Colors.red,
-                                )),
-                            IconButton(
-                                onPressed: () {
-                                  addUpdateLecture(false,
-                                      name: allLectureName[index],
-                                      grade: allGrades[index],
-                                      credit: allCredits[index],
-                                      index: index);
-                                },
-                                icon: Icon(
-                                  Icons.update,
-                                  color: Colors.blueAccent,
                                 )),
                           ],
                         ),
@@ -313,7 +316,7 @@ class _EndTermAverageState extends State<EndTermAverage> {
                       },
                       child: customButton(
                         'Ders Ekle',
-                        Icons.add,
+                        Icons.add_box,
                         Colors.blueAccent,
                       ),
                     ),

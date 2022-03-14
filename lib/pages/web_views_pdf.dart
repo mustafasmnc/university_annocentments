@@ -53,7 +53,7 @@ class _MyWebViewsPDFState extends State<MyWebViewsPDF> {
                       });
                     }
                   },
-                  initialUrl: widget.myUrl,
+                  initialUrl: Uri.encodeFull(widget.myUrl),
                 ),
                 loading ? Container() : circularLoader()
               ],

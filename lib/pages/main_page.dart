@@ -104,12 +104,12 @@ class _MainPageState extends State<MainPage> {
               newsSection(fuAnno, fuAnnoList, context, 'Duyurular', fuAnnoLink),
               newsSection(
                   fuEvents, fuEventList, context, 'Etkinlikler', fuEventLink),
-              // facultySections(
-              //   context,
-              //   "Öğrenci İşleri Otomasyonu",
-              //   "uni_ogrenciotomaston.jpg",
-              //   "https://obs.firat.edu.tr/",
-              // ),
+              facultySections(
+                context,
+                "Öğrenci İşleri Otomasyonu",
+                "uni_ogrenciotomaston.jpg",
+                "https://obs.firat.edu.tr/",
+              ),
               facultySections(
                 context,
                 "Akademik Takvim",
@@ -133,8 +133,10 @@ class _MainPageState extends State<MainPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   calculationArea("Vize Final (Proje) Hesapla", () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => VizeFinalPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VizeFinalPage()));
                   }),
                   SizedBox(width: 20),
                   calculationArea("Dönem Ortalaması Hesapla", () {
@@ -147,7 +149,7 @@ class _MainPageState extends State<MainPage> {
               ),
               SizedBox(height: 20),
               Container(
-                  height: 150,
+                  height: 160,
                   width: MediaQuery.of(context).size.width,
                   child: GoogleMaps())
             ],
@@ -167,7 +169,7 @@ class _MainPageState extends State<MainPage> {
           child: Text(
             sectionTitle,
             style: TextStyle(
-                fontSize: 25,
+                fontSize: SizeConfig.screenHeight! > 600 ? 25 : 20,
                 color: ThemeService.instance.isDarkMode()
                     ? Colors.grey
                     : Colors.black54),
@@ -361,12 +363,16 @@ class _MainPageState extends State<MainPage> {
   Widget facultySections(
       BuildContext context, String title, String imgPath, String websiteLink) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => title == 'Üniversite Evi'
-                  ? UniEvi()
-                  : MyWebViews(myUrl: websiteLink))),
+      onTap: () {
+        title == 'Öğrenci İşleri Otomasyonu'
+            ? launchURL(websiteLink)
+            : Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => title == 'Üniversite Evi'
+                        ? UniEvi()
+                        : MyWebViews(myUrl: websiteLink)));
+      },
       child: Container(
         padding: EdgeInsets.all(10),
         height: SizeConfig.orientation == Orientation.portrait ? 175 : 125,
@@ -381,7 +387,7 @@ class _MainPageState extends State<MainPage> {
                 )),
             Container(
               decoration: BoxDecoration(
-                color: Colors.black26,
+                color: Colors.black38,
                 borderRadius: BorderRadius.circular(10),
               ),
               alignment: Alignment.center,
@@ -398,6 +404,16 @@ class _MainPageState extends State<MainPage> {
                       fontSize: 24,
                     ),
                   ),
+                  title == 'Öğrenci İşleri Otomasyonu'
+                      ? Text(
+                          'Tarayıcıda Açmak için Tıklayınız',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
             )
@@ -419,7 +435,7 @@ class _MainPageState extends State<MainPage> {
             children: [
               drawerHeader(),
               Expanded(
-                  flex: 11,
+                  flex: SizeConfig.screenHeight! > 600 ? 12 : 19,
                   child: ListView.builder(
                       //key: Key('builder ${selected.toString()}'), //attention
                       physics: ScrollPhysics(),
@@ -481,35 +497,36 @@ class _MainPageState extends State<MainPage> {
                       })),
               SizedBox(height: 5),
               Expanded(
-                flex: SizeConfig.orientation == Orientation.portrait ? 1 : 2,
+                flex: SizeConfig.screenHeight! > 600 ? 1 : 2,
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('THEME'),
-                          SizedBox(
-                              width:
-                                  SizeConfig.orientation == Orientation.portrait
-                                      ? 10
-                                      : 5),
-                          GestureDetector(
-                              onTap: () => changeTheme(),
-                              child: Icon(
-                                ThemeService.instance.isDarkMode()
-                                    ? Icons.light_mode
-                                    : Icons.dark_mode,
-                                size: SizeConfig.orientation ==
+                      GestureDetector(
+                        onTap: () => changeTheme(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('THEME'),
+                            SizedBox(
+                                width: SizeConfig.orientation ==
                                         Orientation.portrait
-                                    ? 24
-                                    : 17,
-                                color: ThemeService.instance.isDarkMode()
-                                    ? Colors.white
-                                    : Colors.black,
-                              ))
-                        ],
+                                    ? 10
+                                    : 5),
+                            Icon(
+                              ThemeService.instance.isDarkMode()
+                                  ? Icons.light_mode
+                                  : Icons.dark_mode,
+                              size:
+                                  SizeConfig.orientation == Orientation.portrait
+                                      ? 22
+                                      : 17,
+                              color: ThemeService.instance.isDarkMode()
+                                  ? Colors.white
+                                  : Colors.black,
+                            )
+                          ],
+                        ),
                       ),
                       SizedBox(
                           height: SizeConfig.orientation == Orientation.portrait
@@ -562,7 +579,7 @@ class _MainPageState extends State<MainPage> {
 
   Widget drawerHeader() {
     return SizedBox(
-      height: SizeConfig.orientation == Orientation.portrait ? 150 : 100,
+      height: SizeConfig.orientation == Orientation.portrait ? 140 : 90,
       child: DrawerHeader(
         margin: EdgeInsets.zero,
         padding: EdgeInsets.zero,
@@ -589,14 +606,14 @@ class _MainPageState extends State<MainPage> {
                 image: AssetImage('assets/img/footer-bg.png'),
                 fit: BoxFit.cover,
                 height:
-                    SizeConfig.orientation == Orientation.portrait ? 150 : 100,
+                    SizeConfig.orientation == Orientation.portrait ? 140 : 90,
               ),
             )),
             Image(
                 width:
-                    SizeConfig.orientation == Orientation.portrait ? 140 : 90,
+                    SizeConfig.orientation == Orientation.portrait ? 130 : 90,
                 height:
-                    SizeConfig.orientation == Orientation.portrait ? 140 : 90,
+                    SizeConfig.orientation == Orientation.portrait ? 130 : 90,
                 image: AssetImage('assets/img/firat-white.png'))
           ],
         ),

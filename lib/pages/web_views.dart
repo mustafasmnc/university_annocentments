@@ -47,7 +47,7 @@ class _MyWebViewsState extends State<MyWebViews> {
           elevation: 0,
           toolbarHeight: 40,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black87),
+            icon: Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -59,7 +59,7 @@ class _MyWebViewsState extends State<MyWebViews> {
                       errorMsg();
                     },
                     userAgent:
-                      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
                     javascriptMode: JavascriptMode.unrestricted,
                     navigationDelegate: (NavigationRequest request) {
                       if (request.url.endsWith('.pdf')) {
@@ -68,8 +68,8 @@ class _MyWebViewsState extends State<MyWebViews> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MyWebViewsPDF(
-                                      myUrl:
-                                          'https://docs.google.com/gview?embedded=true&url=${request.url}',
+                                      myUrl: Uri.encodeFull(
+                                          'https://docs.google.com/gview?embedded=true&url=${request.url}'),
                                     )));
                         //print('https://docs.google.com/gview?embedded=true&url=${request.url}');
                         return NavigationDecision.navigate;
@@ -88,7 +88,7 @@ class _MyWebViewsState extends State<MyWebViews> {
                         });
                       }
                     },
-                    initialUrl: widget.myUrl,
+                    initialUrl: Uri.encodeFull(widget.myUrl),
                   ),
                   loading ? Container() : circularLoader()
                 ],
