@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:webscraping/core/data/my_department_database.dart';
+import 'package:webscraping/core/model/rate_app_init_widget.dart';
 import 'package:webscraping/core/notification_alarm/alarm_manager_service.dart';
 import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
@@ -31,7 +32,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fırat Üniversitesi Duyurular',
       theme: Provider.of<CustomThemeDataModal>(context).getThemeData,
-      home: MainPage(),
+      home: RateAppInitWidget(
+        builder: (rateMyApp) => MainPage(
+          rateMyApp: rateMyApp,
+        ),
+      ),
     );
   }
 }

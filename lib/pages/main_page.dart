@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/model/department_model.dart';
 import 'package:webscraping/core/model/google_maps.dart';
@@ -19,7 +20,8 @@ import 'package:webscraping/pages/web_views_pdf.dart';
 import 'package:webscraping/size_config.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
+  RateMyApp? rateMyApp;
+  MainPage({Key? key, this.rateMyApp}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
