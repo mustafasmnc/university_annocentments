@@ -20,7 +20,7 @@ class _MyWebViewsState extends State<MyWebViews> {
   void initState() {
     super.initState();
     // Enable virtual display.
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    if (Platform.isAndroid) WebView.platform = AndroidWebView();
     checkInternetConn();
   }
 
@@ -68,10 +68,11 @@ class _MyWebViewsState extends State<MyWebViews> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MyWebViewsPDF(
-                                      myUrl: Uri.encodeFull(
-                                          'https://docs.google.com/gview?embedded=true&url=${request.url}'),
+                                      myUrl:
+                                          'https://docs.google.com/gview?embedded=true&url=${request.url}',
                                     )));
-                        //print('https://docs.google.com/gview?embedded=true&url=${request.url}');
+                        print(
+                            'https://docs.google.com/gview?embedded=true&url=${request.url}');
                         return NavigationDecision.navigate;
                       }
                       return NavigationDecision.navigate;

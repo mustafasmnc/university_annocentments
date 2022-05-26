@@ -18,7 +18,7 @@ class _MyWebViewsPDFState extends State<MyWebViewsPDF> {
   void initState() {
     super.initState();
     // Enable virtual display.
-    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    if (Platform.isAndroid) WebView.platform = AndroidWebView();
   }
 
   @override
@@ -40,6 +40,11 @@ class _MyWebViewsPDFState extends State<MyWebViewsPDF> {
             body: Stack(
               children: [
                 WebView(
+                  onWebResourceError: (WebResourceError webviewerrr) {
+                    errorMsg();
+                  },
+                  userAgent:
+                      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
                   javascriptMode: JavascriptMode.unrestricted,
                   onProgress: (int progress) {
                     //print('WebView is loading (progress : $progress%)');
