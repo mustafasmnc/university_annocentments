@@ -95,7 +95,7 @@ class NewsEventAnno extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontSize:
-                                    SizeConfig.screenHeight! > 600 ? 17 : 14),
+                                    SizeConfig.screenHeight! > 600 ? 16 : 13),
                           ),
                         ),
                         //Divider(),
@@ -105,7 +105,7 @@ class NewsEventAnno extends StatelessWidget {
                           padding: EdgeInsets.all(5),
                           child: Text(
                             desc,
-                            maxLines: 5,
+                            maxLines: 4,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontSize:

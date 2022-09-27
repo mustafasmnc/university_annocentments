@@ -10,6 +10,7 @@ import 'package:webscraping/core/model/google_maps.dart';
 import 'package:webscraping/core/theme/theme_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
 import 'package:webscraping/core/view_model/widgets.dart';
+import 'package:webscraping/pages/department_navigation_page.dart';
 import 'package:webscraping/pages/department_page.dart';
 import 'package:webscraping/pages/endtermaverage_page.dart';
 import 'package:webscraping/pages/fu_news_event_anno.dart';
@@ -188,7 +189,7 @@ class _MainPageState extends State<MainPage> {
                     if (snapshot.connectionState == ConnectionState.waiting)
                       return circularLoader();
                     else if (snapshot.hasError)
-                      return Center(child: Text("ERROR: ${snapshot.error}"));
+                      return Center(child: errorMsg());
                     else if (snapshot.hasData) {
                       return ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -570,7 +571,7 @@ class _MainPageState extends State<MainPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DepartmentPage(
+                builder: (context) => DepartmentNavigationPage(
                       facultyName: facultyName,
                       departmentName: department.departmentName,
                       departmentCode: department.departmentCode,

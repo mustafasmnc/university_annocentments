@@ -504,4 +504,49 @@ List facultyDepartmentList = [
       }
     ]
   },
+  {
+    'facultyName': 'YABANCI DİLLER YÜKSEKOKULU',
+    'departments': [
+      {
+        'departmentName': 'Yabancı Diller Yüksekokulu',
+        'departmentPath': 'http://yabancidiller.firat.edu.tr/tr',
+        'departmentCode': 'yabancidiller',
+      }
+    ]
+  },
+  {
+    'facultyName': 'DEVLET KONSERVATUVARI',
+    'departments': [
+      {
+        'departmentName': 'Devlet Konservatuvarı',
+        'departmentPath': 'http://kyo.firat.edu.tr/tr',
+        'departmentCode': 'kyo',
+      }
+    ]
+  },
+  {
+    'facultyName': 'SİVİL HAVACILIK YÜKSEKOKULU',
+    'departments': [
+      {
+        'departmentName': 'Sivil Havacılık Yüksekokulu',
+        'departmentPath': 'http://sivilhavacilik.firat.edu.tr/tr',
+        'departmentCode': 'sivilhavacilik',
+      },
+      {
+        'departmentName': 'Havacılık Elektrik ve Elektroniği',
+        'departmentPath': 'http://heeb.sivilhavacilik.firat.edu.tr/tr',
+        'departmentCode': 'heeb.sivilhavacilik',
+      },
+      {
+        'departmentName': 'Uçak Bakım ve Onarım',
+        'departmentPath': 'http://ubob.sivilhavacilik.firat.edu.tr/tr',
+        'departmentCode': 'ubob.sivilhavacilik',
+      },
+      {
+        'departmentName': 'Hava Trafik Kontrolü',
+        'departmentPath': 'http://htkb.sivilhavacilik.firat.edu.tr/tr',
+        'departmentCode': 'htkb.sivilhavacilik',
+      }
+    ]
+  },
 ];

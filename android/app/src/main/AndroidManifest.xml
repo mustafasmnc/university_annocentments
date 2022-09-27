@@ -9,7 +9,7 @@
     <!-- For apps with targetSDK=31 (Android 12) -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
    <application
-        android:name = "io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="Fırat Üniversitesi Duyurular"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">

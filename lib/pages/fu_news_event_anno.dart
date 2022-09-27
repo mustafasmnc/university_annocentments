@@ -102,7 +102,7 @@ class _FuNewsEventAnnoState extends State<FuNewsEventAnno> {
                         if (snapshot.connectionState == ConnectionState.waiting)
                           return circularLoader();
                         else if (snapshot.hasError)
-                          return Center(child: Text("ERROR: ${snapshot.error}"));
+                          return Center(child: errorMsg());
                         else if (snapshot.hasData) {
                           return ListView(
                             children: [

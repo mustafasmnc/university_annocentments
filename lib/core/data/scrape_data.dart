@@ -4,6 +4,7 @@ import 'package:web_scraper/web_scraper.dart';
 import 'package:webscraping/core/model/anno_model.dart';
 
 List<AnnoModel> announcements = [];
+List<AnnoModel> news = [];
 List<AnnoModel> fuNewsList = [];
 List<AnnoModel> fuAnnoList = [];
 List<AnnoModel> fuEventList = [];
@@ -11,7 +12,7 @@ List mealList = [];
 var mealDate;
 
 class ScrapeData {
-  Future scraping({required String code, required int page}) async {
+  Future getDepAnno({required String code, required int page}) async {
     String MAIN_LINK = 'http://$code.firat.edu.tr';
     String ANNO_LINK = '/tr/announcements-all';
     final webScraper = WebScraper(MAIN_LINK);
@@ -67,6 +68,80 @@ class ScrapeData {
     return announcements;
   }
 
+  Future getDepNews({required String code, required int page}) async {
+    String MAIN_LINK = 'http://$code.firat.edu.tr';
+    String NEWS_LINK = '/tr/news-all';
+    final webScraper = WebScraper(MAIN_LINK);
+    //final List titleList = <String>[];
+    var titleElements;
+    var descElements;
+    var dayElements;
+    var monthElements;
+    var linkElements;
+    var imgElements;
+    for (var i = 1; i <= page; i++) {
+      if (await webScraper.loadWebPage('$NEWS_LINK/$i')) {
+        titleElements = webScraper.getElement(
+            'div.news > div.news-inner > div.news-details > a > strong > p.news-details-title',
+            []);
+        descElements = webScraper.getElement(
+            'div.news > div.news-inner > div.news-details > a >p', []);
+        dayElements = webScraper.getElement(
+            'div.news > div.news-inner > div.news-image-date > div.news-date > div.news-month-day > div.news-day-number ',
+            []);
+        monthElements = webScraper.getElement(
+            'div.news > div.news-inner > div.news-image-date > div.news-date > div.news-month-day > div.news-month ',
+            []);
+        linkElements = webScraper.getElementAttribute(
+            'div.news > div.news-inner > div.news-details > a ', 'href');
+        imgElements = webScraper.getElementAttribute(
+            'div.news > div.news-inner > div.news-image-date > div.news-image > a > img ',
+            'src');
+        //print(descElements);
+        // titleElements.forEach((element) {
+        //   final title = element['title'].replaceAll('  ', '');
+        //   titleList.add('$title');
+        // });
+
+      }
+    }
+    for (int i = 0; i < linkElements.length; i++) {
+      var title = titleElements[i]['title']
+          .replaceAll(new RegExp("  "), "")
+          .trimRight()
+          .trimLeft();
+      var desc = descElements[i]['title']
+          .replaceAll(new RegExp("  "), "")
+          .trimRight()
+          .trimLeft();
+      var link = linkElements[i];
+      var day = dayElements[i]['title']
+          .replaceAll(new RegExp(r'  \n'), "")
+          .trimRight()
+          .trimLeft();
+
+      var month = monthElements[i]['title']
+          .replaceAll(new RegExp(r'  \n'), "")
+          .trimRight()
+          .trimLeft();
+
+      var img = MAIN_LINK + imgElements[i];
+
+      //print("$month / $day");
+      var pieces = link!.split('/');
+      var id = int.parse(pieces[pieces.length - 1]);
+      news.add(AnnoModel(
+          id: id,
+          title: title,
+          day: day,
+          month: month,
+          link: link,
+          desc: desc,
+          imgLink: img));
+    }
+    return news;
+  }
+
   Future getFuNewsEventAnno({required String restLink, int page = 1}) async {
     String MAIN_LINK = 'http://www.firat.edu.tr';
     final webScraper = WebScraper(MAIN_LINK);
@@ -80,8 +155,8 @@ class ScrapeData {
       if (await webScraper.loadWebPage('$restLink?page=$i')) {
         titleElements =
             webScraper.getElement('div.item-content > h3.title > a', []);
-        descElements =
-            webScraper.getElement('div.item-content > div.item-excerpt.blog-item-excerpt > p', []);
+        descElements = webScraper.getElement(
+            'div.item-content > div.item-excerpt.blog-item-excerpt > p', []);
         dayElements = webScraper.getElement('div.day', []);
         monthElements = webScraper.getElement('div.month', []);
         linkElements = webScraper.getElementAttribute(
