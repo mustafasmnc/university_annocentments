@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:webscraping/core/theme/theme_service.dart';
+
+import '../core/theme/app_colors.dart';
+import '../core/theme/ui_parameters.dart';
+import '../core/view_model/widgets/custom_button.dart';
+import '../core/view_model/widgets/top_background.dart';
 
 class EndTermAverage extends StatefulWidget {
   const EndTermAverage({Key? key}) : super(key: key);
@@ -33,10 +37,11 @@ class _EndTermAverageState extends State<EndTermAverage> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            backgroundColor: customTileColor(context),
             content: Form(
               key: _formKey,
               child: SingleChildScrollView(
-                child: Container(
+                child: SizedBox(
                   height: 250,
                   child: Column(
                     children: [
@@ -45,7 +50,7 @@ class _EndTermAverageState extends State<EndTermAverage> {
                             labelText: "Ders Adı",
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide())),
+                                borderSide: const BorderSide())),
                         controller: lectureNameText,
                         validator: (value) {
                           if (value!.isEmpty || value == ' ' || value == '') {
@@ -55,13 +60,13 @@ class _EndTermAverageState extends State<EndTermAverage> {
                           }
                         },
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       TextFormField(
                         decoration: InputDecoration(
                             labelText: "Kredi",
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide())),
+                                borderSide: const BorderSide())),
                         controller: lectureCreditText,
                         keyboardType: TextInputType.number,
                         validator: (value) {
@@ -69,30 +74,25 @@ class _EndTermAverageState extends State<EndTermAverage> {
                             return 'Geçersiz Değer';
                           } else {
                             double? num = double.tryParse(value);
-                            if (num == null)
+                            if (num == null) {
                               return 'Geçersiz Değer';
-                            else if (num < 1 || num > 20)
+                            } else if (num < 1 || num > 20) {
                               return 'Geçersiz Değer';
-                            else
+                            } else {
                               null;
+                            }
                           }
                         },
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(
-                            "Harf Notu:",
-                            style: TextStyle(
-                                color: ThemeService.instance.isDarkMode()
-                                    ? Colors.white
-                                    : Colors.black54),
-                          ),
+                          const Text("Harf Notu:"),
                           StatefulBuilder(builder:
                               (BuildContext context, StateSetter setState) {
                             return DropdownButton(
                               hint: gradeValueDropdown == null
-                                  ? Text('Harf Notu')
+                                  ? const Text('Harf Notu')
                                   : Text(gradeValueDropdown.toString()),
                               items: [
                                 'AA',
@@ -146,7 +146,7 @@ class _EndTermAverageState extends State<EndTermAverage> {
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.grey,
                         ),
-                        child: Text(
+                        child: const Text(
                           "İPTAL",
                           style: TextStyle(color: Colors.white),
                         ),
@@ -179,7 +179,7 @@ class _EndTermAverageState extends State<EndTermAverage> {
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.blueAccent,
                         ),
-                        child: Text(
+                        child: const Text(
                           "KAYDET",
                           style: TextStyle(color: Colors.white),
                         ),
@@ -205,20 +205,20 @@ class _EndTermAverageState extends State<EndTermAverage> {
           child: Text(
             lectureNameText.text,
             //overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20),
           ),
         ),
-        SizedBox(width: 20),
+        const SizedBox(width: 20),
         Row(
           children: [
             Text(
               lectureCreditText.text,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Text(
               gradeValueDropdown,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ],
         ),
@@ -228,141 +228,150 @@ class _EndTermAverageState extends State<EndTermAverage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-              color: ThemeService.instance.isDarkMode()
-                  ? Colors.white
-                  : Colors.black),
-          centerTitle: true,
-          title: Text(
-            'Dönem Sonu Ortalaması',
-            style: TextStyle(
-                color: ThemeService.instance.isDarkMode()
-                    ? Colors.white
-                    : Colors.black87),
-          ),
-          flexibleSpace: Image.asset(
-            ThemeService.instance.isDarkMode()
-                ? "assets/img/footer-bg.png"
-                : "assets/img/bg-pattern.png",
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-          ),
-          backgroundColor: Colors.transparent,
-        ),
-        backgroundColor: ThemeService.instance.isDarkMode()
-            ? Color(0xFF292D32)
-            : Colors.grey[300],
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Column(
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: lectureGradeCreditRow.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        tileColor: ThemeService.instance.isDarkMode()
-                            ? Colors.black.withOpacity(0.1)
-                            : Colors.grey[400],
-                        title: Wrap(children: [lectureGradeCreditRow[index]]),
-                        trailing: Wrap(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  addUpdateLecture(false,
-                                      name: allLectureName[index],
-                                      grade: allGrades[index],
-                                      credit: allCredits[index],
-                                      index: index);
-                                },
-                                icon: Icon(
-                                  Icons.refresh,
-                                  color: Colors.blueAccent,
-                                )),
-                            IconButton(
-                                onPressed: () {
-                                  lectureGradeCreditRow.removeAt(index);
-                                  allLectureName.removeAt(index);
-                                  allGrades.removeAt(index);
-                                  allCredits.removeAt(index);
-                                  setState(() {});
-                                },
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                )),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            TopBackground(
+              height: 90,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10)
+                    .copyWith(top: 20),
+                child: Stack(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        addUpdateLecture(true);
-                      },
-                      child: customButton(
-                        'Ders Ekle',
-                        Icons.add_box,
-                        Colors.blueAccent,
-                      ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.arrow_back_ios_new)),
                     ),
-                    SizedBox(width: lectureGradeCreditRow.length > 0 ? 20 : 0),
-                    lectureGradeCreditRow.length > 0
-                        ? GestureDetector(
-                            onTap: () {
-                              hesapla();
-                            },
-                            child: customButton(
+                    const Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Dönem Sonu Ortalaması',
+                          style: TextStyle(fontSize: 18),
+                        )),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: lectureGradeCreditRow.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          tileColor: customTileColor(context),
+                          title: lectureGradeCreditRow[index],
+                          trailing: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CustomButton(
+                                  title: 'Düzenle',
+                                  padding: 5,
+                                  onTap: () {
+                                    addUpdateLecture(false,
+                                        name: allLectureName[index],
+                                        grade: allGrades[index],
+                                        credit: allCredits[index],
+                                        index: index);
+                                  },
+                                ),
+                                const SizedBox(width: 10),
+                                CustomButton(
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ),
+                                  padding: 5,
+                                  onTap: () {
+                                    lectureGradeCreditRow.removeAt(index);
+                                    allLectureName.removeAt(index);
+                                    allGrades.removeAt(index);
+                                    allCredits.removeAt(index);
+                                    setState(() {});
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      customButton(
+                        'Ders Ekle',
+                        Icons.add,
+                        Colors.blueAccent,
+                        () {
+                          addUpdateLecture(true);
+                        },
+                      ),
+                      SizedBox(
+                          width: lectureGradeCreditRow.length > 0 ? 20 : 0),
+                      lectureGradeCreditRow.length > 0
+                          ? customButton(
                               'Hesapla',
                               Icons.calculate,
                               Colors.green,
-                            ),
-                          )
-                        : Container(),
-                  ],
-                ),
-              ],
+                              () {
+                                hesapla();
+                              },
+                            )
+                          : Container(),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 
-  Widget customButton(String title, IconData iconName, Color color) {
-    return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 10),
-      width: 80,
-      decoration: BoxDecoration(
-        border: Border.all(color: color, width: 2),
-        borderRadius: BorderRadius.all(Radius.circular(24)),
-      ),
-      child: Column(
-        children: [
-          Icon(
-            iconName,
-            color: color,
-          ),
-          SizedBox(height: 8),
-          Text(
-            title,
-            style: TextStyle(color: color),
-          ),
-        ],
+  Widget customButton(
+      String title, IconData iconName, Color color, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(24),
+      child: Container(
+        padding: const EdgeInsets.only(top: 10, bottom: 10),
+        width: 80,
+        decoration: BoxDecoration(
+          border: Border.all(color: color, width: 2),
+          borderRadius: const BorderRadius.all(Radius.circular(24)),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              iconName,
+              color: color,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: color),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -414,20 +423,23 @@ void results(BuildContext context, double allAverage, int sumCredit) {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
+          backgroundColor: customTileColor(context),
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
+          contentPadding: const EdgeInsets.only(top: 10.0),
+          content: SizedBox(
             height: 120,
             child: Column(
               children: [
-                Text(
+                const Text(
                   "S O N U Ç",
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
-                SizedBox(height: 5.0),
+                const SizedBox(height: 5.0),
                 Divider(
-                  color: Colors.grey,
+                  color: UIParameters.isDarkMode(context)
+                      ? lightScaffolBackgroundColor
+                      : darkScaffolBackgroundColor,
                   height: 4.0,
                 ),
                 Center(
@@ -437,22 +449,24 @@ void results(BuildContext context, double allAverage, int sumCredit) {
                       children: [
                         Row(
                           children: [
-                            Text("Toplam Kredi:"),
-                            SizedBox(width: 10.0),
+                            const Text("Toplam Kredi:"),
+                            const SizedBox(width: 10.0),
                             Text(
                               "$sumCredit",
-                              style: TextStyle(fontWeight: FontWeight.w400),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w400),
                             ),
                           ],
                         ),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         Row(
                           children: [
-                            Text("Genel Ortalama:"),
-                            SizedBox(width: 10.0),
+                            const Text("Genel Ortalama:"),
+                            const SizedBox(width: 10.0),
                             Text(
                               allAverage.toStringAsFixed(4),
-                              style: TextStyle(fontWeight: FontWeight.w400),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w400),
                             ),
                           ],
                         ),
@@ -477,7 +491,7 @@ void results(BuildContext context, double allAverage, int sumCredit) {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.blueAccent,
                   ),
-                  child: Text(
+                  child: const Text(
                     "Kapat",
                     style: TextStyle(color: Colors.white),
                   ),

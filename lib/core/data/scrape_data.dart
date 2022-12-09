@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:web_scraper/web_scraper.dart';
 import 'package:webscraping/core/model/anno_model.dart';
 
+String fuNewsLink = '/tr/page/news';
+String fuAnnoLink = '/tr/page/announcement';
+String fuEventLink = '/tr/page/event';
+
 List<AnnoModel> announcements = [];
 List<AnnoModel> news = [];
 List<AnnoModel> fuNewsList = [];
@@ -12,17 +16,25 @@ List mealList = [];
 var mealDate;
 
 class ScrapeData {
+  List<AnnoModel> getOnlyXItem(List list, int x) {
+    List<AnnoModel> a = [];
+    for (int i = 0; i < x; i++) {
+      a.add(list[i]);
+    }
+    return a;
+  }
+
   Future getDepAnno({required String code, required int page}) async {
-    String MAIN_LINK = 'http://$code.firat.edu.tr';
-    String ANNO_LINK = '/tr/announcements-all';
-    final webScraper = WebScraper(MAIN_LINK);
+    String mainLink = 'http://$code.firat.edu.tr';
+    String annoLink = '/tr/announcements-all';
+    final webScraper = WebScraper(mainLink);
     //final List titleList = <String>[];
     var titleElements;
     var dayElements;
     var monthElements;
     var linkElements;
     for (var i = 1; i <= page; i++) {
-      if (await webScraper.loadWebPage('$ANNO_LINK/$i')) {
+      if (await webScraper.loadWebPage('$annoLink/$i')) {
         titleElements = webScraper.getElement(
             'div.announcements > div.announcements-inner > div.anno-details > a > strong > p.anno-details-title',
             []);
@@ -45,17 +57,17 @@ class ScrapeData {
     }
     for (int i = 0; i < linkElements.length; i++) {
       var title = titleElements[i]['title']
-          .replaceAll(new RegExp("  "), "")
+          .replaceAll(RegExp("  "), "")
           .trimRight()
           .trimLeft();
       var link = linkElements[i];
       var day = dayElements[i]['title']
-          .replaceAll(new RegExp(r'  \n'), "")
+          .replaceAll(RegExp(r'  \n'), "")
           .trimRight()
           .trimLeft();
 
       var month = monthElements[i]['title']
-          .replaceAll(new RegExp(r'  \n'), "")
+          .replaceAll(RegExp(r'  \n'), "")
           .trimRight()
           .trimLeft();
 
@@ -69,9 +81,9 @@ class ScrapeData {
   }
 
   Future getDepNews({required String code, required int page}) async {
-    String MAIN_LINK = 'http://$code.firat.edu.tr';
-    String NEWS_LINK = '/tr/news-all';
-    final webScraper = WebScraper(MAIN_LINK);
+    String mainLink = 'http://$code.firat.edu.tr';
+    String newsLink = '/tr/news-all';
+    final webScraper = WebScraper(mainLink);
     //final List titleList = <String>[];
     var titleElements;
     var descElements;
@@ -80,7 +92,7 @@ class ScrapeData {
     var linkElements;
     var imgElements;
     for (var i = 1; i <= page; i++) {
-      if (await webScraper.loadWebPage('$NEWS_LINK/$i')) {
+      if (await webScraper.loadWebPage('$newsLink/$i')) {
         titleElements = webScraper.getElement(
             'div.news > div.news-inner > div.news-details > a > strong > p.news-details-title',
             []);
@@ -107,25 +119,25 @@ class ScrapeData {
     }
     for (int i = 0; i < linkElements.length; i++) {
       var title = titleElements[i]['title']
-          .replaceAll(new RegExp("  "), "")
+          .replaceAll(RegExp("  "), "")
           .trimRight()
           .trimLeft();
       var desc = descElements[i]['title']
-          .replaceAll(new RegExp("  "), "")
+          .replaceAll(RegExp("  "), "")
           .trimRight()
           .trimLeft();
       var link = linkElements[i];
       var day = dayElements[i]['title']
-          .replaceAll(new RegExp(r'  \n'), "")
+          .replaceAll(RegExp(r'  \n'), "")
           .trimRight()
           .trimLeft();
 
       var month = monthElements[i]['title']
-          .replaceAll(new RegExp(r'  \n'), "")
+          .replaceAll(RegExp(r'  \n'), "")
           .trimRight()
           .trimLeft();
 
-      var img = MAIN_LINK + imgElements[i];
+      var img = mainLink + imgElements[i];
 
       //print("$month / $day");
       var pieces = link!.split('/');
@@ -143,8 +155,8 @@ class ScrapeData {
   }
 
   Future getFuNewsEventAnno({required String restLink, int page = 1}) async {
-    String MAIN_LINK = 'http://www.firat.edu.tr';
-    final webScraper = WebScraper(MAIN_LINK);
+    String mainLink = 'http://www.firat.edu.tr';
+    final webScraper = WebScraper(mainLink);
     var titleElements;
     var descElements;
     var dayElements;
@@ -168,22 +180,22 @@ class ScrapeData {
 
     for (var i = 0; i < linkElements.length; i++) {
       var title = titleElements[i]['title']
-          .replaceAll(new RegExp("  "), "")
+          .replaceAll(RegExp("  "), "")
           .trimRight()
           .trimLeft();
       var desc = descElements[i]['title']
-          .replaceAll(new RegExp("  "), "")
+          .replaceAll(RegExp("  "), "")
           .trimRight()
           .trimLeft();
       var link = linkElements[i];
       var imgLink = imglinkElements[i];
       var day = dayElements[i]['title']
-          .replaceAll(new RegExp(r'  \n'), "")
+          .replaceAll(RegExp(r'  \n'), "")
           .trimRight()
           .trimLeft();
 
       var month = monthElements[i]['title']
-          .replaceAll(new RegExp(r'  \n'), "")
+          .replaceAll(RegExp(r'  \n'), "")
           .trimRight()
           .trimLeft();
       //print("$month-$day/$title/$imgLink/$link");
@@ -219,12 +231,12 @@ class ScrapeData {
   }
 
   Future lastAnnoIdScraping(String code) async {
-    String MAIN_LINK = 'http://$code.firat.edu.tr';
-    String ANNO_LINK = '/tr/announcements-all';
+    String mainLink = 'http://$code.firat.edu.tr';
+    String annoLink = '/tr/announcements-all';
     int PAGE_NUM = 1;
-    final webScraper = WebScraper(MAIN_LINK);
+    final webScraper = WebScraper(mainLink);
     var linkElements;
-    if (await webScraper.loadWebPage('$ANNO_LINK/$PAGE_NUM')) {
+    if (await webScraper.loadWebPage('$annoLink/$PAGE_NUM')) {
       linkElements = webScraper.getElementAttribute(
           'div.announcements > div.announcements-inner > div.anno-details > a ',
           'href');
@@ -236,8 +248,8 @@ class ScrapeData {
   }
 
   Future getMeals() async {
-    String MEAL_LINK = 'http://uevi.mdr.firat.edu.tr';
-    final webScraper = WebScraper(MEAL_LINK);
+    String mealLink = 'http://uevi.mdr.firat.edu.tr';
+    final webScraper = WebScraper(mealLink);
     var meals;
     if (await webScraper.loadWebPage('/tr')) {
       mealDate = webScraper.getElement('div.content-header > h5 ', []);

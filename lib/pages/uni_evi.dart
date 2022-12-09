@@ -5,9 +5,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:webscraping/core/data/scrape_data.dart';
 import 'package:webscraping/core/theme/theme_service.dart';
-import 'package:webscraping/core/view_model/widgets.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:webscraping/size_config.dart';
+import 'package:webscraping/core/view_model/widgets/widgets.dart';
+
+import '../core/theme/app_colors.dart';
+import '../core/view_model/widgets/top_background.dart';
 
 class UniEvi extends StatefulWidget {
   const UniEvi({Key? key}) : super(key: key);
@@ -21,6 +22,13 @@ class _UniEviState extends State<UniEvi> {
   bool connectedInternet = false;
   @override
   void initState() {
+    super.initState();
+    getMealList = ScrapeData().getMeals();
+    checkInternetConn();
+  }
+
+  enjoyMeal() {
+    Color backgroundColor = customTileColor(context);
     Future<Null>.delayed(Duration.zero, () {
       ScaffoldMessenger.of(context).showSnackBar(
         new SnackBar(
@@ -35,12 +43,10 @@ class _UniEviState extends State<UniEvi> {
             ),
           ),
           duration: Duration(seconds: 3),
-          backgroundColor: Colors.grey[600],
+          backgroundColor: backgroundColor,
         ),
       );
     });
-    getMealList = ScrapeData().getMeals();
-    checkInternetConn();
   }
 
   checkInternetConn() async {
@@ -60,56 +66,72 @@ class _UniEviState extends State<UniEvi> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: ThemeService.instance.isDarkMode()
-              ? Color(0xFF292D32)
-              : Colors.grey[300],
-          appBar: AppBar(
-            // title: Text("Üniversite Evi",
-            //     style: TextStyle(
-            //         fontSize: 20,
-            //         color: ThemeService.instance.isDarkMode()
-            //             ? Colors.white
-            //             : Colors.black54)),
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            iconTheme: IconThemeData(
-              color: ThemeService.instance.isDarkMode()
-                  ? Colors.white
-                  : Colors.black87, //change your color here
-            ),
-          ),
-          body: connectedInternet
-              ? Container(
-                  child: FutureBuilder(
-                  future: getMealList,
-                  builder: (BuildContext context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: circularLoader());
-                    }
-                    if (snapshot.hasError) {
-                      print("ERROR: ${snapshot.error}");
-                      String errorTitle = snapshot.error.toString();
+    return Scaffold(
+        body: connectedInternet
+            ? SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TopBackground(
+                      height: 90,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10)
+                            .copyWith(top: 20),
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: IconButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  icon: const Icon(Icons.arrow_back_ios_new)),
+                            ),
+                            const Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Üniversite Evi',
+                                  style: TextStyle(fontSize: 18),
+                                )),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                        child: FutureBuilder(
+                      future: getMealList,
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height - 90,
+                              child: Center(child: circularLoader(context)));
+                        }
+                        if (snapshot.hasError) {
+                          print("ERROR: ${snapshot.error}");
+                          String errorTitle = snapshot.error.toString();
 
-                      if (errorTitle
-                          .contains('Valid value range is empty: 0')) {
-                        return Center(
-                            child: errorMsg(
-                                errorTitle:
-                                    'Üniversite Evinde Öğün Bulunamadı'));
-                      } else {
-                        return Center(child: errorMsg());
-                      }
-                    }
-                    if (snapshot.hasData) {
-                      return Container(
-                        height: MediaQuery.of(context).size.height,
-                        child: SingleChildScrollView(
-                          child: Column(
+                          if (errorTitle
+                              .contains('Valid value range is empty: 0')) {
+                            return SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height - 90,
+                              child: Center(
+                                  child: errorMsg(
+                                      errorTitle:
+                                          'Üniversite Evinde Öğün Bulunamadı')),
+                            );
+                          } else {
+                            return SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height - 110,
+                                child: Center(child: errorMsg()));
+                          }
+                        }
+                        if (snapshot.hasData) {
+                          enjoyMeal();
+                          return Column(
                             children: [
-                              //SizedBox(height: 10),
+                              SizedBox(height: 10),
                               MenuDate(
                                   menuItem: mealDate == null ? '' : mealDate),
                               ListView.builder(
@@ -118,178 +140,85 @@ class _UniEviState extends State<UniEvi> {
                                 itemCount: mealList.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   //return MenuItems(menuItem: mealList[index]);
-                                  return Meals(menuItem: mealList[index]);
+                                  //return Meals(menuItem: mealList[index]);
+                                  return MenuDate(menuItem: mealList[index]);
                                 },
                               ),
-                              SizedBox(height: 20),
-                              Container(
-                                height: 110,
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: ThemeService.instance.isDarkMode()
-                                        ? Color(0xFF292D32).withOpacity(.9)
-                                        : Color(0xFF292D32).withOpacity(.1),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: ThemeService.instance
-                                                  .isDarkMode()
-                                              ? Colors.white.withOpacity(0.1)
-                                              : Colors.white.withOpacity(0.8),
-                                          offset: Offset(-6.0, -6.0),
-                                          blurRadius: 15.0,
-                                          spreadRadius: 1.0),
-                                      BoxShadow(
-                                          color: ThemeService.instance
-                                                  .isDarkMode()
-                                              ? Colors.black.withOpacity(0.4)
-                                              : Colors.black.withOpacity(0.1),
-                                          offset: Offset(6.0, 6.0),
-                                          blurRadius: 15.0,
-                                          spreadRadius: 1.0),
-                                    ]),
-                                child: GestureDetector(
-                                  onTap: _launchURL,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        "assets/img/creditcard.png",
-                                        height: 100,
-                                        fit: BoxFit.fitHeight,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Yemekhane İçin Bakiye Yükle",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize:
-                                                    SizeConfig.screenHeight! >
-                                                            600
-                                                        ? 17
-                                                        : 13),
-                                          ),
-                                          Text(
-                                            "Tarayıcıda Açmak için Tıklayınız",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize:
-                                                    SizeConfig.screenHeight! >
-                                                            600
-                                                        ? 15
-                                                        : 11),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              SizedBox(height: 50),
+                              bakiyeSection(),
                               SizedBox(height: 20),
                             ],
-                          ),
-                        ),
-                      );
-                    } else {
-                      return Center(child: circularLoader());
-                    }
-                  },
-                ))
-              : noInternetConn()),
-    );
+                          );
+                        } else {
+                          return Center(child: circularLoader(context));
+                        }
+                      },
+                    )),
+                  ],
+                ),
+              )
+            : noInternetConn());
   }
 
-  _launchURL() async {
-    const url =
-        'https://jasig.firat.edu.tr/cas/login?service=https://ybs.firat.edu.tr/User/Login';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-}
-
-class Meals extends StatelessWidget {
-  String menuItem;
-  Meals({required this.menuItem});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+  bakiyeSection() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
       child: Container(
-        height: 125,
+        height: 110,
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         width: MediaQuery.of(context).size.width,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(50),
-                  bottomLeft: Radius.circular(50),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: ThemeService.instance.isDarkMode()
-                          ? Colors.white.withOpacity(0.1)
-                          : Colors.white.withOpacity(0.8),
-                      offset: Offset(-6.0, -6.0),
-                      blurRadius: 15.0,
-                      spreadRadius: 1.0),
-                  BoxShadow(
-                      color: ThemeService.instance.isDarkMode()
-                          ? Colors.black.withOpacity(0.4)
-                          : Colors.black.withOpacity(0.1),
-                      offset: Offset(6.0, 6.0),
-                      blurRadius: 15.0,
-                      spreadRadius: 1.0),
-                ],
-                image: DecorationImage(
-                  image: AssetImage(ThemeService.instance.isDarkMode()
-                      ? "assets/img/footer-bg.png"
-                      : "assets/img/bg-pattern.png"),
-                  fit: BoxFit.cover,
-                ),
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: ThemeService.instance.isDarkMode()
+                ? Color(0xFF292D32).withOpacity(.1)
+                : Color(0xFF292D32).withOpacity(.1),
+            boxShadow: [
+              BoxShadow(
+                  color: ThemeService.instance.isDarkMode()
+                      ? Colors.white.withOpacity(0.1)
+                      : Colors.white.withOpacity(0.8),
+                  offset: Offset(-6.0, -6.0),
+                  blurRadius: 15.0,
+                  spreadRadius: 1.0),
+              BoxShadow(
+                  color: ThemeService.instance.isDarkMode()
+                      ? Colors.black.withOpacity(0.4)
+                      : Colors.black.withOpacity(0.1),
+                  offset: Offset(6.0, 6.0),
+                  blurRadius: 15.0,
+                  spreadRadius: 1.0),
+            ]),
+        child: InkWell(
+          onTap: () => launchURL(
+              'https://jasig.firat.edu.tr/cas/login?service=https://ybs.firat.edu.tr/User/Login'),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/img/creditcard.png",
+                height: 100,
+                fit: BoxFit.fitHeight,
               ),
-              margin: EdgeInsets.only(top: 1),
-              height: 75,
-              width: MediaQuery.of(context).size.width - 75,
-              child: Text(menuItem,
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: ThemeService.instance.isDarkMode()
-                          ? Colors.white
-                          : Colors.black87)),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Container(
-                width: 75.0,
-                height: 75.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: AssetImage(ThemeService.instance.isDarkMode()
-                        ? "assets/img/firat-white.png"
-                        : "assets/img/firat_logo.png"),
-                    fit: BoxFit.cover,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    "Yemekhane İçin Bakiye Yükle",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 17),
                   ),
-                ),
+                  Text(
+                    "Tarayıcıda Açmak için Tıklayınız",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -297,8 +226,8 @@ class Meals extends StatelessWidget {
 }
 
 class MenuDate extends StatelessWidget {
-  String menuItem;
-  MenuDate({required this.menuItem});
+  final String? menuItem;
+  const MenuDate({Key? key, required this.menuItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -329,7 +258,8 @@ class MenuDate extends StatelessWidget {
                     blurRadius: 15.0,
                     spreadRadius: 1.0),
               ]),
-          child: Text(menuItem,
+          child: Text(menuItem!,
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18,
                   color: ThemeService.instance.isDarkMode()

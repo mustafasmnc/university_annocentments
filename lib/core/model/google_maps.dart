@@ -5,7 +5,7 @@ class GoogleMaps extends StatelessWidget {
   GoogleMaps({Key? key}) : super(key: key);
 
   late GoogleMapController mapController;
-  final LatLng _center = LatLng(38.67753745095975, 39.20199846139586);
+  final LatLng _center = const LatLng(38.67753745095975, 39.20199846139586);
   List<Marker> _markers = <Marker>[];
 
   void _onMapCreated(GoogleMapController controller) {
@@ -14,7 +14,7 @@ class GoogleMaps extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _markers.add(Marker(
+    _markers.add(const Marker(
         draggable: true,
         icon: BitmapDescriptor.defaultMarker,
         markerId: MarkerId('Fü'),

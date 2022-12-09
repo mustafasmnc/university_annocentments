@@ -39,12 +39,12 @@ class _RateAppInitWidgetState extends State<RateAppInitWidget> {
                     'Uygulamayı beğendiyseniz, bizi desteklemek için değerlendirebilirsiniz. Desteğiniz için teşekkürler!',
                 //message:'Uygulamayı değerlendirerek diğer insanların uygulama hakkında bilgi edinmesini sağlayabilirsiniz. 1 dakikadan fazla sürmez',
                 starRatingOptions:
-                    StarRatingOptions(initialRating: 5, minRating: 3),
+                    const StarRatingOptions(initialRating: 5, minRating: 3),
                 actionsBuilder: actionsBuilder);
           }
         },
         builder: (context) => rateMyApp == null
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : widget.builder(rateMyApp!),
       );
 
@@ -54,10 +54,10 @@ class _RateAppInitWidgetState extends State<RateAppInitWidget> {
           : [buildOkButton(stars), buildRemindButton(), buildCancelButton()];
 
   Widget buildOkButton(double stars) => TextButton(
-        child: Text('DEĞERLENDİR'),
+        child:const  Text('DEĞERLENDİR'),
         onPressed: () async {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Değerlendirmeniz için teşekkürler!')),
+            const SnackBar(content: Text('Değerlendirmeniz için teşekkürler!')),
           );
 
           final launchAppStore = stars >= 4;

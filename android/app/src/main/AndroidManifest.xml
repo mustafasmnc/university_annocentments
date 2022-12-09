@@ -48,7 +48,7 @@
             android:name="flutterEmbedding"
             android:value="2" />
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value=" add your google maps key here"/> 
+               android:value="AIzaSyDbG1boe3WdcocA0wYGXeDWKKcJNLSNNH4"/> 
         <!-- For android_alarm_manager_plus -->
         <service
             android:name="dev.fluttercommunity.plus.androidalarmmanager.AlarmService"
