@@ -188,13 +188,13 @@ class _VizeFinalPageState extends State<VizeFinalPage> {
                         alignment: Alignment.centerLeft,
                         child: IconButton(
                             onPressed: () => Navigator.pop(context),
-                            icon: const Icon(Icons.arrow_back_ios_new)),
+                            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white)),
                       ),
                       const Align(
                           alignment: Alignment.center,
                           child: Text(
                             'Vize Final Hesapla',
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(fontSize: 18, color: Colors.white),
                           )),
                     ],
                   ),

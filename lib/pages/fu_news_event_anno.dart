@@ -10,7 +10,8 @@ import '../core/view_model/widgets/top_background.dart';
 class FuNewsEventAnno extends StatefulWidget {
   final String? pageTitle;
   final String? pageLink;
-  const FuNewsEventAnno({Key? key, this.pageTitle, this.pageLink}) : super(key: key);
+  const FuNewsEventAnno({Key? key, this.pageTitle, this.pageLink})
+      : super(key: key);
 
   @override
   _FuNewsEventAnnoState createState() => _FuNewsEventAnnoState();
@@ -69,13 +70,15 @@ class _FuNewsEventAnnoState extends State<FuNewsEventAnno> {
                               alignment: Alignment.centerLeft,
                               child: IconButton(
                                   onPressed: () => Navigator.pop(context),
-                                  icon: const Icon(Icons.arrow_back_ios_new)),
+                                  icon: const Icon(Icons.arrow_back_ios_new,
+                                      color: Colors.white)),
                             ),
                             Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   widget.pageTitle.toString(),
-                                  style: const TextStyle(fontSize: 18),
+                                  style: const TextStyle(
+                                      fontSize: 18, color: Colors.white),
                                 )),
                           ],
                         ),
@@ -96,8 +99,7 @@ class _FuNewsEventAnnoState extends State<FuNewsEventAnno> {
                             } else if (snapshot.hasError) {
                               return SizedBox(
                                 width: MediaQuery.of(context).size.width,
-                                height:
-                                    MediaQuery.of(context).size.height - 90,
+                                height: MediaQuery.of(context).size.height - 90,
                                 child: Center(
                                     child: errorMsg(
                                         errorTitle: 'Öğün Bulunamadı')),
@@ -106,7 +108,7 @@ class _FuNewsEventAnnoState extends State<FuNewsEventAnno> {
                               return ListView(
                                 children: [
                                   ListView.builder(
-                                      physics:const  ScrollPhysics(),
+                                      physics: const ScrollPhysics(),
                                       shrinkWrap: true,
                                       itemCount: widget.pageTitle == 'Haberler'
                                           ? fuNewsList.length
@@ -191,7 +193,7 @@ class _FuNewsEventAnnoState extends State<FuNewsEventAnno> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(30),
-                                          image:const  DecorationImage(
+                                          image: const DecorationImage(
                                             image: AssetImage(
                                                 "assets/img/title-bg.png"),
                                             fit: BoxFit.cover,
@@ -199,7 +201,7 @@ class _FuNewsEventAnnoState extends State<FuNewsEventAnno> {
                                         ),
                                         child: Text(
                                           "Daha Fazla ${widget.pageTitle}",
-                                          style:const  TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w400,
                                               color: Colors.white),

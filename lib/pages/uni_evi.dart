@@ -82,13 +82,15 @@ class _UniEviState extends State<UniEvi> {
                               alignment: Alignment.centerLeft,
                               child: IconButton(
                                   onPressed: () => Navigator.pop(context),
-                                  icon: const Icon(Icons.arrow_back_ios_new)),
+                                  icon: const Icon(Icons.arrow_back_ios_new,
+                                      color: Colors.white)),
                             ),
                             const Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   'Üniversite Evi',
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
                                 )),
                           ],
                         ),
@@ -123,7 +125,7 @@ class _UniEviState extends State<UniEvi> {
                             return SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 height:
-                                    MediaQuery.of(context).size.height - 110,
+                                    MediaQuery.of(context).size.height - 90,
                                 child: Center(child: errorMsg()));
                           }
                         }

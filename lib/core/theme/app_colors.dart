@@ -8,12 +8,12 @@ const Color primaryColorDark = Color(0xFF2a3c65);
 const Color primaryColorLight = Color(0xFF99ace1);
 
 //const Color darkScaffoldTopColor = Color(0xFF0b3e75);
-const Color darkScaffoldTopColor = Color(0xFF78113E);
+const Color darkScaffoldTopColor = Color(0xFF7A0901);
 //const Color darkScaffolBackgroundColor=Color(0xFF020c17);
 const Color darkScaffolBackgroundColor = Color(0xFF1E1E1E);
 
 //const Color lightScaffoldTopColor = Color(0xFF859eba);
-const Color lightScaffoldTopColor = Color(0xFF78113E);
+const Color lightScaffoldTopColor = Color(0xFF9B1E48);
 //const Color lightScaffolBackgroundColor=Color(0xFFced8e3);
 const Color lightScaffolBackgroundColor = Color(0xFFF8F8F8);
 

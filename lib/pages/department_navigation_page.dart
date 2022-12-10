@@ -45,7 +45,8 @@ class _DepartmentNavigationPageState extends State<DepartmentNavigationPage> {
                           //     CustomSlideRoute(
                           //         page: const DrawerPage(), x: -1, y: 0),
                           //     (Route<dynamic> route) => false),
-                          icon: const Icon(Icons.arrow_back_ios_new)),
+                          icon: const Icon(Icons.arrow_back_ios_new,
+                              color: Colors.white)),
                     ),
                     Align(
                       alignment: Alignment.center,
@@ -55,7 +56,8 @@ class _DepartmentNavigationPageState extends State<DepartmentNavigationPage> {
                           children: [
                             Text(
                               widget.departmentName.toString(),
-                              style: const TextStyle(fontSize: 15),
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white),
                               textAlign: TextAlign.center,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -64,20 +66,16 @@ class _DepartmentNavigationPageState extends State<DepartmentNavigationPage> {
                             SizedBox(
                                 height: 35,
                                 width: MediaQuery.of(context).size.width * 0.75,
-                                child: TabBar(
+                                child: const TabBar(
                                   indicator: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
                                       width: 2,
-                                      color: UIParameters.isDarkMode(context)
-                                          ? Colors.white
-                                          : Colors.black,
+                                      color: Colors.white,
                                     )),
                                   ),
-                                  labelColor: UIParameters.isDarkMode(context)
-                                      ? Colors.white
-                                      : Colors.black,
-                                  tabs: const [
+                                  labelColor: Colors.white,
+                                  tabs: [
                                     Tab(
                                       text: 'Duyurular',
                                     ),
