@@ -100,9 +100,7 @@ class _FuNewsEventAnnoState extends State<FuNewsEventAnno> {
                               return SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height - 90,
-                                child: Center(
-                                    child: errorMsg(
-                                        errorTitle: 'Öğün Bulunamadı')),
+                                child: Center(child: errorMsg()),
                               );
                             } else if (snapshot.hasData) {
                               return ListView(

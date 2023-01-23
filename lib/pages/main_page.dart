@@ -54,17 +54,28 @@ class _MainPageState extends State<MainPage> {
                   top: 0,
                   child: Container(
                     padding: const EdgeInsets.only(top: 90),
-                    child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        child: MySlider(
-                          sectionName: 'news',
-                          controller: _newsController,
-                          myList: fuNewsList,
-                          height: 200,
-                          showDots: true,
-                          viewportFraction: 1,
-                          enlargeCenterPage: false,
-                        )),
+                    child: fuNewsList.isNotEmpty
+                        ? SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: MySlider(
+                              sectionName: 'news',
+                              controller: _newsController,
+                              myList: fuNewsList,
+                              height: 200,
+                              showDots: true,
+                              viewportFraction: 1,
+                              enlargeCenterPage: false,
+                            ))
+                        : Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: customScaffoldColor(context),
+                            ),
+                            height: 200,
+                            child: Center(
+                              child: errorMsg(),
+                            ),
+                          ),
                   ),
                 ),
               ]),
@@ -156,17 +167,29 @@ class _MainPageState extends State<MainPage> {
                   ),
                   const SizedBox(height: 10),
                   SizedBox(
-                      height: 200,
-                      width: MediaQuery.of(context).size.width * 0.95,
-                      child: MySlider(
-                        sectionName: 'events',
-                        controller: _eventsController,
-                        myList: fuEventList,
-                        height: 200,
-                        showDots: false,
-                        viewportFraction: 0.35,
-                        enlargeCenterPage: true,
-                      )),
+                    height: 200,
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    child: fuEventList.isNotEmpty
+                        ? MySlider(
+                            sectionName: 'events',
+                            controller: _eventsController,
+                            myList: fuEventList,
+                            height: 200,
+                            showDots: false,
+                            viewportFraction: 0.35,
+                            enlargeCenterPage: true,
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: customScaffoldColor(context),
+                            ),
+                            height: 200,
+                            child: Center(
+                              child: errorMsg(),
+                            ),
+                          ),
+                  ),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,16 +218,27 @@ class _MainPageState extends State<MainPage> {
                   SizedBox(
                       height: 120,
                       width: MediaQuery.of(context).size.width * 0.95,
-                      child: MySlider(
-                        sectionName: 'announcements',
-                        controller: _annoController,
-                        myList: fuAnnoList,
-                        height: 120,
-                        width: 500,
-                        showDots: false,
-                        viewportFraction: 0.52,
-                        enlargeCenterPage: true,
-                      )),
+                      child: fuAnnoList.isNotEmpty
+                          ? MySlider(
+                              sectionName: 'announcements',
+                              controller: _annoController,
+                              myList: fuAnnoList,
+                              height: 120,
+                              width: 500,
+                              showDots: false,
+                              viewportFraction: 0.52,
+                              enlargeCenterPage: true,
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: customScaffoldColor(context),
+                              ),
+                              height: 200,
+                              child: Center(
+                                child: errorMsg(),
+                              ),
+                            )),
                 ],
               ),
             ),

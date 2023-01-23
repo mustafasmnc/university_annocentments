@@ -124,33 +124,40 @@ class _UniEviState extends State<UniEvi> {
                           } else {
                             return SizedBox(
                                 width: MediaQuery.of(context).size.width,
-                                height:
-                                    MediaQuery.of(context).size.height - 90,
+                                height: MediaQuery.of(context).size.height - 90,
                                 child: Center(child: errorMsg()));
                           }
                         }
                         if (snapshot.hasData) {
-                          enjoyMeal();
-                          return Column(
-                            children: [
-                              SizedBox(height: 10),
-                              MenuDate(
-                                  menuItem: mealDate == null ? '' : mealDate),
-                              ListView.builder(
-                                physics: ScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: mealList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  //return MenuItems(menuItem: mealList[index]);
-                                  //return Meals(menuItem: mealList[index]);
-                                  return MenuDate(menuItem: mealList[index]);
-                                },
-                              ),
-                              SizedBox(height: 50),
-                              bakiyeSection(),
-                              SizedBox(height: 20),
-                            ],
-                          );
+                          if (mealList.isNotEmpty) {
+                            enjoyMeal();
+                            return Column(
+                              children: [
+                                SizedBox(height: 10),
+                                MenuDate(
+                                    menuItem: mealDate == null ? '' : mealDate),
+                                ListView.builder(
+                                  physics: ScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: mealList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    //return MenuItems(menuItem: mealList[index]);
+                                    //return Meals(menuItem: mealList[index]);
+                                    return MenuDate(menuItem: mealList[index]);
+                                  },
+                                ),
+                                SizedBox(height: 50),
+                                bakiyeSection(),
+                                SizedBox(height: 20),
+                              ],
+                            );
+                          }
+
+                          return SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height - 90,
+                              child: Center(child: errorMsg()));
                         } else {
                           return Center(child: circularLoader(context));
                         }
